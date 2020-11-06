@@ -13,5 +13,6 @@ namespace Exercise_1
             _dataRepository = dataRepository;
         }
         //TODO: Dodać metody
+        //TODO: Odnośnie całego projektu - czy dodawać id i inne atrybuty? Sprawdzanie spójności, testy
     }
 }
