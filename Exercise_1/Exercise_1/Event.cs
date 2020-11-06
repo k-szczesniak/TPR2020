@@ -18,5 +18,7 @@ namespace Exercise_1
             RentalDate = rentalDate;
             GiveBackDate = giveBackDate;
         }
+
+        //TODO: Dodać toString i equals
     }
 }

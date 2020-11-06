@@ -12,6 +12,8 @@
             FirstName = firstName;
             LastName = lastName;
         }
+
+        //TODO: Dodać toString i equals
     }
 
 }

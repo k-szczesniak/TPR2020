@@ -14,5 +14,7 @@
             Title = title;
             IsAvailable = isAvailable;
         }
+
+        //TODO: Dodać toString i equals
     }
 }

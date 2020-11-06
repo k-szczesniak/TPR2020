@@ -8,5 +8,7 @@
         {
             Catalog = catalog;
         }
+
+        //TODO: Dodać toString i equals
     }
 }
