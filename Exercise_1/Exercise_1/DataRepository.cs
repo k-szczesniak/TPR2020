@@ -50,27 +50,29 @@
             //TODO:Zaimplementować metodę
         }
 
-        //Zakomentowane, bo był błąd kompilacji, bo nic nie zwracało
+        public Catalog GetCatalog(string id)
+        {
+            //TODO:Zaimplementować metodę
+            return null;
+        }
 
-        //public Catalog GetCatalog(string id)
-        //{
-           
-        //}
+        public Event GetEvent(string id)
+        {
+            //TODO:Zaimplementować metodę
+            return null;
+        }
 
-        //public Event GetEvent(string id)
-        //{
-                       
-        //}
+        public State GetState(string id)
+        {
+            //TODO:Zaimplementować metodę
+            return null;
+        }
 
-        //public State GetState(string id)
-        //{
-            
-        //}
-
-        //public User GetUser(string id)
-        //{
-            
-        //}
+        public User GetUser(string id)
+        {
+            //TODO:Zaimplementować metodę
+            return null;
+        }
 
         public void UpdateCatalog(string replacedCatalogId, Catalog catalog)
         {

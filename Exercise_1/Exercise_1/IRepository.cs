@@ -22,5 +22,7 @@
         void UpdateEvent(string replacedEventId, Event @event);
         void DeleteEvent(Event @event);
 
+        //TODO: Dodać metodę GetAll, dla User, Catalog, State, Event
+
     }
 }
