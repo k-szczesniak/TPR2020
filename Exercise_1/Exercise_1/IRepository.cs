@@ -13,7 +13,7 @@ namespace Exercise_1
         void AddCatalog(Catalog catalog);
         Catalog GetCatalog(int id);
         IEnumerable<Catalog> GetAllCatalogs();
-        void UpdateCatalog(int id, Catalog catalog);
+        void UpdateCatalog(int id, string author, string title);
         void DeleteCatalog(Catalog catalog);
 
         void AddState(State state);

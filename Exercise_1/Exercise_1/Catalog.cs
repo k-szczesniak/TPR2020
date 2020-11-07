@@ -4,7 +4,6 @@ namespace Exercise_1
 {
     public class Catalog
     {
-        public string Id { get; set; }
         public string Author { get; set; }
         public string Title { get; set; }
 
@@ -14,7 +13,7 @@ namespace Exercise_1
             Title = title;
         }
 
-        public override bool Equals(object obj) //TODO: trzeba dodać id
+        public override bool Equals(object obj)
         {
             return obj is Catalog catalog &&
                    Author == catalog.Author &&

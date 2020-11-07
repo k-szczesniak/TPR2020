@@ -23,7 +23,7 @@ namespace Exercise_1
 
         public User GetUser(int id)
         {
-            if (DataContext.Users.Count <= id)
+            if (DataContext.Users.Count <= id || id < 0)
             {
                 throw new Exception("There is no element with this id");
             }
@@ -37,7 +37,7 @@ namespace Exercise_1
 
         public void UpdateUser(int id, string firstName, string lastName)
         {
-            if (DataContext.Users.Count <= id)
+            if (DataContext.Users.Count <= id || id < 0)
             {
                 throw new Exception("There is no element with this id");
             }
@@ -55,39 +55,66 @@ namespace Exercise_1
                     throw new Exception("Can not remove this user because he is connected with some event");
                 }
             }
-
             DataContext.Users.Remove(user);
         }
         #endregion
 
+        #region Catalog
         public void AddCatalog(Catalog catalog)
         {
-            throw new NotImplementedException();
+            DataContext.Catalogs.Add(DataContext.Catalogs.Count, catalog);
         }
 
         public Catalog GetCatalog(int id)
         {
-            throw new NotImplementedException();
+            if (DataContext.Catalogs.Count <= id || id < 0)
+            {
+                throw new Exception("There is no element with this id");
+            }
+            return DataContext.Catalogs[id];
         }
 
         public IEnumerable<Catalog> GetAllCatalogs()
         {
-            throw new NotImplementedException();
+            return DataContext.Catalogs.Values;
         }
 
-        public void UpdateCatalog(int id, Catalog catalog)
+        public void UpdateCatalog(int id, string author, string title)
         {
-            throw new NotImplementedException();
+            if (DataContext.Catalogs.Count <= id || id < 0)
+            {
+                throw new Exception("There is no element with this id");
+            }
+
+            DataContext.Catalogs[id].Author = author;
+            DataContext.Catalogs[id].Title = title;
         }
 
         public void DeleteCatalog(Catalog catalog)
         {
-            throw new NotImplementedException();
-        }
+            foreach (State state in DataContext.States)
+            {
+                if (state.Catalog == catalog)
+                {
+                    throw new Exception("Can not remove this catalog because it is connected with some state");
+                }
+            }
 
+            for (int i = 0; i < DataContext.Catalogs.Count; i++)
+            {
+                if (DataContext.Catalogs[i] == catalog)
+                {
+                    DataContext.Catalogs.Remove(i);
+                    break;
+                }
+            }
+        }
+        #endregion
+
+        #region State
         public void AddState(State state)
         {
-            throw new NotImplementedException();
+            
         }
 
         public State GetState(int id)
@@ -109,6 +136,7 @@ namespace Exercise_1
         {
             throw new NotImplementedException();
         }
+        #endregion
 
         public void AddEvent(Event item)
         {

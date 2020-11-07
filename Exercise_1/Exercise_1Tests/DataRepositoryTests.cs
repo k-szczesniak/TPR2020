@@ -8,7 +8,7 @@ namespace Exercise_1.Tests
     [TestClass()]
     public class DataRepositoryTests
     {
-
+        //TODO: Zastanowić się czy badać negatywne przypadki?
         [TestMethod()]
         public void AddAndGetUserTest()
         {
@@ -16,11 +16,12 @@ namespace Exercise_1.Tests
 
             User user = new User("Tomek", "Kowalski");
             dataRepository.AddUser(user);
+
             Assert.AreEqual(dataRepository.GetUser(0), user);
         }
 
         [TestMethod()]
-        public void GetAllUsersTest() //TODO: Nie jestem tego pewny
+        public void GetAllUsersTest() //TODO: Nie jestem tego pewny, czy ten test dobrze testuje
         {
             DataRepository dataRepository = new DataRepository(new DataContext(), new Filler());
 
@@ -37,7 +38,9 @@ namespace Exercise_1.Tests
             IEnumerable<User> enumerable = dataRepository.GetAllUsers();
             List<User> users = enumerable.ToList();
 
-            for (int i = 0; i < 4; i++)
+            Assert.AreEqual(users.Count, dataRepository.DataContext.Users.Count);
+
+            for (int i = 0; i < users.Count; i++)
             {
                 if (users[i] != dataRepository.DataContext.Users[i])
                 {
@@ -76,33 +79,75 @@ namespace Exercise_1.Tests
         }
 
         [TestMethod()]
-        public void AddCatalogTest()
+        public void AddAndGetCatalogTest()
         {
-            Assert.Inconclusive();
+            DataRepository dataRepository = new DataRepository(new DataContext(), new Filler());
+
+            Catalog catalog = new Catalog("Autor", "Tytul");
+            dataRepository.AddCatalog(catalog);
+
+            Assert.AreEqual(dataRepository.GetCatalog(0), catalog);
         }
 
         [TestMethod()]
-        public void GetCatalogTest()
+        public void GetAllCatalogsTest() //TODO: Nie jestem tego pewny, czy ten test dobrze testuje  
         {
-            Assert.Inconclusive();
-        }
+            DataRepository dataRepository = new DataRepository(new DataContext(), new Filler());
 
-        [TestMethod()]
-        public void GetAllCatalogsTest()
-        {
-            Assert.Inconclusive();
+            Catalog catalog1 = new Catalog("Autor1", "Tytul1");
+            Catalog catalog2 = new Catalog("Autor2", "Tytul2");
+            Catalog catalog3 = new Catalog("Autor3", "Tytul3");
+            Catalog catalog4 = new Catalog("Autor4", "Tytul4");
+           
+            dataRepository.AddCatalog(catalog1);
+            dataRepository.AddCatalog(catalog2);
+            dataRepository.AddCatalog(catalog3);
+            dataRepository.AddCatalog(catalog4);
+
+            IEnumerable<Catalog> enumerable = dataRepository.GetAllCatalogs();
+            List<Catalog> catalogs = enumerable.ToList();
+
+            Assert.AreEqual(catalogs.Count, dataRepository.DataContext.Catalogs.Count);
+
+            for (int i = 0; i < catalogs.Count; i++)
+            {
+                if (catalogs[i] != dataRepository.DataContext.Catalogs[i])
+                {
+                    Assert.Fail();
+                }
+            }
+
+            Assert.IsTrue(true);
         }
 
         [TestMethod()]
         public void UpdateCatalogTest()
         {
-            Assert.Inconclusive();
+            DataRepository dataRepository = new DataRepository(new DataContext(), new Filler());
+
+            Catalog catalog = new Catalog("Autor", "Tytul");
+            dataRepository.AddCatalog(catalog);
+
+            dataRepository.UpdateCatalog(0, "Autorzy", "Tytuly");
+
+            Assert.AreEqual(dataRepository.GetCatalog(0).Author, "Autorzy");
+            Assert.AreEqual(dataRepository.GetCatalog(0).Title, "Tytuly");
         }
 
         [TestMethod()]
         public void DeleteCatalogTest()
         {
-            Assert.Inconclusive();
+            DataRepository dataRepository = new DataRepository(new DataContext(), new Filler());
+
+            Catalog catalog1 = new Catalog("Autor1", "Tytul1");
+            Catalog catalog2 = new Catalog("Autor2", "Tytul2");
+
+            dataRepository.AddCatalog(catalog1);
+            dataRepository.AddCatalog(catalog2);
+
+            dataRepository.DeleteCatalog(catalog2);
+
+            Assert.AreEqual(dataRepository.DataContext.Catalogs.Count, 1);
         }
 
         [TestMethod()]
