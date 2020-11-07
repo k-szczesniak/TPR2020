@@ -124,7 +124,32 @@ namespace Exercise_1
         #endregion
 
         //
+        public IEnumerable<Event> GetAllEventsBetweenDates(DateTime beginDate, DateTime endDate)
+        {
+            List<Event> matchEvents = new List<Event>();
+            foreach (Event eventToCheck in _IRepository.GetAllEvents())
+            {
+                if ((eventToCheck.RentalDate >= beginDate && eventToCheck.RentalDate <= endDate)
+                   || (eventToCheck.GiveBackDate >= beginDate && eventToCheck.GiveBackDate <= endDate))
+                {
+                    matchEvents.Add(eventToCheck);
+                }
+            }
+            return matchEvents;
+        }
 
+        public IEnumerable<Event> GetAllEventsForUser(User user)
+        {
+            List<Event> matchEvents = new List<Event>();
+            foreach (Event eventToCheck in _IRepository.GetAllEvents())
+            {
+                if (eventToCheck.User.Equals(user))
+                {
+                    matchEvents.Add(eventToCheck);
+                }
+            }
+            return matchEvents;
+        }
 
     }
 }
