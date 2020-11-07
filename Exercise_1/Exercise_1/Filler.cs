@@ -17,17 +17,17 @@ namespace Exercise_1
             #endregion
 
             #region Catalogs
-            context.Catalogs.Add(1, new Catalog("Bolasław Prus", "Lalka"));
-            context.Catalogs.Add(2, new Catalog("Stanisław Wyspiański", "Wesele"));
-            context.Catalogs.Add(3, new Catalog("Juliusz Słowacki", "Balladyna"));
-            context.Catalogs.Add(4, new Catalog("Adam Mickiewicz", "Dziady"));
-            context.Catalogs.Add(5, new Catalog("Albert Camus", "Dżuma"));
+            context.Catalogs.Add(0, new Catalog("Bolasław Prus", "Lalka"));
+            context.Catalogs.Add(1, new Catalog("Stanisław Wyspiański", "Wesele"));
+            context.Catalogs.Add(2, new Catalog("Juliusz Słowacki", "Balladyna"));
+            context.Catalogs.Add(3, new Catalog("Adam Mickiewicz", "Dziady"));
+            context.Catalogs.Add(4, new Catalog("Albert Camus", "Dżuma"));
             #endregion
 
             #region States
             for (int i = 0; i < 5; i++)
             {
-                context.States.Add(new State(context.Catalogs[i + 1], "Book description " + i, 1, new DateTime(2020, 3, 1).AddDays(i * 3)));
+                context.States.Add(new State(context.Catalogs[i], "Book description " + i, 1, new DateTime(2020, 3, 1).AddDays(i * 3)));
             }
             #endregion
 

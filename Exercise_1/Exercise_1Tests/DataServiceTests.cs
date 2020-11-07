@@ -3,6 +3,7 @@ using Exercise_1;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
 
 namespace Exercise_1.Tests
 {
@@ -12,7 +13,23 @@ namespace Exercise_1.Tests
         [TestMethod()]
         public void GetAllEventsBetweenDatesTest()
         {
-            Assert.Inconclusive();
+            Filler filler = new Filler();
+            DataContext dataContext = new DataContext();
+            DataRepository dataRepository = new DataRepository(dataContext, filler);
+            DataService dataService = new DataService(dataRepository);
+
+            DateTime beginPeriod = DateTime.Now;
+            DateTime endPeriod = DateTime.Now;
+
+            Assert.AreEqual(dataService.GetAllEventsBetweenDates(beginPeriod, endPeriod).Count(), 0);
+
+            Catalog book = new Catalog("Autor1", "Tytul1");
+            dataService.AddCatalog(book);
+            State state = new State(book, "some description", 1, new DateTime(2019, 11, 11));
+            Event checkout = new Event(dataService.GetUser(0), state, DateTime.Now, DateTime.MinValue);
+
+            dataService.AddEvent(checkout);
+            Assert.AreEqual(dataService.GetAllEventsBetweenDates(beginPeriod.AddDays(-1), endPeriod.AddDays(1)).Count(), 1);
         }
 
         [TestMethod()]
