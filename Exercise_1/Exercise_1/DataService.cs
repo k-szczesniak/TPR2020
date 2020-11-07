@@ -104,7 +104,7 @@ namespace Exercise_1
 
         public Event GetEvent(int id)
         {
-            return GetEvent(id);
+            return _IRepository.GetEvent(id);
         }
 
         public IEnumerable<Event> GetAllEvents()
@@ -151,5 +151,30 @@ namespace Exercise_1
             return matchEvents;
         }
 
+        public IEnumerable<Event> GetAllEventsForCatalog(Catalog catalog)
+        {
+            List<Event> matchEvents = new List<Event>();
+            foreach (Event eventToCheck in _IRepository.GetAllEvents())
+            {
+                if (eventToCheck.State.Catalog.Equals(catalog))
+                {
+                    matchEvents.Add(eventToCheck);
+                }
+            }
+            return matchEvents;
+        }
+
+        public IEnumerable<State> GetAllStatesForCatalog(Catalog catalog)
+        {
+            List<State> matchStates = new List<State>();
+            foreach (State stateToCheck in _IRepository.GetAllStates())
+            {
+                if (stateToCheck.Catalog.Equals(catalog))
+                {
+                    matchStates.Add(stateToCheck);
+                }
+            }
+            return matchStates;
+        }
     }
 }
