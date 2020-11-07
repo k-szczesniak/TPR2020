@@ -159,27 +159,37 @@ namespace Exercise_1
 
         public void AddEvent(Event item)
         {
-            throw new NotImplementedException();
+            DataContext.Events.Add(item);
         }
 
         public Event GetEvent(int id)
         {
-            throw new NotImplementedException();
+            if (DataContext.Events.Count <= id || id < 0)
+            {
+                throw new Exception("There is no element with this id");
+            }
+            return DataContext.Events[id];
         }
 
         public IEnumerable<Event> GetAllEvents()
         {
-            throw new NotImplementedException();
+            return DataContext.Events;
         }
 
-        public void UpdateEvent(int id, Event item)
+        public void UpdateEvent(int id, DateTime rentalDate, DateTime giveBackDate)
         {
-            throw new NotImplementedException();
+            if (DataContext.Events.Count <= id || id < 0)
+            {
+                throw new Exception("There is no element with this id");
+            }
+
+            DataContext.Events[id].RentalDate = rentalDate;
+            DataContext.Events[id].GiveBackDate = giveBackDate;
         }
 
         public void DeleteEvent(Event item)
         {
-            throw new NotImplementedException();
+            DataContext.Events.Remove(item);
         }
     }
 }

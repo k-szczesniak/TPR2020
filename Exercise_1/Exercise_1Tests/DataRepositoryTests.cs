@@ -242,33 +242,85 @@ namespace Exercise_1.Tests
 
             Catalog catalog = new Catalog("Autor", "Tytul");
             State state = new State(catalog, "opis", 5, new DateTime(2008, 5, 11, 8, 30, 23));
-            dataRepository.AddState(state);
+            User user = new User("Tomek", "Kowalski");
+            Event item = new Event(user, state, new DateTime(2008, 5, 13, 8, 30, 23), new DateTime(2008, 5, 15, 8, 30, 23));
+            dataRepository.AddEvent(item);
 
-            Assert.AreEqual(dataRepository.GetState(0), state);
-        }
-
-        [TestMethod()]
-        public void GetEventTest()
-        {
-            Assert.Inconclusive();
+            Assert.AreEqual(dataRepository.GetEvent(0), item);
         }
 
         [TestMethod()]
         public void GetAllEventsTest()
         {
-            Assert.Inconclusive();
+            DataRepository dataRepository = new DataRepository(new DataContext(), new Filler());
+
+            Catalog catalog1 = new Catalog("Autor", "Tytul");
+            State state1 = new State(catalog1, "opis", 5, new DateTime(2008, 5, 11, 8, 30, 23));
+            User user1 = new User("Tomek", "Kowalski");
+            Event item1 = new Event(user1, state1, new DateTime(2008, 5, 13, 8, 30, 23), new DateTime(2008, 5, 15, 8, 30, 23));
+            dataRepository.AddEvent(item1);
+
+            Catalog catalog2 = new Catalog("Autor", "Tytul");
+            State state2 = new State(catalog2, "opis", 5, new DateTime(2008, 5, 11, 8, 30, 23));
+            User user2 = new User("Tomek", "Kowalski");
+            Event item2 = new Event(user2, state2, new DateTime(2008, 5, 13, 8, 30, 23), new DateTime(2008, 5, 15, 8, 30, 23));
+            dataRepository.AddEvent(item2);
+
+
+            IEnumerable<Event> enumerable = dataRepository.GetAllEvents();
+            List<Event> items = enumerable.ToList();
+
+            Assert.AreEqual(items.Count, dataRepository.DataContext.Events.Count);
+
+            for (int i = 0; i < items.Count; i++)
+            {
+                if (items[i] != dataRepository.DataContext.Events[i])
+                {
+                    Assert.Fail();
+                }
+            }
+
+            Assert.IsTrue(true);
         }
 
         [TestMethod()]
         public void UpdateEventTest()
         {
-            Assert.Inconclusive();
+            DataRepository dataRepository = new DataRepository(new DataContext(), new Filler());
+
+            Catalog catalog = new Catalog("Autor", "Tytul");
+            State state = new State(catalog, "opis", 5, new DateTime(2008, 5, 11, 8, 30, 23));
+            User user = new User("Tomek", "Kowalski");
+            Event item = new Event(user, state, new DateTime(2008, 5, 13, 8, 30, 23), new DateTime(2008, 5, 15, 8, 30, 23));
+            dataRepository.AddEvent(item);
+
+            dataRepository.UpdateEvent(0, new DateTime(2008, 5, 14, 8, 30, 23), new DateTime(2008, 5, 16, 8, 30, 23));
+
+            Assert.AreEqual(dataRepository.GetEvent(0).RentalDate, new DateTime(2008, 5, 14, 8, 30, 23));
+            Assert.AreEqual(dataRepository.GetEvent(0).GiveBackDate, new DateTime(2008, 5, 16, 8, 30, 23));
         }
 
         [TestMethod()]
         public void DeleteEventTest()
         {
-            Assert.Inconclusive();
+            DataRepository dataRepository = new DataRepository(new DataContext(), new Filler());
+
+            Catalog catalog = new Catalog("Autor", "Tytul");
+            State state = new State(catalog, "opis", 5, new DateTime(2008, 5, 11, 8, 30, 23));
+            User user = new User("Tomek", "Kowalski");
+            Event item = new Event(user, state, new DateTime(2008, 5, 13, 8, 30, 23), new DateTime(2008, 5, 15, 8, 30, 23));
+
+            Catalog catalog2 = new Catalog("Autorzy", "Tytuly");
+            State state2 = new State(catalog2, "opisy", 6, new DateTime(2008, 5, 11, 8, 30, 23));
+            User user2 = new User("Tomek", "Kowalski");
+            Event item2 = new Event(user2, state2, new DateTime(2008, 5, 14, 8, 30, 23), new DateTime(2008, 5, 17, 8, 30, 23));
+
+            dataRepository.AddEvent(item);
+            dataRepository.AddEvent(item2);
+
+            dataRepository.DeleteEvent(item2);
+
+            Assert.AreEqual(dataRepository.DataContext.Events.Count, 1);
         }
     }
 }

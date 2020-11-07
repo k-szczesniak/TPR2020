@@ -26,7 +26,7 @@ namespace Exercise_1
         void AddEvent(Event item);
         Event GetEvent(int id);
         IEnumerable<Event> GetAllEvents();
-        void UpdateEvent(int id, Event item);
+        void UpdateEvent(int id, DateTime rentalDate, DateTime giveBackDate);
         void DeleteEvent(Event item);
     }
 }
