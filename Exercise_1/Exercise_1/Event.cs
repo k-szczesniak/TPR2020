@@ -20,5 +20,7 @@ namespace Exercise_1
         }
 
         //TODO: Dodać toString i equals
+        //TODO: Dogadać się jak to ma wyglądać
+        //TODO: Przemyśleć identyfikatory
     }
 }
