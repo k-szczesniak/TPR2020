@@ -2,7 +2,7 @@
 
 namespace Exercise_1
 {
-    class User //TODO:modyfikatory dostępu
+    public class User //TODO:modyfikatory dostępu
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
