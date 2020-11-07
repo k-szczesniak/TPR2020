@@ -7,7 +7,7 @@ namespace Exercise_1
         void AddUser(User user);
         User GetUser(int id);
         IEnumerable<User> GetAllUsers();
-        void UpdateUser(int id, User user);
+        void UpdateUser(int id, string firstName, string LastName);
         void DeleteUser(User user);
 
         void AddCatalog(Catalog catalog);

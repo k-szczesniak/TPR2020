@@ -1,7 +1,6 @@
-using Exercise_1;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Exercise_1Tests
+namespace Exercise_1.Tests
 {
     [TestClass]
     public class UserTest

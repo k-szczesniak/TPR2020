@@ -14,7 +14,7 @@ namespace Exercise_1
             Title = title;
         }
 
-        public override bool Equals(object obj)
+        public override bool Equals(object obj) //TODO: trzeba dodać id
         {
             return obj is Catalog catalog &&
                    Author == catalog.Author &&

@@ -15,30 +15,50 @@ namespace Exercise_1
             _filler.Fill("jakas_sciezka");
         }
 
+        #region User
         public void AddUser(User user)
         {
-            throw new NotImplementedException();
+            DataContext.Users.Add(user);
         }
 
         public User GetUser(int id)
         {
-            throw new NotImplementedException();
+            if (DataContext.Users.Count <= id)
+            {
+                throw new Exception("There is no element with this id");
+            }
+            return DataContext.Users[id];
         }
 
         public IEnumerable<User> GetAllUsers()
         {
-            throw new NotImplementedException();
+            return DataContext.Users;
         }
 
-        public void UpdateUser(int id, User user)
+        public void UpdateUser(int id, string firstName, string lastName)
         {
-            throw new NotImplementedException();
+            if (DataContext.Users.Count <= id)
+            {
+                throw new Exception("There is no element with this id");
+            }
+
+            DataContext.Users[id].FirstName = firstName;
+            DataContext.Users[id].LastName = lastName;
         }
 
         public void DeleteUser(User user)
         {
-            throw new NotImplementedException();
+            foreach (Event item in DataContext.Events)
+            {
+                if (item.User == user)
+                {
+                    throw new Exception("Can not remove this user because he is connected with some event");
+                }
+            }
+
+            DataContext.Users.Remove(user);
         }
+        #endregion
 
         public void AddCatalog(Catalog catalog)
         {
