@@ -8,7 +8,8 @@ namespace Exercise_1.Tests
     [TestClass()]
     public class DataRepositoryTests
     {
-        //TODO: Zastanowić się czy badać negatywne przypadki?
+        //TODO: Zbadać negatywne przypadki!
+        //TODO: Zmienić trochę po dodaniu Fillera
         [TestMethod()]
         public void AddAndGetUserTest()
         {
@@ -98,7 +99,7 @@ namespace Exercise_1.Tests
             Catalog catalog2 = new Catalog("Autor2", "Tytul2");
             Catalog catalog3 = new Catalog("Autor3", "Tytul3");
             Catalog catalog4 = new Catalog("Autor4", "Tytul4");
-           
+
             dataRepository.AddCatalog(catalog1);
             dataRepository.AddCatalog(catalog2);
             dataRepository.AddCatalog(catalog3);
@@ -151,31 +152,121 @@ namespace Exercise_1.Tests
         }
 
         [TestMethod()]
-        public void AddStateTest()
+        public void AddAndGetStateTest()
         {
-            Assert.Inconclusive();
+            DataRepository dataRepository = new DataRepository(new DataContext(), new Filler());
+
+            Catalog catalog = new Catalog("Autor", "Tytul");
+            State state = new State(catalog, "opis", 5, new DateTime(2008, 5, 11, 8, 30, 23));
+            dataRepository.AddState(state);
+
+            Assert.AreEqual(dataRepository.GetState(0), state);
         }
 
         [TestMethod()]
-        public void GetStateTest()
+        public void GetAllStatesTest() //TODO: Nie jestem tego pewny, czy ten test dobrze testuje
         {
-            Assert.Inconclusive();
-        }
+            DataRepository dataRepository = new DataRepository(new DataContext(), new Filler());
 
-        [TestMethod()]
-        public void GetAllStatesTest()
-        {
-            Assert.Inconclusive();
+            Catalog catalog1 = new Catalog("Autor1", "Tytul1");
+            Catalog catalog2 = new Catalog("Autor2", "Tytul2");
+            Catalog catalog3 = new Catalog("Autor3", "Tytul3");
+            Catalog catalog4 = new Catalog("Autor4", "Tytul4");
+
+            State state1 = new State(catalog1, "opis1", 5, new DateTime(2008, 5, 11, 8, 30, 23));
+            State state2 = new State(catalog2, "opis2", 6, new DateTime(2008, 5, 12, 8, 30, 23));
+            State state3 = new State(catalog3, "opis3", 7, new DateTime(2008, 5, 13, 8, 30, 23));
+            State state4 = new State(catalog4, "opis4", 8, new DateTime(2008, 5, 14, 8, 30, 23));
+
+            dataRepository.AddState(state1);
+            dataRepository.AddState(state2);
+            dataRepository.AddState(state3);
+            dataRepository.AddState(state4);
+
+            IEnumerable<State> enumerable = dataRepository.GetAllStates();
+            List<State> states = enumerable.ToList();
+
+            Assert.AreEqual(states.Count, dataRepository.DataContext.States.Count);
+
+            for (int i = 0; i < states.Count; i++)
+            {
+                if (states[i] != dataRepository.DataContext.States[i])
+                {
+                    Assert.Fail();
+                }
+            }
+
+            Assert.IsTrue(true);
         }
 
         [TestMethod()]
         public void UpdateStateTest()
         {
-            Assert.Inconclusive();
+            DataRepository dataRepository = new DataRepository(new DataContext(), new Filler());
+
+            Catalog catalog = new Catalog("Autor", "Tytul");
+            State state = new State(catalog, "opis", 5, new DateTime(2008, 5, 11, 8, 30, 23));
+            dataRepository.AddState(state);
+
+
+            dataRepository.UpdateState(0, "oPIS", 7, new DateTime(2008, 5, 13, 8, 30, 23));
+
+            Assert.AreEqual(dataRepository.GetState(0).Description, "oPIS");
+            Assert.AreEqual(dataRepository.GetState(0).Amount, 7);
+            Assert.AreEqual(dataRepository.GetState(0).DateOfPurchase, new DateTime(2008, 5, 13, 8, 30, 23));
         }
 
         [TestMethod()]
         public void DeleteStateTest()
+        {
+            DataRepository dataRepository = new DataRepository(new DataContext(), new Filler());
+
+            Catalog catalog1 = new Catalog("Autor", "Tytul");
+            State state1 = new State(catalog1, "opis", 7, new DateTime(2008, 5, 11, 8, 30, 23));
+
+            Catalog catalog2 = new Catalog("Autorzy", "Tytuly");
+            State state2 = new State(catalog2, "opis", 5, new DateTime(2008, 5, 11, 8, 30, 23));
+
+            dataRepository.AddState(state1);
+            dataRepository.AddState(state2);
+
+            dataRepository.DeleteState(state2);
+
+            Assert.AreEqual(dataRepository.DataContext.States.Count, 1);
+        }
+
+        [TestMethod()]
+        public void AddAndGetEventTest()
+        {
+            DataRepository dataRepository = new DataRepository(new DataContext(), new Filler());
+
+            Catalog catalog = new Catalog("Autor", "Tytul");
+            State state = new State(catalog, "opis", 5, new DateTime(2008, 5, 11, 8, 30, 23));
+            dataRepository.AddState(state);
+
+            Assert.AreEqual(dataRepository.GetState(0), state);
+        }
+
+        [TestMethod()]
+        public void GetEventTest()
+        {
+            Assert.Inconclusive();
+        }
+
+        [TestMethod()]
+        public void GetAllEventsTest()
+        {
+            Assert.Inconclusive();
+        }
+
+        [TestMethod()]
+        public void UpdateEventTest()
+        {
+            Assert.Inconclusive();
+        }
+
+        [TestMethod()]
+        public void DeleteEventTest()
         {
             Assert.Inconclusive();
         }

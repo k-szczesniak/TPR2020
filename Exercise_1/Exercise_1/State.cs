@@ -5,7 +5,7 @@ namespace Exercise_1
 {
     public class State
     {
-        public Catalog Catalog { get; set; } //TODO: Zastanowić się czy o to chodziło                            
+        public Catalog Catalog { get; set; }                            
         public string Description { get; set; }
         public int Amount { get; set; }
         public DateTime DateOfPurchase { get; set; }

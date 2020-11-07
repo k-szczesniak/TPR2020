@@ -114,27 +114,46 @@ namespace Exercise_1
         #region State
         public void AddState(State state)
         {
-            
+            DataContext.States.Add(state);
         }
 
         public State GetState(int id)
         {
-            throw new NotImplementedException();
+            if (DataContext.States.Count <= id || id < 0)
+            {
+                throw new Exception("There is no element with this id");
+            }
+            return DataContext.States[id];
         }
 
         public IEnumerable<State> GetAllStates()
         {
-            throw new NotImplementedException();
+            return DataContext.States;
         }
 
-        public void UpdateState(int id, State state)
+        public void UpdateState(int id, string description, int amount, DateTime dateOfPurchase)
         {
-            throw new NotImplementedException();
+            if (DataContext.States.Count <= id || id < 0)
+            {
+                throw new Exception("There is no element with this id");
+            }
+
+            DataContext.States[id].Description = description;
+            DataContext.States[id].Amount = amount;
+            DataContext.States[id].DateOfPurchase = dateOfPurchase;
         }
 
         public void DeleteState(State state)
         {
-            throw new NotImplementedException();
+            foreach (Event item in DataContext.Events)
+            {
+                if (item.State == state)
+                {
+                    throw new Exception("Can not remove this state because it is connected with some event");
+                }
+            }
+
+            DataContext.States.Remove(state);
         }
         #endregion
 

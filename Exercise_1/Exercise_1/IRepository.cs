@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Exercise_1
 {
@@ -19,7 +20,7 @@ namespace Exercise_1
         void AddState(State state);
         State GetState(int id);
         IEnumerable<State> GetAllStates();
-        void UpdateState(int id, State state);
+        void UpdateState(int id, string description, int amount, DateTime dateOfPurchase);
         void DeleteState(State state);
 
         void AddEvent(Event item);
