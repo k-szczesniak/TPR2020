@@ -37,7 +37,7 @@ namespace Exercise_1.Tests
             IEnumerable<User> enumerable = dataRepository.GetAllUsers();
             List<User> users = enumerable.ToList();
 
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < 4; i++)
             {
                 if (users[i] != dataRepository.DataContext.Users[i])
                 {
@@ -78,61 +78,61 @@ namespace Exercise_1.Tests
         [TestMethod()]
         public void AddCatalogTest()
         {
-            Assert.Fail();
+            Assert.Inconclusive();
         }
 
         [TestMethod()]
         public void GetCatalogTest()
         {
-            Assert.Fail();
+            Assert.Inconclusive();
         }
 
         [TestMethod()]
         public void GetAllCatalogsTest()
         {
-            Assert.Fail();
+            Assert.Inconclusive();
         }
 
         [TestMethod()]
         public void UpdateCatalogTest()
         {
-            Assert.Fail();
+            Assert.Inconclusive();
         }
 
         [TestMethod()]
         public void DeleteCatalogTest()
         {
-            Assert.Fail();
+            Assert.Inconclusive();
         }
 
         [TestMethod()]
         public void AddStateTest()
         {
-            Assert.Fail();
+            Assert.Inconclusive();
         }
 
         [TestMethod()]
         public void GetStateTest()
         {
-            Assert.Fail();
+            Assert.Inconclusive();
         }
 
         [TestMethod()]
         public void GetAllStatesTest()
         {
-            Assert.Fail();
+            Assert.Inconclusive();
         }
 
         [TestMethod()]
         public void UpdateStateTest()
         {
-            Assert.Fail();
+            Assert.Inconclusive();
         }
 
         [TestMethod()]
         public void DeleteStateTest()
         {
-            Assert.Fail();
+            Assert.Inconclusive();
         }
     }
 }
