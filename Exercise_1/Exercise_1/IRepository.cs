@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Exercise_1
 {
-    interface IRepository
+    public interface IRepository
     {
         void AddUser(User user);
         User GetUser(int id);
