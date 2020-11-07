@@ -4,9 +4,9 @@ using System.Text;
 
 namespace Exercise_1
 {
-    class DataService
+    public class DataService
     {
-        DataRepository _dataRepository;
+        private DataRepository _dataRepository;
 
         public DataService(DataRepository dataRepository)
         {

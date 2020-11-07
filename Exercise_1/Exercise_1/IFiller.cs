@@ -1,6 +1,6 @@
 ﻿namespace Exercise_1
 {
-    interface IFiller
+    public interface IFiller
     {
         void Fill(string path);
     }

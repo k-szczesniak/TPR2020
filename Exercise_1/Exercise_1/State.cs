@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Exercise_1
 {
-    class State
+    public class State
     {
         public Catalog Catalog { get; set; } //TODO: Zastanowić się czy o to chodziło                            
         public string Description { get; set; }

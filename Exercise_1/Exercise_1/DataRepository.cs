@@ -1,97 +1,118 @@
-﻿namespace Exercise_1
+﻿using System;
+using System.Collections.Generic;
+
+namespace Exercise_1
 {
-    class DataRepository : IRepository
+    public class DataRepository : IRepository
     {
         private IFiller _filler;
+        public DataContext DataContext { get; private set; }
 
-        public DataRepository(IFiller filler)
+        public DataRepository(DataContext dataContext, IFiller filler)
         {
+            DataContext = dataContext;
             _filler = filler;
-            _filler.Fill("jakas_sciezka");      //TODO: Jak możesz to zerknij czy to wstrzyknięcie zależności jest git
-        }
-
-        public void AddCatalog(Catalog catalog)
-        {
-            //TODO:Zaimplementować metodę
-        }
-
-        public void AddEvent(Event @event)
-        {
-            //TODO:Zaimplementować metodę
-        }
-
-        public void AddState(State state)
-        {
-            //TODO:Zaimplementować metodę
+            _filler.Fill("jakas_sciezka");
         }
 
         public void AddUser(User user)
         {
-            //TODO:Zaimplementować metodę
+            throw new NotImplementedException();
         }
 
-        public void DeleteCatalog(Catalog catalog)
+        public User GetUser(int id)
         {
-            //TODO:Zaimplementować metodę
+            throw new NotImplementedException();
         }
 
-        public void DeleteEvent(Event @event)
+        public IEnumerable<User> GetAllUsers()
         {
-            //TODO:Zaimplementować metodę
+            throw new NotImplementedException();
         }
 
-        public void DeleteState(State state)
+        public void UpdateUser(int id, User user)
         {
-            //TODO:Zaimplementować metodę
+            throw new NotImplementedException();
         }
 
         public void DeleteUser(User user)
         {
-            //TODO:Zaimplementować metodę
+            throw new NotImplementedException();
         }
 
-        public Catalog GetCatalog(string id)
+        public void AddCatalog(Catalog catalog)
         {
-            //TODO:Zaimplementować metodę
-            return null;
+            throw new NotImplementedException();
         }
 
-        public Event GetEvent(string id)
+        public Catalog GetCatalog(int id)
         {
-            //TODO:Zaimplementować metodę
-            return null;
+            throw new NotImplementedException();
         }
 
-        public State GetState(string id)
+        public IEnumerable<Catalog> GetAllCatalogs()
         {
-            //TODO:Zaimplementować metodę
-            return null;
+            throw new NotImplementedException();
         }
 
-        public User GetUser(string id)
+        public void UpdateCatalog(int id, Catalog catalog)
         {
-            //TODO:Zaimplementować metodę
-            return null;
+            throw new NotImplementedException();
         }
 
-        public void UpdateCatalog(string replacedCatalogId, Catalog catalog)
+        public void DeleteCatalog(Catalog catalog)
         {
-            //TODO:Zaimplementować metodę
+            throw new NotImplementedException();
         }
 
-        public void UpdateEvent(string replacedEventId, Event @event)
+        public void AddState(State state)
         {
-            //TODO:Zaimplementować metodę
+            throw new NotImplementedException();
         }
 
-        public void UpdateState(string replacedStateId, State state)
+        public State GetState(int id)
         {
-            //TODO:Zaimplementować metodę
+            throw new NotImplementedException();
         }
 
-        public void UpdateUser(string replacedUserId, User user)
+        public IEnumerable<State> GetAllStates()
         {
-            //TODO:Zaimplementować metodę
+            throw new NotImplementedException();
+        }
+
+        public void UpdateState(int id, State state)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DeleteState(State state)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void AddEvent(Event item)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Event GetEvent(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Event> GetAllEvents()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UpdateEvent(int id, Event item)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DeleteEvent(Event item)
+        {
+            throw new NotImplementedException();
         }
     }
 }

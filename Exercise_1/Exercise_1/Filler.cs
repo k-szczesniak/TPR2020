@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Exercise_1
 {
-    class Filler : IFiller
+    public class Filler : IFiller
     {
         public void Fill(string path)
         {

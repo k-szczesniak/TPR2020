@@ -2,8 +2,9 @@
 
 namespace Exercise_1
 {
-    class Catalog
+    public class Catalog
     {
+        public string Id { get; set; }
         public string Author { get; set; }
         public string Title { get; set; }
 
