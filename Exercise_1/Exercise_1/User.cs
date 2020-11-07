@@ -1,19 +1,39 @@
-﻿namespace Exercise_1
+﻿using System.Collections.Generic;
+
+namespace Exercise_1
 {
-    public class User
+    class User //TODO:modyfikatory dostępu
     {
-        public string Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
 
-        public User(string id, string firstName, string lastName)
+        public User(string firstName, string lastName)
         {
-            Id = id;
             FirstName = firstName;
             LastName = lastName;
         }
 
-        //TODO: Dodać toString i equals
+        public override bool Equals(object obj)
+        {
+            return obj is User user &&
+                   FirstName == user.FirstName &&
+                   LastName == user.LastName;
+        }
+
+        public override int GetHashCode()
+        {
+            int hashCode = 1938039292;
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(FirstName);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(LastName);
+            return hashCode;
+        }
+
+        public override string ToString()
+        {
+            return "User{First name: " + FirstName + ", Last name: " + LastName + "}";
+        }
+
+        //TODO: Sprawdzić toString
     }
 
 }

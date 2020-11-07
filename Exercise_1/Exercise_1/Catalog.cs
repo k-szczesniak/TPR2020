@@ -1,20 +1,39 @@
-﻿namespace Exercise_1
+﻿using System.Collections.Generic;
+
+namespace Exercise_1
 {
     class Catalog
     {
-        public string Id { get; set; }
         public string Author { get; set; }
         public string Title { get; set; }
-        public bool IsAvailable { get; set; }
 
-        public Catalog(string id, string author, string title, bool isAvailable)
+        public Catalog(string author, string title)
         {
-            Id = id;
             Author = author;
             Title = title;
-            IsAvailable = isAvailable;
         }
 
-        //TODO: Dodać toString i equals
+        public override bool Equals(object obj)
+        {
+            return obj is Catalog catalog &&
+                   Author == catalog.Author &&
+                   Title == catalog.Title;
+        }
+
+        public override int GetHashCode()
+        {
+            int hashCode = 507744655;
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Author);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Title);
+            return hashCode;
+        }
+
+        public override string ToString()
+        {
+            return "Book{Title: " + Title + ", Author: " + Author + "}";
+        }
+
+
+        //TODO: Sprawdzić toString
     }
 }
