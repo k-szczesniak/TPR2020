@@ -25,13 +25,18 @@ namespace Exercise_1
             #endregion
 
             #region States
-            Random rand = new Random();
             for (int i = 0; i < 5; i++)
             {
-                context.States.Add(new State(context.Catalogs[i + 1], "Book description " + i, 1, DateTime.Today.AddDays(-rand.Next(365))));
+                context.States.Add(new State(context.Catalogs[i + 1], "Book description " + i, 1, new DateTime(2020, 3, 1).AddDays(i * 3)));
             }
             #endregion
 
+            #region Event
+            for (int i = 0; i < 5; i++)
+            {
+                context.Events.Add(new Event(context.Users[i], context.States[i], new DateTime(2020, 5, 3).AddDays(i * 2), new DateTime(2020, 8, 1).AddDays(i * 3)));
+            }
+            #endregion
         }
     }
 }
