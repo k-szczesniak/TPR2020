@@ -5,14 +5,14 @@ namespace Exercise_1
 {
     public class DataRepository : IRepository
     {
-        private IFiller _filler;
+        private IFiller _filler; //TODO:Tworzenie nowego property z fillerem, potrzebnie ?
         public DataContext DataContext { get; private set; }
 
         public DataRepository(DataContext dataContext, IFiller filler)
         {
             DataContext = dataContext;
             _filler = filler;
-            _filler.Fill("jakas_sciezka");
+            _filler.Fill(dataContext);
         }
 
         #region User
