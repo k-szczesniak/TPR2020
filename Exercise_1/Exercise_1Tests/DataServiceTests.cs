@@ -25,8 +25,8 @@ namespace Exercise_1.Tests
 
             Catalog book = new Catalog("Autor1", "Tytul1");
             dataService.AddCatalog(book);
-            State state = new State(book, "some description", 1, new DateTime(2019, 11, 11));
-            Event checkout = new Event(dataService.GetUser(0), state, DateTime.Now, DateTime.MinValue);
+            State state = new State(book, "some description", new DateTime(2019, 11, 11), true);
+            Event checkout = new CheckoutEvent(dataService.GetUser(0), state, DateTime.Now);
 
             dataService.AddEvent(checkout);
             Assert.AreEqual(1, dataService.GetAllEventsBetweenDates(beginPeriod.AddDays(-1), endPeriod.AddDays(1)).Count());
@@ -44,16 +44,16 @@ namespace Exercise_1.Tests
             dataService.AddUser(user);
             Catalog book = new Catalog("Autor", "Tytul");
             dataService.AddCatalog(book);
-            State state = new State(book, "some description", 1, new DateTime(2019, 11, 11));
+            State state = new State(book, "some description", new DateTime(2019, 11, 11), true);
 
             Assert.AreEqual(0, dataService.GetAllEventsForUser(user).Count());
             
-            Event checkout = new Event(user, state, DateTime.Now, DateTime.MinValue);
-            dataService.AddEvent(checkout);
+            Event checkoutEvent = new CheckoutEvent(user, state, DateTime.Now);
+            dataService.AddEvent(checkoutEvent);
             
             Assert.AreEqual(1, dataService.GetAllEventsForUser(user).Count());
 
-            Event returnBook = new Event(user, state, DateTime.Now.AddDays(-1), DateTime.Now);
+            Event returnBook = new ReturnEvent(user, state, DateTime.Now.AddDays(1));
             dataService.AddEvent(returnBook);
 
             Assert.AreEqual(2, dataService.GetAllEventsForUser(user).Count());

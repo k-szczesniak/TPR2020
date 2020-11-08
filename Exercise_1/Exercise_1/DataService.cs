@@ -6,11 +6,11 @@ namespace Exercise_1
 {
     public class DataService
     {
-        private IRepository _IRepository;
+        private IRepository _repository;
 
-        public DataService(IRepository IRepository)
+        public DataService(IRepository repository)
         {
-            _IRepository = IRepository;
+            _repository = repository;
         }
         //TODO: Dodać metody
         //TODO: Odnośnie całego projektu - czy dodawać id i inne atrybuty? Sprawdzanie spójności, testy
@@ -18,108 +18,108 @@ namespace Exercise_1
         #region User
         public void AddUser(User user)
         {
-            _IRepository.AddUser(user);
+            _repository.AddUser(user);
         }
 
         public User GetUser(int id)
         {
-            return _IRepository.GetUser(id);
+            return _repository.GetUser(id);
         }
 
         public IEnumerable<User> GetAllUsers()
         {
-            return _IRepository.GetAllUsers();
+            return _repository.GetAllUsers();
         }
 
         public void UpdateUser(int id, string firtName, string lastName)
         {
-            _IRepository.UpdateUser(id, firtName, lastName);
+            _repository.UpdateUser(id, firtName, lastName);
         }
 
         public void DeleteUser(User user)
         {
-            _IRepository.DeleteUser(user);
+            _repository.DeleteUser(user);
         }
         #endregion
 
         #region Catalog
         public void AddCatalog(Catalog catalog)
         {
-            _IRepository.AddCatalog(catalog);
+            _repository.AddCatalog(catalog);
         }
 
         public Catalog GetCatalog(int id)
         {
-            return _IRepository.GetCatalog(id);
+            return _repository.GetCatalog(id);
         }
 
         public IEnumerable<Catalog> GetAllCatalogs()
         {
-            return _IRepository.GetAllCatalogs();
+            return _repository.GetAllCatalogs();
         }
 
         public void UpdateCatalog(int id, string author, string title)
         {
-            _IRepository.UpdateCatalog(id, author, title);
+            _repository.UpdateCatalog(id, author, title);
         }
 
         public void DeleteCatalog(Catalog catalog)
         {
-            _IRepository.DeleteCatalog(catalog);
+            _repository.DeleteCatalog(catalog);
         }
         #endregion
 
         #region State
         public void AddState(State state)
         {
-            _IRepository.AddState(state);
+            _repository.AddState(state);
         }
 
         public State GetState(int id)
         {
-            return _IRepository.GetState(id);
+            return _repository.GetState(id);
         }
 
         public IEnumerable<State> GetAllStates()
         {
-            return _IRepository.GetAllStates();
+            return _repository.GetAllStates();
         }
 
         public void UpdateState(int id, string description, DateTime date, bool isAvailable)
         {
-            _IRepository.UpdateState(id, description, date, isAvailable);
+            _repository.UpdateState(id, description, date, isAvailable);
         }
 
         public void DeleteState(State state)
         {
-            _IRepository.DeleteState(state);
+            _repository.DeleteState(state);
         }
         #endregion
 
         #region Event
         public void AddEvent(Event item)
         {
-            _IRepository.AddEvent(item);
+            _repository.AddEvent(item);
         }
 
         public Event GetEvent(int id)
         {
-            return _IRepository.GetEvent(id);
+            return _repository.GetEvent(id);
         }
 
         public IEnumerable<Event> GetAllEvents()
         {
-            return _IRepository.GetAllEvents();
+            return _repository.GetAllEvents();
         }
 
         public void UpdateEvent(int id, DateTime date)
         {
-            _IRepository.UpdateEvent(id, date);
+            _repository.UpdateEvent(id, date);
         }
 
         public void DeleteEvent(Event item)
         {
-            _IRepository.DeleteEvent(item);
+            _repository.DeleteEvent(item);
         }
         #endregion
 
@@ -127,7 +127,7 @@ namespace Exercise_1
         public IEnumerable<Event> GetAllEventsBetweenDates(DateTime beginDate, DateTime endDate)
         {
             List<Event> matchEvents = new List<Event>();
-            foreach (Event eventToCheck in _IRepository.GetAllEvents())
+            foreach (Event eventToCheck in _repository.GetAllEvents())
             {
                 if ((eventToCheck.Date >= beginDate) && (eventToCheck.Date <= endDate))
                 {
@@ -140,7 +140,7 @@ namespace Exercise_1
         public IEnumerable<Event> GetAllEventsForUser(User user)
         {
             List<Event> matchEvents = new List<Event>();
-            foreach (Event eventToCheck in _IRepository.GetAllEvents())
+            foreach (Event eventToCheck in _repository.GetAllEvents())
             {
                 if (eventToCheck.User.Equals(user))
                 {
@@ -153,7 +153,7 @@ namespace Exercise_1
         public IEnumerable<Event> GetAllEventsForCatalog(Catalog catalog)
         {
             List<Event> matchEvents = new List<Event>();
-            foreach (Event eventToCheck in _IRepository.GetAllEvents())
+            foreach (Event eventToCheck in _repository.GetAllEvents())
             {
                 if (eventToCheck.State.Catalog.Equals(catalog))
                 {
@@ -166,7 +166,7 @@ namespace Exercise_1
         public IEnumerable<State> GetAllStatesForCatalog(Catalog catalog)
         {
             List<State> matchStates = new List<State>();
-            foreach (State stateToCheck in _IRepository.GetAllStates())
+            foreach (State stateToCheck in _repository.GetAllStates())
             {
                 if (stateToCheck.Catalog.Equals(catalog))
                 {
