@@ -37,7 +37,5 @@ namespace Exercise_1
         {
             return "Event{User: " + User + ", State: " + State + ", Date: " + Date + "}";
         }
-
-        //TODO: Sprawdzić toString i equals
     }
 }

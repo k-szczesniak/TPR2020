@@ -127,7 +127,6 @@ namespace Exercise_1
         }
         #endregion
 
-        //
         public IEnumerable<Event> GetAllEventsBetweenDates(DateTime beginDate, DateTime endDate)
         {
             List<Event> matchEvents = new List<Event>();

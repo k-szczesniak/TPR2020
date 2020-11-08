@@ -41,6 +41,5 @@ namespace Exercise_1
         {
             return "State{Book: " + Catalog + ", Description: " + Description + ", DateOfPurchase: " + DateOfPurchase + "IsAvailable: " + IsAvailable + "}";
         }
-        //TODO: Sprawdzić toString
     }
 }

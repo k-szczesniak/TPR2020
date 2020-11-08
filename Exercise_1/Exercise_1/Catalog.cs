@@ -32,8 +32,5 @@ namespace Exercise_1
         {
             return "Book{Title: " + Title + ", Author: " + Author + "}";
         }
-
-
-        //TODO: Sprawdzić toString
     }
 }
