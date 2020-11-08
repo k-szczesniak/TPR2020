@@ -131,7 +131,7 @@ namespace Exercise_1
             return DataContext.States;
         }
 
-        public void UpdateState(int id, string description, int amount, DateTime dateOfPurchase)
+        public void UpdateState(int id, string description, DateTime dateOfPurchase, bool isAvailable)
         {
             if (DataContext.States.Count <= id || id < 0)
             {
@@ -139,8 +139,8 @@ namespace Exercise_1
             }
 
             DataContext.States[id].Description = description;
-            DataContext.States[id].Amount = amount;
             DataContext.States[id].DateOfPurchase = dateOfPurchase;
+            DataContext.States[id].IsAvailable = isAvailable;
         }
 
         public void DeleteState(State state)
@@ -176,15 +176,14 @@ namespace Exercise_1
             return DataContext.Events;
         }
 
-        public void UpdateEvent(int id, DateTime rentalDate, DateTime giveBackDate)
+        public void UpdateEvent(int id, DateTime date)
         {
             if (DataContext.Events.Count <= id || id < 0)
             {
                 throw new Exception("There is no element with this id");
             }
 
-            DataContext.Events[id].Date = rentalDate;
-            DataContext.Events[id].GiveBackDate = giveBackDate;
+            DataContext.Events[id].Date = date;
         }
 
         public void DeleteEvent(Event item)

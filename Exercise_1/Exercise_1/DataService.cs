@@ -85,9 +85,9 @@ namespace Exercise_1
             return _IRepository.GetAllStates();
         }
 
-        public void UpdateState(int id, string description, int amount, DateTime dateOfPurchase)
+        public void UpdateState(int id, string description, DateTime date, bool isAvailable)
         {
-            _IRepository.UpdateState(id, description, amount, dateOfPurchase);
+            _IRepository.UpdateState(id, description, date, isAvailable);
         }
 
         public void DeleteState(State state)
@@ -112,9 +112,9 @@ namespace Exercise_1
             return _IRepository.GetAllEvents();
         }
 
-        public void UpdateEvent(int id, DateTime rentalDate, DateTime giveBackDate)
+        public void UpdateEvent(int id, DateTime date)
         {
-            _IRepository.UpdateEvent(id, rentalDate, giveBackDate);
+            _IRepository.UpdateEvent(id, date);
         }
 
         public void DeleteEvent(Event item)
@@ -129,8 +129,7 @@ namespace Exercise_1
             List<Event> matchEvents = new List<Event>();
             foreach (Event eventToCheck in _IRepository.GetAllEvents())
             {
-                if ((eventToCheck.Date >= beginDate && eventToCheck.Date <= endDate)
-                   || (eventToCheck.GiveBackDate >= beginDate && eventToCheck.GiveBackDate <= endDate))
+                if ((eventToCheck.Date >= beginDate) && (eventToCheck.Date <= endDate))
                 {
                     matchEvents.Add(eventToCheck);
                 }

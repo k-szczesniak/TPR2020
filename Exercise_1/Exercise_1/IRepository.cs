@@ -20,13 +20,13 @@ namespace Exercise_1
         void AddState(State state);
         State GetState(int id);
         IEnumerable<State> GetAllStates();
-        void UpdateState(int id, string description, int amount, DateTime dateOfPurchase);
+        void UpdateState(int id, string description, DateTime dateOfPurchase, bool isAvailable);
         void DeleteState(State state);
 
         void AddEvent(Event item);
         Event GetEvent(int id);
         IEnumerable<Event> GetAllEvents();
-        void UpdateEvent(int id, DateTime rentalDate, DateTime giveBackDate);
+        void UpdateEvent(int id, DateTime date);
         void DeleteEvent(Event item);
     }
 }
