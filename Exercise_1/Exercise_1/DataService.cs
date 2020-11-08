@@ -176,5 +176,26 @@ namespace Exercise_1
             }
             return matchStates;
         }
+
+        //public IEnumerable<Event> GetAllEventsForState(State state)
+        //{
+        //    List<Event> matchEvents = new List<Event>();
+        //    foreach (Event eventToCheck in _IRepository.GetAllEvents())
+        //    {
+        //        if (eventToCheck.State == (state))
+        //        {
+        //            matchEvents.Add(eventToCheck);
+        //        }
+        //    }
+        //    return matchEvents;
+        //}
+
+
+        //public void CatalogCheckout(User user, State state)
+        //{
+        //    if (state.)
+        //}
+
+        //TODO:metody do wypozyczania i zwrotu
     }
 }

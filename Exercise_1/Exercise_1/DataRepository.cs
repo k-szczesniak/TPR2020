@@ -5,7 +5,7 @@ namespace Exercise_1
 {
     public class DataRepository : IRepository
     {
-        private IFiller _filler; //TODO:Tworzenie nowego property z fillerem, potrzebnie ?
+        private IFiller _filler;
         public DataContext DataContext { get; private set; }
 
         public DataRepository(DataContext dataContext, IFiller filler)
