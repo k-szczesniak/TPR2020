@@ -32,8 +32,6 @@ namespace Exercise_1
         {
             return "User{First name: " + FirstName + ", Last name: " + LastName + "}";
         }
-
-        //TODO: Sprawdzić toString
     }
 
 }
