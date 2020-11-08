@@ -131,6 +131,16 @@ namespace Exercise_1
             return DataContext.States;
         }
 
+        public void UpdateState(int id, bool isAvailable)
+        {
+            if (DataContext.States.Count <= id || id < 0)
+            {
+                throw new Exception("There is no element with this id");
+            }
+
+            DataContext.States[id].IsAvailable = isAvailable;
+        }
+
         public void UpdateState(int id, string description, DateTime dateOfPurchase, bool isAvailable)
         {
             if (DataContext.States.Count <= id || id < 0)

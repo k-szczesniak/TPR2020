@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Exercise_1
@@ -12,8 +13,6 @@ namespace Exercise_1
         {
             _repository = repository;
         }
-        //TODO: Dodać metody
-        //TODO: Odnośnie całego projektu - czy dodawać id i inne atrybuty? Sprawdzanie spójności, testy
         
         #region User
         public void AddUser(User user)
@@ -85,6 +84,11 @@ namespace Exercise_1
             return _repository.GetAllStates();
         }
 
+        public void UpdateState(int id, bool isAvailable)
+        {
+            _repository.UpdateState(id, isAvailable);
+        }
+
         public void UpdateState(int id, string description, DateTime date, bool isAvailable)
         {
             _repository.UpdateState(id, description, date, isAvailable);
@@ -127,7 +131,7 @@ namespace Exercise_1
         public IEnumerable<Event> GetAllEventsBetweenDates(DateTime beginDate, DateTime endDate)
         {
             List<Event> matchEvents = new List<Event>();
-            foreach (Event eventToCheck in _repository.GetAllEvents())
+            foreach (Event eventToCheck in GetAllEvents())
             {
                 if ((eventToCheck.Date >= beginDate) && (eventToCheck.Date <= endDate))
                 {
@@ -140,9 +144,9 @@ namespace Exercise_1
         public IEnumerable<Event> GetAllEventsForUser(User user)
         {
             List<Event> matchEvents = new List<Event>();
-            foreach (Event eventToCheck in _repository.GetAllEvents())
+            foreach (Event eventToCheck in GetAllEvents())
             {
-                if (eventToCheck.User.Equals(user))
+                if (eventToCheck.User == user)
                 {
                     matchEvents.Add(eventToCheck);
                 }
@@ -153,7 +157,7 @@ namespace Exercise_1
         public IEnumerable<Event> GetAllEventsForCatalog(Catalog catalog)
         {
             List<Event> matchEvents = new List<Event>();
-            foreach (Event eventToCheck in _repository.GetAllEvents())
+            foreach (Event eventToCheck in GetAllEvents())
             {
                 if (eventToCheck.State.Catalog.Equals(catalog))
                 {
@@ -166,7 +170,7 @@ namespace Exercise_1
         public IEnumerable<State> GetAllStatesForCatalog(Catalog catalog)
         {
             List<State> matchStates = new List<State>();
-            foreach (State stateToCheck in _repository.GetAllStates())
+            foreach (State stateToCheck in GetAllStates())
             {
                 if (stateToCheck.Catalog.Equals(catalog))
                 {
@@ -176,25 +180,54 @@ namespace Exercise_1
             return matchStates;
         }
 
-        //public IEnumerable<Event> GetAllEventsForState(State state)
-        //{
-        //    List<Event> matchEvents = new List<Event>();
-        //    foreach (Event eventToCheck in _IRepository.GetAllEvents())
-        //    {
-        //        if (eventToCheck.State == (state))
-        //        {
-        //            matchEvents.Add(eventToCheck);
-        //        }
-        //    }
-        //    return matchEvents;
-        //}
+        public int GetIndexOfTheState(State state)
+        {
+            List<State> allStates = GetAllStates().ToList<State>();
+            for(int i = 0; i < allStates.Count; i++)
+            {
+                if (allStates[i] == state)
+                {
+                    return i;
+                }
+            }
+            throw new Exception("Index not found");
+        }
 
+        public void CatalogCheckout(User user, State state)
+        {
+            if (state.IsAvailable)
+            {
+                int index = GetIndexOfTheState(state);
+                UpdateState(index, false);
+                AddEvent(new CheckoutEvent(user, state, DateTime.Now));
+                return;
+            }
+            throw new ArgumentException("Book is not available");
+        }
 
-        //public void CatalogCheckout(User user, State state)
-        //{
-        //    if (state.)
-        //}
+        public User GetUserConnectedWithState(State state)
+        {
+            List<Event> allEvents = GetAllEvents().ToList<Event>();
+            for (int i = 0; i < allEvents.Count; i++)
+            {
+                if (allEvents[i].State == state)
+                {
+                    return allEvents[i].User;
+                }
+            }
+            throw new Exception("Such user not exist");
+        }
 
-        //TODO:metody do wypozyczania i zwrotu
+        public void CatalogReturn(User user, State state)
+        {
+            if(!state.IsAvailable && user == GetUserConnectedWithState(state))
+            {
+                int index = GetIndexOfTheState(state);
+                UpdateState(index, true);
+                AddEvent(new ReturnEvent(user, state, DateTime.Now));
+            }
+            else throw new ArgumentException("Book is available");
+        }
+
     }
 }
