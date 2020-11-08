@@ -183,7 +183,7 @@ namespace Exercise_1
                 throw new Exception("There is no element with this id");
             }
 
-            DataContext.Events[id].RentalDate = rentalDate;
+            DataContext.Events[id].Date = rentalDate;
             DataContext.Events[id].GiveBackDate = giveBackDate;
         }
 

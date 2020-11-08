@@ -129,7 +129,7 @@ namespace Exercise_1
             List<Event> matchEvents = new List<Event>();
             foreach (Event eventToCheck in _IRepository.GetAllEvents())
             {
-                if ((eventToCheck.RentalDate >= beginDate && eventToCheck.RentalDate <= endDate)
+                if ((eventToCheck.Date >= beginDate && eventToCheck.Date <= endDate)
                    || (eventToCheck.GiveBackDate >= beginDate && eventToCheck.GiveBackDate <= endDate))
                 {
                     matchEvents.Add(eventToCheck);
