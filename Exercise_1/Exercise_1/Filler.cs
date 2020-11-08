@@ -27,7 +27,7 @@ namespace Exercise_1
             #region States
             for (int i = 0; i < 5; i++)
             {
-                context.States.Add(new State(context.Catalogs[i], "Book description " + i, new DateTime(2020, 3, 1).AddDays(i * 3), false));
+                context.States.Add(new State(context.Catalogs[i], "Book description " + i, new DateTime(2020, 3, 1).AddDays(i * 3), true));
             }
             #endregion
 

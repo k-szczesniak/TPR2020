@@ -157,6 +157,7 @@ namespace Exercise_1
         }
         #endregion
 
+        #region Event
         public void AddEvent(Event item)
         {
             DataContext.Events.Add(item);
@@ -190,5 +191,6 @@ namespace Exercise_1
         {
             DataContext.Events.Remove(item);
         }
+        #endregion
     }
 }
