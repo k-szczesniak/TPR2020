@@ -20,6 +20,7 @@ namespace Exercise_1
         void AddState(State state);
         State GetState(int id);
         IEnumerable<State> GetAllStates();
+        void UpdateState(int id, bool isAvailable);
         void UpdateState(int id, string description, DateTime dateOfPurchase, bool isAvailable);
         void DeleteState(State state);
 
