@@ -8,8 +8,6 @@ namespace Exercise_1.Tests
     [TestClass()]
     public class DataRepositoryTests
     {
-        //TODO: Zbadać negatywne przypadki!
-        //TODO: Zmienić trochę po dodaniu Fillera
         [TestMethod()]
         public void AddAndGetUserTest()
         {
@@ -57,13 +55,35 @@ namespace Exercise_1.Tests
             User user = new User("Tomek", "Tomkowski");
             dataRepository.AddUser(user);
 
-            Assert.AreEqual(dataRepository.GetUser(dataRepository.DataContext.Users.Count - 1).FirstName, "Tomek");
-            Assert.AreEqual(dataRepository.GetUser(dataRepository.DataContext.Users.Count - 1).LastName, "Tomkowski");
+            int userIndex = dataRepository.DataContext.Users.Count - 1;
 
-            dataRepository.UpdateUser(dataRepository.DataContext.Users.Count - 1, "Marcin", "Nowak");
+            Assert.AreEqual(dataRepository.GetUser(userIndex).FirstName, "Tomek");
+            Assert.AreEqual(dataRepository.GetUser(userIndex).LastName, "Tomkowski");
 
-            Assert.AreEqual(dataRepository.GetUser(dataRepository.DataContext.Users.Count - 1).FirstName, "Marcin");
-            Assert.AreEqual(dataRepository.GetUser(dataRepository.DataContext.Users.Count - 1).LastName, "Nowak");
+            dataRepository.UpdateUser(userIndex, "Marcin", "Nowak");
+
+            Assert.AreEqual(dataRepository.GetUser(userIndex).FirstName, "Marcin");
+            Assert.AreEqual(dataRepository.GetUser(userIndex).LastName, "Nowak");
+        }
+
+        [TestMethod()]
+        public void UpdateUserIncorrectIndexTest()
+        {
+            DataRepository dataRepository = new DataRepository(new DataContext(), new Filler());
+
+            User user = new User("Tomek", "Tomkowski");
+            dataRepository.AddUser(user);
+
+            int userIndex = dataRepository.DataContext.Users.Count - 1;
+
+            Assert.AreEqual(dataRepository.GetUser(userIndex).FirstName, "Tomek");
+            Assert.AreEqual(dataRepository.GetUser(userIndex).LastName, "Tomkowski");
+
+            Assert.ThrowsException<Exception>(() => dataRepository.UpdateUser(userIndex + 1, "Marcin", "Nowak"));
+            Assert.ThrowsException<Exception>(() => dataRepository.UpdateUser(-1, "Marcin", "Nowak"));
+
+            Assert.AreEqual(dataRepository.GetUser(userIndex).FirstName, "Tomek");
+            Assert.AreEqual(dataRepository.GetUser(userIndex).LastName, "Tomkowski");
         }
 
         [TestMethod()]
@@ -84,6 +104,32 @@ namespace Exercise_1.Tests
         }
 
         [TestMethod()]
+        public void TryingToDeleteUserConnectedWithEventTest()
+        {
+            DataRepository dataRepository = new DataRepository(new DataContext(), new Filler());
+
+            int numberOfUsersBeforeAdd = dataRepository.DataContext.Users.Count;
+
+            User user = new User("Tomek", "Kowalski");
+            dataRepository.AddUser(user);
+
+            Catalog catalog = new Catalog("Autor", "Tytul");
+            dataRepository.AddCatalog(catalog);
+
+            State state = new State(catalog, "opis", new DateTime(2008, 5, 11, 8, 30, 23), false);
+            dataRepository.AddState(state);
+
+            Event item = new CheckoutEvent(user, state, new DateTime(2008, 5, 13, 8, 30, 23));
+            dataRepository.AddEvent(item);
+
+            Assert.AreEqual(numberOfUsersBeforeAdd + 1, dataRepository.DataContext.Users.Count);
+
+            Assert.ThrowsException<Exception>(() => dataRepository.DeleteUser(user));
+
+            Assert.AreEqual(dataRepository.DataContext.Users.Count, numberOfUsersBeforeAdd + 1);
+        }
+
+        [TestMethod()]
         public void AddAndGetCatalogTest()
         {
             DataRepository dataRepository = new DataRepository(new DataContext(), new Filler());
@@ -92,6 +138,15 @@ namespace Exercise_1.Tests
             dataRepository.AddCatalog(catalog);
 
             Assert.AreEqual(dataRepository.GetCatalog(dataRepository.DataContext.Catalogs.Count - 1), catalog);
+        }
+
+        [TestMethod()]
+        public void GetCatalogIncorrectIndexTest()
+        {
+            DataRepository dataRepository = new DataRepository(new DataContext(), new Filler());
+
+            Assert.ThrowsException<Exception>(() => dataRepository.GetCatalog(dataRepository.DataContext.Catalogs.Count));
+            Assert.ThrowsException<Exception>(() => dataRepository.GetCatalog(-1));
         }
 
         [TestMethod()]
@@ -121,13 +176,35 @@ namespace Exercise_1.Tests
             Catalog catalog = new Catalog("Autor", "Tytul");
             dataRepository.AddCatalog(catalog);
 
-            Assert.AreEqual(dataRepository.GetCatalog(dataRepository.DataContext.Catalogs.Count - 1).Author, "Autor");
-            Assert.AreEqual(dataRepository.GetCatalog(dataRepository.DataContext.Catalogs.Count - 1).Title, "Tytul");
+            int catalogIndex = dataRepository.DataContext.Catalogs.Count - 1;
 
-            dataRepository.UpdateCatalog(dataRepository.DataContext.Catalogs.Count - 1, "Autorzy", "Tytuly");
+            Assert.AreEqual(dataRepository.GetCatalog(catalogIndex).Author, "Autor");
+            Assert.AreEqual(dataRepository.GetCatalog(catalogIndex).Title, "Tytul");
 
-            Assert.AreEqual(dataRepository.GetCatalog(dataRepository.DataContext.Catalogs.Count - 1).Author, "Autorzy");
-            Assert.AreEqual(dataRepository.GetCatalog(dataRepository.DataContext.Catalogs.Count - 1).Title, "Tytuly");
+            dataRepository.UpdateCatalog(catalogIndex, "Autorzy", "Tytuly");
+
+            Assert.AreEqual(dataRepository.GetCatalog(catalogIndex).Author, "Autorzy");
+            Assert.AreEqual(dataRepository.GetCatalog(catalogIndex).Title, "Tytuly");
+        }
+
+        [TestMethod()]
+        public void UpdateCatalogIncorrectIndexTest()
+        {
+            DataRepository dataRepository = new DataRepository(new DataContext(), new Filler());
+
+            Catalog catalog = new Catalog("Autor", "Tytul");
+            dataRepository.AddCatalog(catalog);
+
+            int catalogIndex = dataRepository.DataContext.Catalogs.Count - 1;
+
+            Assert.AreEqual(dataRepository.GetCatalog(catalogIndex).Author, "Autor");
+            Assert.AreEqual(dataRepository.GetCatalog(catalogIndex).Title, "Tytul");
+
+            Assert.ThrowsException<Exception>(() => dataRepository.UpdateUser(catalogIndex + 1, "Marcin", "Nowak"));
+            Assert.ThrowsException<Exception>(() => dataRepository.UpdateUser(-1, "Marcin", "Nowak"));
+
+            Assert.AreEqual(dataRepository.GetCatalog(catalogIndex).Author, "Autor");
+            Assert.AreEqual(dataRepository.GetCatalog(catalogIndex).Title, "Tytul");
         }
 
         [TestMethod()]
@@ -148,7 +225,27 @@ namespace Exercise_1.Tests
         }
 
         [TestMethod()]
-        public void AddAndGetStateTest() 
+        public void TryingToDeleteCatalogConnectedWithStateTest()
+        {
+            DataRepository dataRepository = new DataRepository(new DataContext(), new Filler());
+
+            int numberOfCatalogsBeforeAdd = dataRepository.DataContext.Catalogs.Count;
+
+            Catalog catalog = new Catalog("Autor", "Tytul");
+            dataRepository.AddCatalog(catalog);
+
+            State state = new State(catalog, "opis", new DateTime(2008, 5, 11, 8, 30, 23), false);
+            dataRepository.AddState(state);
+
+            Assert.AreEqual(numberOfCatalogsBeforeAdd + 1, dataRepository.DataContext.Catalogs.Count);
+
+            Assert.ThrowsException<Exception>(() => dataRepository.DeleteCatalog(catalog));
+
+            Assert.AreEqual(dataRepository.DataContext.Catalogs.Count, numberOfCatalogsBeforeAdd + 1);
+        }
+
+        [TestMethod()]
+        public void AddAndGetStateTest()
         {
             DataRepository dataRepository = new DataRepository(new DataContext(), new Filler());
 
@@ -159,6 +256,15 @@ namespace Exercise_1.Tests
             dataRepository.AddState(state);
 
             Assert.AreEqual(dataRepository.GetState(dataRepository.DataContext.States.Count - 1), state);
+        }
+
+        [TestMethod()]
+        public void GetStateIncorrectIndexTest()
+        {
+            DataRepository dataRepository = new DataRepository(new DataContext(), new Filler());
+
+            Assert.ThrowsException<Exception>(() => dataRepository.GetState(dataRepository.DataContext.States.Count));
+            Assert.ThrowsException<Exception>(() => dataRepository.GetState(-1));
         }
 
         [TestMethod()]
@@ -181,7 +287,7 @@ namespace Exercise_1.Tests
         }
 
         [TestMethod()]
-        public void UpdateStateTest()
+        public void UpdateStateTestCase1()
         {
             DataRepository dataRepository = new DataRepository(new DataContext(), new Filler());
 
@@ -198,15 +304,68 @@ namespace Exercise_1.Tests
             Assert.AreEqual(dataRepository.GetState(indexOfState).IsAvailable, true);
 
 
-            dataRepository.UpdateState(indexOfState, "oPIS", new DateTime(2008, 5, 13, 8, 30, 23), true);
+            dataRepository.UpdateState(indexOfState, "oPIS", new DateTime(2008, 5, 13, 8, 30, 23), false);
 
             Assert.AreEqual(dataRepository.GetState(indexOfState).Description, "oPIS");
             Assert.AreEqual(dataRepository.GetState(indexOfState).DateOfPurchase, new DateTime(2008, 5, 13, 8, 30, 23));
-            Assert.AreEqual(dataRepository.GetState(indexOfState).IsAvailable, true);
+            Assert.AreEqual(dataRepository.GetState(indexOfState).IsAvailable, false);
         }
 
         [TestMethod()]
-        public void DeleteStateTest() //TODO: Amount zniknie i pojawi się available
+        public void UpdateStateTestCase2_Overload()
+        {
+            DataRepository dataRepository = new DataRepository(new DataContext(), new Filler());
+
+            Catalog catalog = new Catalog("Autor", "Tytul");
+            dataRepository.AddCatalog(catalog);
+
+            State state = new State(catalog, "opis", new DateTime(2008, 5, 11, 8, 30, 23), true);
+            dataRepository.AddState(state);
+
+            int indexOfState = dataRepository.DataContext.States.Count - 1;
+
+            Assert.AreEqual(dataRepository.GetState(indexOfState).Description, "opis");
+            Assert.AreEqual(dataRepository.GetState(indexOfState).DateOfPurchase, new DateTime(2008, 5, 11, 8, 30, 23));
+            Assert.AreEqual(dataRepository.GetState(indexOfState).IsAvailable, true);
+
+
+            dataRepository.UpdateState(indexOfState, false);
+
+            Assert.AreEqual(dataRepository.GetState(indexOfState).Description, "opis");
+            Assert.AreEqual(dataRepository.GetState(indexOfState).DateOfPurchase, new DateTime(2008, 5, 11, 8, 30, 23));
+            Assert.AreEqual(dataRepository.GetState(indexOfState).IsAvailable, false);
+        }
+
+        [TestMethod()]
+        public void UpdateStateIncorrectIndexTest()
+        {
+            DataRepository dataRepository = new DataRepository(new DataContext(), new Filler());
+
+            Catalog catalog = new Catalog("Autor", "Tytul");
+            dataRepository.AddCatalog(catalog);
+
+            State state = new State(catalog, "opis", new DateTime(2008, 5, 11, 8, 30, 23), true);
+            dataRepository.AddState(state);
+
+            int stateIndex = dataRepository.DataContext.States.Count - 1;
+
+            Assert.AreEqual(dataRepository.GetState(stateIndex).Description, "opis");
+            Assert.AreEqual(dataRepository.GetState(stateIndex).DateOfPurchase, new DateTime(2008, 5, 11, 8, 30, 23));
+            Assert.AreEqual(dataRepository.GetState(stateIndex).IsAvailable, true);
+
+            Assert.ThrowsException<Exception>(() => dataRepository.UpdateState(stateIndex + 1, "Zmieniony opis", new DateTime(2009, 5, 11, 8, 30, 23), false));
+            Assert.ThrowsException<Exception>(() => dataRepository.UpdateState(-1, "Zmieniony opis", new DateTime(2009, 5, 11, 8, 30, 23), false));
+
+            Assert.ThrowsException<Exception>(() => dataRepository.UpdateState(stateIndex + 1, false));
+            Assert.ThrowsException<Exception>(() => dataRepository.UpdateState(-1, false));
+
+            Assert.AreEqual(dataRepository.GetState(stateIndex).Description, "opis");
+            Assert.AreEqual(dataRepository.GetState(stateIndex).DateOfPurchase, new DateTime(2008, 5, 11, 8, 30, 23));
+            Assert.AreEqual(dataRepository.GetState(stateIndex).IsAvailable, true);
+        }
+
+        [TestMethod()]
+        public void DeleteStateTest()
         {
             DataRepository dataRepository = new DataRepository(new DataContext(), new Filler());
 
@@ -225,77 +384,157 @@ namespace Exercise_1.Tests
             Assert.AreEqual(dataRepository.DataContext.States.Count, numberOfStatesBeforeAdd);
         }
 
-        //[TestMethod()]
-        //public void AddAndGetEventTest()
-        //{
-        //    DataRepository dataRepository = new DataRepository(new DataContext(), new Filler());
+        [TestMethod()]
+        public void TryingToDeleteStateConnectedWithEventTest()
+        {
+            DataRepository dataRepository = new DataRepository(new DataContext(), new Filler());
 
-        //    Catalog catalog = new Catalog("Autor", "Tytul");
-        //    State state = new State(catalog, "opis", 5, new DateTime(2008, 5, 11, 8, 30, 23));
-        //    User user = new User("Tomek", "Kowalski");
-        //    Event item = new Event(user, state, new DateTime(2008, 5, 13, 8, 30, 23), new DateTime(2008, 5, 15, 8, 30, 23));
-        //    dataRepository.AddEvent(item);
+            int numberOfStatesBeforeAdd = dataRepository.DataContext.States.Count;
 
-        //    Assert.AreEqual(dataRepository.GetEvent(0), item);
-        //}
+            User user = new User("Tomek", "Kowalski");
+            dataRepository.AddUser(user);
 
-        //[TestMethod()]
-        //public void GetAllEventsTest()
-        //{
-        //    DataRepository dataRepository = new DataRepository(new DataContext(), new Filler());
+            Catalog catalog = new Catalog("Autor", "Tytul");
+            dataRepository.AddCatalog(catalog);
 
-        //    IEnumerable<Event> enumerable = dataRepository.GetAllEvents();
-        //    List<Event> items = enumerable.ToList();
+            State state = new State(catalog, "opis", new DateTime(2008, 5, 11, 8, 30, 23), false);
+            dataRepository.AddState(state);
 
-        //    Assert.AreEqual(items.Count, dataRepository.DataContext.Events.Count);
+            Event item = new CheckoutEvent(user, state, new DateTime(2008, 5, 13, 8, 30, 23));
+            dataRepository.AddEvent(item);
 
-        //    for (int i = 0; i < items.Count; i++)
-        //    {
-        //        if (items[i] != dataRepository.DataContext.Events[i])
-        //        {
-        //            Assert.Fail();
-        //        }
-        //    }
-        //}
+            Assert.AreEqual(numberOfStatesBeforeAdd + 1, dataRepository.DataContext.States.Count);
 
-        //[TestMethod()]
-        //public void UpdateEventTest()
-        //{
-        //    DataRepository dataRepository = new DataRepository(new DataContext(), new Filler());
+            Assert.ThrowsException<Exception>(() => dataRepository.DeleteState(state));
 
-        //    Catalog catalog = new Catalog("Autor", "Tytul");
-        //    State state = new State(catalog, "opis", 5, new DateTime(2008, 5, 11, 8, 30, 23));
-        //    User user = new User("Tomek", "Kowalski");
-        //    Event item = new Event(user, state, new DateTime(2008, 5, 13, 8, 30, 23), new DateTime(2008, 5, 15, 8, 30, 23));
-        //    dataRepository.AddEvent(item);
+            Assert.AreEqual(dataRepository.DataContext.States.Count, numberOfStatesBeforeAdd + 1);
+        }
 
-        //    dataRepository.UpdateEvent(0, new DateTime(2008, 5, 14, 8, 30, 23), new DateTime(2008, 5, 16, 8, 30, 23));
+        [TestMethod()]
+        public void AddAndGetEventTest()
+        {
+            DataRepository dataRepository = new DataRepository(new DataContext(), new Filler());
 
-        //    Assert.AreEqual(dataRepository.GetEvent(0).RentalDate, new DateTime(2008, 5, 14, 8, 30, 23));
-        //    Assert.AreEqual(dataRepository.GetEvent(0).GiveBackDate, new DateTime(2008, 5, 16, 8, 30, 23));
-        //}
+            User user = new User("Tomek", "Kowalski");
+            dataRepository.AddUser(user);
 
-        //[TestMethod()]
-        //public void DeleteEventTest()
-        //{
-        //    DataRepository dataRepository = new DataRepository(new DataContext(), new Filler());
+            Catalog catalog = new Catalog("Autor", "Tytul");
+            dataRepository.AddCatalog(catalog);
 
-        //    Catalog catalog = new Catalog("Autor", "Tytul");
-        //    State state = new State(catalog, "opis", 5, new DateTime(2008, 5, 11, 8, 30, 23));
-        //    User user = new User("Tomek", "Kowalski");
-        //    Event item = new Event(user, state, new DateTime(2008, 5, 13, 8, 30, 23), new DateTime(2008, 5, 15, 8, 30, 23));
+            State state = new State(catalog, "opis", new DateTime(2008, 5, 11, 8, 30, 23), false);
+            dataRepository.AddState(state);
 
-        //    Catalog catalog2 = new Catalog("Autorzy", "Tytuly");
-        //    State state2 = new State(catalog2, "opisy", 6, new DateTime(2008, 5, 11, 8, 30, 23));
-        //    User user2 = new User("Tomek", "Kowalski");
-        //    Event item2 = new Event(user2, state2, new DateTime(2008, 5, 14, 8, 30, 23), new DateTime(2008, 5, 17, 8, 30, 23));
+            Event item = new CheckoutEvent(user, state, new DateTime(2008, 5, 13, 8, 30, 23));
+            dataRepository.AddEvent(item);
 
-        //    dataRepository.AddEvent(item);
-        //    dataRepository.AddEvent(item2);
+            Assert.AreEqual(dataRepository.GetEvent(dataRepository.DataContext.Events.Count - 1), item);
+        }
 
-        //    dataRepository.DeleteEvent(item2);
+        [TestMethod()]
+        public void GetEventIncorrectIndexTest()
+        {
+            DataRepository dataRepository = new DataRepository(new DataContext(), new Filler());
 
-        //    Assert.AreEqual(dataRepository.DataContext.Events.Count, 1);
-        //}
+            Assert.ThrowsException<Exception>(() => dataRepository.GetEvent(dataRepository.DataContext.Events.Count));
+            Assert.ThrowsException<Exception>(() => dataRepository.GetEvent(-1));
+        }
+
+        [TestMethod()]
+        public void GetAllEventsTest()
+        {
+            DataRepository dataRepository = new DataRepository(new DataContext(), new Filler());
+
+            IEnumerable<Event> enumerable = dataRepository.GetAllEvents();
+            List<Event> items = enumerable.ToList();
+
+            Assert.AreEqual(items.Count, dataRepository.DataContext.Events.Count);
+
+            for (int i = 0; i < items.Count; i++)
+            {
+                if (items[i] != dataRepository.DataContext.Events[i])
+                {
+                    Assert.Fail();
+                }
+            }
+        }
+
+        [TestMethod()]
+        public void UpdateEventTest()
+        {
+            DataRepository dataRepository = new DataRepository(new DataContext(), new Filler());
+
+            User user = new User("Tomek", "Kowalski");
+            dataRepository.AddUser(user);
+
+            Catalog catalog = new Catalog("Autor", "Tytul");
+            dataRepository.AddCatalog(catalog);
+
+            State state = new State(catalog, "opis", new DateTime(2008, 5, 11, 8, 30, 23), false);
+            dataRepository.AddState(state);
+
+            Event item = new CheckoutEvent(user, state, new DateTime(2008, 5, 13, 8, 30, 23));
+            dataRepository.AddEvent(item);
+
+            int indexOfEvent = dataRepository.DataContext.Events.Count - 1;
+
+            Assert.AreEqual(dataRepository.GetEvent(indexOfEvent).Date, new DateTime(2008, 5, 13, 8, 30, 23));
+
+            dataRepository.UpdateEvent(indexOfEvent, new DateTime(2008, 5, 15, 8, 30, 23));
+
+            Assert.AreEqual(dataRepository.GetEvent(indexOfEvent).Date, new DateTime(2008, 5, 15, 8, 30, 23));
+        }
+
+        [TestMethod()]
+        public void UpdateEventIncorrectIndexTest()
+        {
+            DataRepository dataRepository = new DataRepository(new DataContext(), new Filler());
+
+            User user = new User("Tomek", "Kowalski");
+            dataRepository.AddUser(user);
+
+            Catalog catalog = new Catalog("Autor", "Tytul");
+            dataRepository.AddCatalog(catalog);
+
+            State state = new State(catalog, "opis", new DateTime(2008, 5, 11, 8, 30, 23), false);
+            dataRepository.AddState(state);
+
+            Event item = new CheckoutEvent(user, state, new DateTime(2008, 5, 13, 8, 30, 23));
+            dataRepository.AddEvent(item);
+
+            int eventIndex = dataRepository.DataContext.Events.Count - 1;
+
+            Assert.AreEqual(dataRepository.GetEvent(eventIndex).Date, new DateTime(2008, 5, 13, 8, 30, 23));
+
+            Assert.ThrowsException<Exception>(() => dataRepository.UpdateEvent(eventIndex + 1, new DateTime(2009, 5, 13, 8, 30, 23)));
+            Assert.ThrowsException<Exception>(() => dataRepository.UpdateEvent(-1, new DateTime(2009, 5, 13, 8, 30, 23)));
+
+            Assert.AreEqual(dataRepository.GetEvent(eventIndex).Date, new DateTime(2008, 5, 13, 8, 30, 23));
+        }
+
+        [TestMethod()]
+        public void DeleteEventTest()
+        {
+            DataRepository dataRepository = new DataRepository(new DataContext(), new Filler());
+
+            int numberOfEventsBeforeAdd = dataRepository.DataContext.Events.Count;
+
+            User user = new User("Tomek", "Kowalski");
+            dataRepository.AddUser(user);
+
+            Catalog catalog = new Catalog("Autor", "Tytul");
+            dataRepository.AddCatalog(catalog);
+
+            State state = new State(catalog, "opis", new DateTime(2008, 5, 11, 8, 30, 23), false);
+            dataRepository.AddState(state);
+
+            Event item = new CheckoutEvent(user, state, new DateTime(2008, 5, 13, 8, 30, 23));
+            dataRepository.AddEvent(item);
+
+            Assert.AreEqual(numberOfEventsBeforeAdd + 1, dataRepository.DataContext.Events.Count);
+
+            dataRepository.DeleteEvent(item);
+
+            Assert.AreEqual(numberOfEventsBeforeAdd, dataRepository.DataContext.Events.Count);
+        }
     }
 }
