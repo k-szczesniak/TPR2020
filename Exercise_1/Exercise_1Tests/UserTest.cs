@@ -9,6 +9,7 @@ namespace Exercise_1.Tests
         public void UserConstructorTest()
         {
             User user = new User("Jan", "Kowalski");
+
             Assert.AreEqual("Jan", user.FirstName);
             Assert.AreEqual("Kowalski", user.LastName);
         }
@@ -17,8 +18,10 @@ namespace Exercise_1.Tests
         public void UserSetTest()
         {
             User user = new User("Jan", "Kowalski");
+
             user.FirstName = "Janusz";
             user.LastName = "Nowak";
+
             Assert.AreEqual("Janusz", user.FirstName);
             Assert.AreEqual("Nowak", user.LastName);
         }
