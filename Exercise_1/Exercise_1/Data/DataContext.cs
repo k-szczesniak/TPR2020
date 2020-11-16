@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
-namespace Exercise_1
+namespace Exercise_1.Data
 {
     public class DataContext
     {

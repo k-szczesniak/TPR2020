@@ -1,8 +1,9 @@
-﻿using System;
+﻿using Exercise_1.Data;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Exercise_1
+namespace Exercise_1.Logic
 {
     public class DataService
     {

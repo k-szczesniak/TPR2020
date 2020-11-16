@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Exercise_1
+namespace Exercise_1.Data
 {
     public class ReturnEvent : Event
     {

@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Linq;
+using Exercise_1.Data;
+using Exercise_1.Logic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Exercise_1.Tests
