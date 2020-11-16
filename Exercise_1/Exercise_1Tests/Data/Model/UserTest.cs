@@ -1,7 +1,7 @@
 using Exercise_1.Data;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Exercise_1.Tests
+namespace Exercise_1.Tests.Data
 {
     [TestClass]
     public class UserTest

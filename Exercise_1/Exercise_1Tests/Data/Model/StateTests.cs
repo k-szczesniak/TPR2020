@@ -2,7 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 
-namespace Exercise_1.Tests
+namespace Exercise_1.Tests.Data
 {
     [TestClass()]
     public class StateTests

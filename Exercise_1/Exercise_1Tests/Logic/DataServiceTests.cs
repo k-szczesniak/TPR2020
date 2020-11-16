@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Linq;
+using Exercise_1.TestFiller;
 using Exercise_1.Data;
+using Exercise_1.Tests.TestContext;
+using Exercise_1.Tests.TestRepo;
 using Exercise_1.Logic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Exercise_1.Tests
+namespace Exercise_1.Tests.Logic
 {
     [TestClass()]
     public class DataServiceTests
@@ -13,8 +16,8 @@ namespace Exercise_1.Tests
         public void CatalogCheckoutTest_Correct()
         {
             IFiller filler = new Filler();
-            DataContext dataContext = new DataContext();
-            DataRepository dataRepository = new DataRepository(dataContext, filler);
+            IDataContext dataContext = new TestDataContext();
+            IRepository dataRepository = new TestRepository(dataContext, filler);
             DataService dataService = new DataService(dataRepository);
 
             User user1 = new User("Jan", "Kowalski");
@@ -37,8 +40,8 @@ namespace Exercise_1.Tests
         public void CatalogCheckoutTest_IncorrectCase1()
         {
             IFiller filler = new Filler();
-            DataContext dataContext = new DataContext();
-            DataRepository dataRepository = new DataRepository(dataContext, filler);
+            IDataContext dataContext = new TestDataContext();
+            IRepository dataRepository = new TestRepository(dataContext, filler);
             DataService dataService = new DataService(dataRepository);
 
             User user1 = new User("Jan", "Kowalski");
@@ -70,8 +73,8 @@ namespace Exercise_1.Tests
         public void CatalogCheckoutTest_IncorrectCase2()
         {
             IFiller filler = new Filler();
-            DataContext dataContext = new DataContext();
-            DataRepository dataRepository = new DataRepository(dataContext, filler);
+            IDataContext dataContext = new TestDataContext();
+            IRepository dataRepository = new TestRepository(dataContext, filler);
             DataService dataService = new DataService(dataRepository);
 
             User user1 = new User("Jan", "Kowalski");
@@ -100,8 +103,8 @@ namespace Exercise_1.Tests
         public void CatalogReturnTest_Correct()
         {
             IFiller filler = new Filler();
-            DataContext dataContext = new DataContext();
-            DataRepository dataRepository = new DataRepository(dataContext, filler);
+            IDataContext dataContext = new TestDataContext();
+            IRepository dataRepository = new TestRepository(dataContext, filler);
             DataService dataService = new DataService(dataRepository);
 
             User user1 = new User("Jan", "Kowalski");
@@ -125,8 +128,8 @@ namespace Exercise_1.Tests
         public void CatalogReturnTest_IncorrectCase1()
         {
             IFiller filler = new Filler();
-            DataContext dataContext = new DataContext();
-            DataRepository dataRepository = new DataRepository(dataContext, filler);
+            IDataContext dataContext = new TestDataContext();
+            IRepository dataRepository = new TestRepository(dataContext, filler);
             DataService dataService = new DataService(dataRepository);
 
             User user1 = new User("Jan", "Kowalski");
@@ -155,8 +158,8 @@ namespace Exercise_1.Tests
         public void CatalogReturnTest_IncorrectCase2()
         {
             IFiller filler = new Filler();
-            DataContext dataContext = new DataContext();
-            DataRepository dataRepository = new DataRepository(dataContext, filler);
+            IDataContext dataContext = new TestDataContext();
+            IRepository dataRepository = new TestRepository(dataContext, filler);
             DataService dataService = new DataService(dataRepository);
 
             User user1 = new User("Jan", "Kowalski");
@@ -179,9 +182,9 @@ namespace Exercise_1.Tests
         [TestMethod()]
         public void GetAllEventsBetweenDatesTest()
         {
-            Filler filler = new Filler();
-            DataContext dataContext = new DataContext();
-            DataRepository dataRepository = new DataRepository(dataContext, filler);
+            IFiller filler = new Filler();
+            IDataContext dataContext = new TestDataContext();
+            IRepository dataRepository = new TestRepository(dataContext, filler);
             DataService dataService = new DataService(dataRepository);
 
             DateTime beginPeriod = DateTime.Now;
@@ -205,8 +208,8 @@ namespace Exercise_1.Tests
         public void GetAllEventsForUserTest()
         {
             IFiller filler = new Filler();
-            DataContext dataContext = new DataContext();
-            DataRepository dataRepository = new DataRepository(dataContext, filler);
+            IDataContext dataContext = new TestDataContext();
+            IRepository dataRepository = new TestRepository(dataContext, filler);
             DataService dataService = new DataService(dataRepository);
 
             User user1 = new User("Jan", "Kowalski");
@@ -226,8 +229,8 @@ namespace Exercise_1.Tests
         public void GetAllEventsForCatalogTest()
         {
             IFiller filler = new Filler();
-            DataContext dataContext = new DataContext();
-            DataRepository dataRepository = new DataRepository(dataContext, filler);
+            IDataContext dataContext = new TestDataContext();
+            IRepository dataRepository = new TestRepository(dataContext, filler);
             DataService dataService = new DataService(dataRepository);
 
             Assert.AreEqual(2, dataService.GetAllEventsForCatalog(dataService.GetCatalog(1)).Count());
@@ -237,8 +240,8 @@ namespace Exercise_1.Tests
         public void GetAllStatesForCatalogTest()
         {
             IFiller filler = new Filler();
-            DataContext dataContext = new DataContext();
-            DataRepository dataRepository = new DataRepository(dataContext, filler);
+            IDataContext dataContext = new TestDataContext();
+            IRepository dataRepository = new TestRepository(dataContext, filler);
             DataService dataService = new DataService(dataRepository);
 
             Assert.AreEqual(1, dataService.GetAllStatesForCatalog(dataService.GetCatalog(1)).Count());
@@ -248,8 +251,8 @@ namespace Exercise_1.Tests
         public void GetIndexOfTheStateTest()
         {
             IFiller filler = new Filler();
-            DataContext dataContext = new DataContext();
-            DataRepository dataRepository = new DataRepository(dataContext, filler);
+            IDataContext dataContext = new TestDataContext();
+            IRepository dataRepository = new TestRepository(dataContext, filler);
             DataService dataService = new DataService(dataRepository);
 
             int indexOfState = dataService.GetAllStates().Count();
@@ -267,8 +270,8 @@ namespace Exercise_1.Tests
         public void GetUserConnectedWithStateTest()
         {
             IFiller filler = new Filler();
-            DataContext dataContext = new DataContext();
-            DataRepository dataRepository = new DataRepository(dataContext, filler);
+            IDataContext dataContext = new TestDataContext();
+            IRepository dataRepository = new TestRepository(dataContext, filler);
             DataService dataService = new DataService(dataRepository);
 
             User user = new User("Szymon", "Tomkowski");

@@ -2,6 +2,6 @@
 {
     public interface IFiller
     {
-        void Fill(DataContext context);
+        void Fill(IDataContext context);
     }
 }

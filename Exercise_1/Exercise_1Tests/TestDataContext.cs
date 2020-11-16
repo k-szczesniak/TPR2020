@@ -1,9 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using Exercise_1.Data;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
-namespace Exercise_1.Data
+namespace Exercise_1.Tests.TestContext
 {
-    public class DataContext : IDataContext
+    class TestDataContext : IDataContext
     {
         public List<User> Users { get; set; } = new List<User>();
         public Dictionary<int, Catalog> Catalogs { get; set; } = new Dictionary<int, Catalog>();

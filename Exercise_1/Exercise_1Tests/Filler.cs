@@ -1,11 +1,11 @@
 ﻿using Exercise_1.Data;
 using System;
 
-namespace Exercise_1
+namespace Exercise_1.TestFiller
 {
     public class Filler : IFiller
     {
-        public void Fill(DataContext context)
+        public void Fill(IDataContext context)
         {
             #region User
             context.Users.Add(new User("Jan", "Kowalski"));

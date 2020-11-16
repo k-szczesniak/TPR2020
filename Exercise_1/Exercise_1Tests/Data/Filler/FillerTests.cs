@@ -1,7 +1,8 @@
 ﻿using Exercise_1.Data;
+using Exercise_1.TestFiller;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Exercise_1.Tests
+namespace Exercise_1.Tests.Data
 {
     [TestClass()]
     public class FillerTests

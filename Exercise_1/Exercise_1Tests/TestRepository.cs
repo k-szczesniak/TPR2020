@@ -1,14 +1,15 @@
-﻿using System;
+﻿using Exercise_1.Data;
+using System;
 using System.Collections.Generic;
 
-namespace Exercise_1.Data
+namespace Exercise_1.Tests.TestRepo
 {
-    public class DataRepository : IRepository
+    class TestRepository : IRepository
     {
         private IFiller _filler;
         public IDataContext DataContext { get; private set; }
 
-        public DataRepository(IDataContext dataContext, IFiller filler)
+        public TestRepository(IDataContext dataContext, IFiller filler)
         {
             DataContext = dataContext;
             _filler = filler;
