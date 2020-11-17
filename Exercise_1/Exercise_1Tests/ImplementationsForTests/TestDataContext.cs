@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
-namespace Exercise_1.Tests.TestContext
+namespace Exercise_1.Tests.ImplementationsForTests
 {
     class TestDataContext : IDataContext
     {

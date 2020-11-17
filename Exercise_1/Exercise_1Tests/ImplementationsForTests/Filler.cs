@@ -1,7 +1,7 @@
 ﻿using Exercise_1.Data;
 using System;
 
-namespace Exercise_1.TestFiller
+namespace Exercise_1.Tests.ImplementationsForTests
 {
     public class Filler : IFiller
     {

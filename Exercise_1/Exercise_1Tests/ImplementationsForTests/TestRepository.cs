@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Exercise_1.Tests.TestRepo
+namespace Exercise_1.Tests.ImplementationsForTests
 {
     class TestRepository : IRepository
     {

@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Linq;
-using Exercise_1.TestFiller;
 using Exercise_1.Data;
-using Exercise_1.Tests.TestContext;
-using Exercise_1.Tests.TestRepo;
+using Exercise_1.Tests.ImplementationsForTests;
 using Exercise_1.Logic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -20,20 +18,12 @@ namespace Exercise_1.Tests.Logic
             IRepository dataRepository = new TestRepository(dataContext, filler);
             DataService dataService = new DataService(dataRepository);
 
-            User user1 = new User("Jan", "Kowalski");
-            Catalog catalog1 = new Catalog("Julian Tuwim", "Lokomotywa");
-            State state1 = new State(catalog1, "some description1", new DateTime(2019, 11, 11), true);
+            int numberOfEventsForUser = dataService.GetAllEventsForUser(dataService.GetUser(1)).Count();
+            Assert.AreEqual(2, numberOfEventsForUser);
 
-            int numberOfEventsForUser = dataService.GetAllEventsForUser(user1).Count();
-            Assert.AreEqual(0, numberOfEventsForUser);
-
-            dataService.AddUser(user1);
-            dataService.AddCatalog(catalog1);
-            dataService.AddState(state1);
-
-            dataService.CatalogCheckout(user1, state1);
-            numberOfEventsForUser = dataService.GetAllEventsForUser(user1).Count();
-            Assert.AreEqual(1, numberOfEventsForUser);
+            dataService.CatalogCheckout(dataService.GetUser(1), dataService.GetState(1));
+            numberOfEventsForUser = dataService.GetAllEventsForUser(dataService.GetUser(1)).Count();
+            Assert.AreEqual(3, numberOfEventsForUser);
         }
 
         [TestMethod()]
@@ -44,29 +34,18 @@ namespace Exercise_1.Tests.Logic
             IRepository dataRepository = new TestRepository(dataContext, filler);
             DataService dataService = new DataService(dataRepository);
 
-            User user1 = new User("Jan", "Kowalski");
-            Catalog catalog1 = new Catalog("Julian Tuwim", "Lokomotywa");
-            State state1 = new State(catalog1, "some description1", new DateTime(2019, 11, 11), true);
+            int numberOfEventsForUser = dataService.GetAllEventsForUser(dataService.GetUser(1)).Count();
 
-            User user2 = new User("Janusz", "Nowak");
+            Assert.AreEqual(2, numberOfEventsForUser);
 
-            int numberOfEventsForUser = dataService.GetAllEventsForUser(user1).Count();
+            dataService.CatalogCheckout(dataService.GetUser(1), dataService.GetState(1));
 
-            Assert.AreEqual(0, numberOfEventsForUser);
+            numberOfEventsForUser = dataService.GetAllEventsForUser(dataService.GetUser(1)).Count();
 
-            dataService.AddUser(user1);
-            dataService.AddUser(user2);
-            dataService.AddCatalog(catalog1);
-            dataService.AddState(state1);
-
-            dataService.CatalogCheckout(user1, state1);
-
-            numberOfEventsForUser = dataService.GetAllEventsForUser(user1).Count();
-
-            Assert.AreEqual(1, numberOfEventsForUser);
-            Assert.ThrowsException<ArgumentException>(() => dataService.CatalogCheckout(user2, state1));
-            numberOfEventsForUser = dataService.GetAllEventsForUser(user1).Count();
-            Assert.AreEqual(1, numberOfEventsForUser);
+            Assert.AreEqual(3, numberOfEventsForUser);
+            Assert.ThrowsException<ArgumentException>(() => dataService.CatalogCheckout(dataService.GetUser(2), dataService.GetState(1)));
+            numberOfEventsForUser = dataService.GetAllEventsForUser(dataService.GetUser(1)).Count();
+            Assert.AreEqual(3, numberOfEventsForUser);
         }
 
         [TestMethod()]
@@ -77,26 +56,18 @@ namespace Exercise_1.Tests.Logic
             IRepository dataRepository = new TestRepository(dataContext, filler);
             DataService dataService = new DataService(dataRepository);
 
-            User user1 = new User("Jan", "Kowalski");
-            Catalog catalog1 = new Catalog("Julian Tuwim", "Lokomotywa");
-            State state1 = new State(catalog1, "some description1", new DateTime(2019, 11, 11), true);
+            int numberOfEventsForUser = dataService.GetAllEventsForUser(dataService.GetUser(1)).Count();
+            Assert.AreEqual(2, numberOfEventsForUser);
 
-            dataService.AddUser(user1);
-            dataService.AddCatalog(catalog1);
-            dataService.AddState(state1);
+            dataService.CatalogCheckout(dataService.GetUser(1), dataService.GetState(1));
 
-            int numberOfEventsForUser = dataService.GetAllEventsForUser(user1).Count();
-            Assert.AreEqual(0, numberOfEventsForUser);
+            numberOfEventsForUser = dataService.GetAllEventsForUser(dataService.GetUser(1)).Count();
+            Assert.AreEqual(3, numberOfEventsForUser);
 
-            dataService.CatalogCheckout(user1, state1);
+            Assert.ThrowsException<ArgumentException>(() => dataService.CatalogCheckout(dataService.GetUser(1), dataService.GetState(1)));
 
-            numberOfEventsForUser = dataService.GetAllEventsForUser(user1).Count();
-            Assert.AreEqual(1, numberOfEventsForUser);
-
-            Assert.ThrowsException<ArgumentException>(() => dataService.CatalogCheckout(user1, state1));
-
-            numberOfEventsForUser = dataService.GetAllEventsForUser(user1).Count();
-            Assert.AreEqual(1, numberOfEventsForUser);
+            numberOfEventsForUser = dataService.GetAllEventsForUser(dataService.GetUser(1)).Count();
+            Assert.AreEqual(3, numberOfEventsForUser);
         }
 
         [TestMethod()]
@@ -107,21 +78,13 @@ namespace Exercise_1.Tests.Logic
             IRepository dataRepository = new TestRepository(dataContext, filler);
             DataService dataService = new DataService(dataRepository);
 
-            User user1 = new User("Jan", "Kowalski");
-            Catalog catalog1 = new Catalog("Julian Tuwim", "Lokomotywa");
-            State state1 = new State(catalog1, "some description1", new DateTime(2019, 11, 11), true);
+            dataService.CatalogCheckout(dataService.GetUser(1), dataService.GetState(1));
+            int numberOfEventsForUser = dataService.GetAllEventsForUser(dataService.GetUser(1)).Count();
+            Assert.AreEqual(3, numberOfEventsForUser);
 
-            dataService.AddUser(user1);
-            dataService.AddCatalog(catalog1);
-            dataService.AddState(state1);
-
-            dataService.CatalogCheckout(user1, state1);
-            int numberOfEventsForUser = dataService.GetAllEventsForUser(user1).Count();
-            Assert.AreEqual(1, numberOfEventsForUser);
-
-            dataService.CatalogReturn(user1, state1);
-            numberOfEventsForUser = dataService.GetAllEventsForUser(user1).Count();
-            Assert.AreEqual(2, numberOfEventsForUser);
+            dataService.CatalogReturn(dataService.GetUser(1), dataService.GetState(1));
+            numberOfEventsForUser = dataService.GetAllEventsForUser(dataService.GetUser(1)).Count();
+            Assert.AreEqual(4, numberOfEventsForUser);
         }
 
         [TestMethod()]
@@ -132,26 +95,18 @@ namespace Exercise_1.Tests.Logic
             IRepository dataRepository = new TestRepository(dataContext, filler);
             DataService dataService = new DataService(dataRepository);
 
-            User user1 = new User("Jan", "Kowalski");
-            Catalog catalog1 = new Catalog("Julian Tuwim", "Lokomotywa");
-            State state1 = new State(catalog1, "some description1", new DateTime(2019, 11, 11), true);
+            dataService.CatalogCheckout(dataService.GetUser(1), dataService.GetState(1));
+            int numberOfEventsForUser = dataService.GetAllEventsForUser(dataService.GetUser(1)).Count();
+            Assert.AreEqual(3, numberOfEventsForUser);
 
-            dataService.AddUser(user1);
-            dataService.AddCatalog(catalog1);
-            dataService.AddState(state1);
+            dataService.CatalogReturn(dataService.GetUser(1), dataService.GetState(1));
+            numberOfEventsForUser = dataService.GetAllEventsForUser(dataService.GetUser(1)).Count();
+            Assert.AreEqual(4, numberOfEventsForUser);
 
-            dataService.CatalogCheckout(user1, state1);
-            int numberOfEventsForUser = dataService.GetAllEventsForUser(user1).Count();
-            Assert.AreEqual(1, numberOfEventsForUser);
+            Assert.ThrowsException<ArgumentException>(() => dataService.CatalogReturn(dataService.GetUser(1), dataService.GetState(1)));
 
-            dataService.CatalogReturn(user1, state1);
-            numberOfEventsForUser = dataService.GetAllEventsForUser(user1).Count();
-            Assert.AreEqual(2, numberOfEventsForUser);
-
-            Assert.ThrowsException<ArgumentException>(() => dataService.CatalogReturn(user1, state1));
-           
-            numberOfEventsForUser = dataService.GetAllEventsForUser(user1).Count();
-            Assert.AreEqual(2, numberOfEventsForUser);
+            numberOfEventsForUser = dataService.GetAllEventsForUser(dataService.GetUser(1)).Count();
+            Assert.AreEqual(4, numberOfEventsForUser);
         }
 
         [TestMethod()]
@@ -162,21 +117,13 @@ namespace Exercise_1.Tests.Logic
             IRepository dataRepository = new TestRepository(dataContext, filler);
             DataService dataService = new DataService(dataRepository);
 
-            User user1 = new User("Jan", "Kowalski");
-            Catalog catalog1 = new Catalog("Julian Tuwim", "Lokomotywa");
-            State state1 = new State(catalog1, "some description1", new DateTime(2019, 11, 11), true);
+            int numberOfEventsForUser = dataService.GetAllEventsForUser(dataService.GetUser(1)).Count();
+            Assert.AreEqual(2, numberOfEventsForUser);
 
-            dataService.AddUser(user1);
-            dataService.AddCatalog(catalog1);
-            dataService.AddState(state1);
+            Assert.ThrowsException<ArgumentException>(() => dataService.CatalogReturn(dataService.GetUser(1), dataService.GetState(1)));
 
-            int numberOfEventsForUser = dataService.GetAllEventsForUser(user1).Count();
-            Assert.AreEqual(0, numberOfEventsForUser);
-
-            Assert.ThrowsException<ArgumentException>(() => dataService.CatalogReturn(user1, state1));
-
-            numberOfEventsForUser = dataService.GetAllEventsForUser(user1).Count();
-            Assert.AreEqual(0, numberOfEventsForUser);
+            numberOfEventsForUser = dataService.GetAllEventsForUser(dataService.GetUser(1)).Count();
+            Assert.AreEqual(2, numberOfEventsForUser);
         }
 
         [TestMethod()]
@@ -192,14 +139,7 @@ namespace Exercise_1.Tests.Logic
 
             Assert.AreEqual(0, dataService.GetAllEventsBetweenDates(beginPeriod, endPeriod).Count());
 
-            User user1 = new User("Jan", "Kowalski");
-            dataService.AddUser(user1);
-            Catalog book = new Catalog("Autor1", "Tytul1");
-            dataService.AddCatalog(book);
-            State state = new State(book, "some description", new DateTime(2019, 11, 11), true);
-            dataService.AddState(state);
-
-            dataService.CatalogCheckout(user1, state);
+            dataService.CatalogCheckout(dataService.GetUser(1), dataService.GetState(1));
 
             Assert.AreEqual(1, dataService.GetAllEventsBetweenDates(beginPeriod, endPeriod).Count());
         }
@@ -212,17 +152,9 @@ namespace Exercise_1.Tests.Logic
             IRepository dataRepository = new TestRepository(dataContext, filler);
             DataService dataService = new DataService(dataRepository);
 
-            User user1 = new User("Jan", "Kowalski");
-            Catalog catalog1 = new Catalog("Julian Tuwim", "Lokomotywa");
-            State state1 = new State(catalog1, "some description1", new DateTime(2019, 11, 11), true);
+            dataService.CatalogCheckout(dataService.GetUser(1), dataService.GetState(1));
 
-            dataService.AddUser(user1);
-            dataService.AddCatalog(catalog1);
-            dataService.AddState(state1);
-
-            dataService.CatalogCheckout(user1, state1);
-
-            Assert.AreEqual(1, dataService.GetAllEventsForUser(user1).Count());
+            Assert.AreEqual(3, dataService.GetAllEventsForUser(dataService.GetUser(1)).Count());
         }
 
         [TestMethod()]
@@ -255,15 +187,9 @@ namespace Exercise_1.Tests.Logic
             IRepository dataRepository = new TestRepository(dataContext, filler);
             DataService dataService = new DataService(dataRepository);
 
-            int indexOfState = dataService.GetAllStates().Count();
+            int indexOfState = dataService.GetAllStates().Count() - 1;
 
-            Catalog catalog = new Catalog("Autor", "Tytul");
-            dataService.AddCatalog(catalog);
-
-            State state = new State(catalog, "description", new DateTime(2008, 3, 15), true);
-            dataService.AddState(state);
-
-            Assert.AreEqual(indexOfState, dataService.GetIndexOfTheState(state));
+            Assert.AreEqual(indexOfState, dataService.GetIndexOfTheState(dataService.GetState(indexOfState)));
         }
 
         [TestMethod()]
@@ -274,18 +200,9 @@ namespace Exercise_1.Tests.Logic
             IRepository dataRepository = new TestRepository(dataContext, filler);
             DataService dataService = new DataService(dataRepository);
 
-            User user = new User("Szymon", "Tomkowski");
-            dataService.AddUser(user);
+            dataService.CatalogCheckout(dataService.GetUser(1), dataService.GetState(1));
 
-            Catalog catalog = new Catalog("Autor", "Tytul");
-            dataService.AddCatalog(catalog);
-
-            State state = new State(catalog, "description", new DateTime(2008, 3, 15), true);
-            dataService.AddState(state);
-
-            dataService.CatalogCheckout(user, state);
-
-            Assert.AreEqual(user, dataService.GetUserConnectedWithState(state));
+            Assert.AreEqual(dataService.GetUser(1), dataService.GetUserConnectedWithState(dataService.GetState(1)));
         }
     }
 }
