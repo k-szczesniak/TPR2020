@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using Data;
 using Serialization;
 
@@ -45,15 +46,15 @@ namespace ConsoleApplication
                 switch (choice)
                 {
                     case 1:
-                        Console.WriteLine("One option");
-                        string xd = JsonSerializer.Serialize(class1, "xdxdxd");
-                        Console.WriteLine(xd);
-                        //TODO: option 1;
+                        JsonSerializer.Serialize(class1, "serializationTest.json");
+                        Console.WriteLine("Object has been successfully serialized!");
+                        Console.WriteLine("File location: " + Directory.GetCurrentDirectory());
                         break;
                     case 2:
-                        Console.WriteLine("Two option");
-                        Console.Write(typeof(string).Assembly.ImageRuntimeVersion);
-                        //TODO: option 2;
+                        Class1 class1Deserialized = JsonSerializer.Deserialize<Class1>("serializationTest.json");
+                        Console.WriteLine("Object has been successfully deserialized!");                                               
+                        Console.WriteLine(class1Deserialized.Number);                                               
+                        Console.WriteLine(class1Deserialized.Text);                                               
                         break;
                     case 3:
                         Console.WriteLine("Three option");
@@ -64,8 +65,7 @@ namespace ConsoleApplication
                         //TODO: option 4;
                         break;
                     case 5:
-                        Console.WriteLine("Five option");
-                        //TODO: option 5;
+                        Environment.Exit(0);
                         break;
                 }
             }

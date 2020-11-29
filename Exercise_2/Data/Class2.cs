@@ -7,8 +7,6 @@ namespace Data
     {
         public Class1 Class1 { get; set; }
         public Class3 Class3 { get; set; }
-
-
         public double Number { get; set; }
         public bool BooleanValue { get; set; }
         public string Text { get; set; }
