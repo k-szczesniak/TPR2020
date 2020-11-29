@@ -13,7 +13,7 @@ namespace Exercise_1.Tests.Data
         [TestMethod()]
         public void AddAndGetUserTest()
         {
-            DataRepository dataRepository = new DataRepository(new DataContext(), new Filler());
+            DataRepository dataRepository = new DataRepository(new DataContext(), new ConstantFiller());
 
             User user = new User("Tomek", "Kowalski");
             dataRepository.AddUser(user);
@@ -24,7 +24,7 @@ namespace Exercise_1.Tests.Data
         [TestMethod()]
         public void GetUserIncorrectIndexTest()
         {
-            DataRepository dataRepository = new DataRepository(new DataContext(), new Filler());
+            DataRepository dataRepository = new DataRepository(new DataContext(), new ConstantFiller());
 
             Assert.ThrowsException<Exception>(() => dataRepository.GetUser(dataRepository.DataContext.Users.Count));
             Assert.ThrowsException<Exception>(() => dataRepository.GetUser(-1));
@@ -33,7 +33,7 @@ namespace Exercise_1.Tests.Data
         [TestMethod()]
         public void GetAllUsersTest()
         {
-            DataRepository dataRepository = new DataRepository(new DataContext(), new Filler());
+            DataRepository dataRepository = new DataRepository(new DataContext(), new ConstantFiller());
 
             IEnumerable<User> enumerable = dataRepository.GetAllUsers();
             List<User> users = enumerable.ToList();
@@ -52,7 +52,7 @@ namespace Exercise_1.Tests.Data
         [TestMethod()]
         public void UpdateUserTest()
         {
-            DataRepository dataRepository = new DataRepository(new DataContext(), new Filler());
+            DataRepository dataRepository = new DataRepository(new DataContext(), new ConstantFiller());
 
             User user = new User("Tomek", "Tomkowski");
             dataRepository.AddUser(user);
@@ -71,7 +71,7 @@ namespace Exercise_1.Tests.Data
         [TestMethod()]
         public void UpdateUserIncorrectIndexTest()
         {
-            DataRepository dataRepository = new DataRepository(new DataContext(), new Filler());
+            DataRepository dataRepository = new DataRepository(new DataContext(), new ConstantFiller());
 
             User user = new User("Tomek", "Tomkowski");
             dataRepository.AddUser(user);
@@ -91,7 +91,7 @@ namespace Exercise_1.Tests.Data
         [TestMethod()]
         public void DeleteUserTest()
         {
-            DataRepository dataRepository = new DataRepository(new DataContext(), new Filler());
+            DataRepository dataRepository = new DataRepository(new DataContext(), new ConstantFiller());
 
             int numberOfUsersBeforeAdd = dataRepository.DataContext.Users.Count;
 
@@ -108,7 +108,7 @@ namespace Exercise_1.Tests.Data
         [TestMethod()]
         public void TryingToDeleteUserConnectedWithEventTest()
         {
-            DataRepository dataRepository = new DataRepository(new DataContext(), new Filler());
+            DataRepository dataRepository = new DataRepository(new DataContext(), new ConstantFiller());
 
             int numberOfUsersBeforeAdd = dataRepository.DataContext.Users.Count;
 
@@ -134,7 +134,7 @@ namespace Exercise_1.Tests.Data
         [TestMethod()]
         public void AddAndGetCatalogTest()
         {
-            DataRepository dataRepository = new DataRepository(new DataContext(), new Filler());
+            DataRepository dataRepository = new DataRepository(new DataContext(), new ConstantFiller());
 
             Catalog catalog = new Catalog("Autor", "Tytul");
             dataRepository.AddCatalog(catalog);
@@ -145,7 +145,7 @@ namespace Exercise_1.Tests.Data
         [TestMethod()]
         public void GetCatalogIncorrectIndexTest()
         {
-            DataRepository dataRepository = new DataRepository(new DataContext(), new Filler());
+            DataRepository dataRepository = new DataRepository(new DataContext(), new ConstantFiller());
 
             Assert.ThrowsException<Exception>(() => dataRepository.GetCatalog(dataRepository.DataContext.Catalogs.Count));
             Assert.ThrowsException<Exception>(() => dataRepository.GetCatalog(-1));
@@ -154,7 +154,7 @@ namespace Exercise_1.Tests.Data
         [TestMethod()]
         public void GetAllCatalogsTest()
         {
-            DataRepository dataRepository = new DataRepository(new DataContext(), new Filler());
+            DataRepository dataRepository = new DataRepository(new DataContext(), new ConstantFiller());
 
             IEnumerable<Catalog> enumerable = dataRepository.GetAllCatalogs();
             List<Catalog> catalogs = enumerable.ToList();
@@ -173,7 +173,7 @@ namespace Exercise_1.Tests.Data
         [TestMethod()]
         public void UpdateCatalogTest()
         {
-            DataRepository dataRepository = new DataRepository(new DataContext(), new Filler());
+            DataRepository dataRepository = new DataRepository(new DataContext(), new ConstantFiller());
 
             Catalog catalog = new Catalog("Autor", "Tytul");
             dataRepository.AddCatalog(catalog);
@@ -192,7 +192,7 @@ namespace Exercise_1.Tests.Data
         [TestMethod()]
         public void UpdateCatalogIncorrectIndexTest()
         {
-            DataRepository dataRepository = new DataRepository(new DataContext(), new Filler());
+            DataRepository dataRepository = new DataRepository(new DataContext(), new ConstantFiller());
 
             Catalog catalog = new Catalog("Autor", "Tytul");
             dataRepository.AddCatalog(catalog);
@@ -212,7 +212,7 @@ namespace Exercise_1.Tests.Data
         [TestMethod()]
         public void DeleteCatalogTest()
         {
-            DataRepository dataRepository = new DataRepository(new DataContext(), new Filler());
+            DataRepository dataRepository = new DataRepository(new DataContext(), new ConstantFiller());
 
             int numberOfCatalogsBeforeAdd = dataRepository.DataContext.Catalogs.Count;
 
@@ -229,7 +229,7 @@ namespace Exercise_1.Tests.Data
         [TestMethod()]
         public void TryingToDeleteCatalogConnectedWithStateTest()
         {
-            DataRepository dataRepository = new DataRepository(new DataContext(), new Filler());
+            DataRepository dataRepository = new DataRepository(new DataContext(), new ConstantFiller());
 
             int numberOfCatalogsBeforeAdd = dataRepository.DataContext.Catalogs.Count;
 
@@ -249,7 +249,7 @@ namespace Exercise_1.Tests.Data
         [TestMethod()]
         public void AddAndGetStateTest()
         {
-            DataRepository dataRepository = new DataRepository(new DataContext(), new Filler());
+            DataRepository dataRepository = new DataRepository(new DataContext(), new ConstantFiller());
 
             Catalog catalog = new Catalog("Autor", "Tytul");
             dataRepository.AddCatalog(catalog);
@@ -263,7 +263,7 @@ namespace Exercise_1.Tests.Data
         [TestMethod()]
         public void GetStateIncorrectIndexTest()
         {
-            DataRepository dataRepository = new DataRepository(new DataContext(), new Filler());
+            DataRepository dataRepository = new DataRepository(new DataContext(), new ConstantFiller());
 
             Assert.ThrowsException<Exception>(() => dataRepository.GetState(dataRepository.DataContext.States.Count));
             Assert.ThrowsException<Exception>(() => dataRepository.GetState(-1));
@@ -272,7 +272,7 @@ namespace Exercise_1.Tests.Data
         [TestMethod()]
         public void GetAllStatesTest()
         {
-            DataRepository dataRepository = new DataRepository(new DataContext(), new Filler());
+            DataRepository dataRepository = new DataRepository(new DataContext(), new ConstantFiller());
 
             IEnumerable<State> enumerable = dataRepository.GetAllStates();
             List<State> states = enumerable.ToList();
@@ -291,7 +291,7 @@ namespace Exercise_1.Tests.Data
         [TestMethod()]
         public void UpdateStateTestCase1()
         {
-            DataRepository dataRepository = new DataRepository(new DataContext(), new Filler());
+            DataRepository dataRepository = new DataRepository(new DataContext(), new ConstantFiller());
 
             Catalog catalog = new Catalog("Autor", "Tytul");
             dataRepository.AddCatalog(catalog);
@@ -316,7 +316,7 @@ namespace Exercise_1.Tests.Data
         [TestMethod()]
         public void UpdateStateTestCase2_Overload()
         {
-            DataRepository dataRepository = new DataRepository(new DataContext(), new Filler());
+            DataRepository dataRepository = new DataRepository(new DataContext(), new ConstantFiller());
 
             Catalog catalog = new Catalog("Autor", "Tytul");
             dataRepository.AddCatalog(catalog);
@@ -341,7 +341,7 @@ namespace Exercise_1.Tests.Data
         [TestMethod()]
         public void UpdateStateIncorrectIndexTest()
         {
-            DataRepository dataRepository = new DataRepository(new DataContext(), new Filler());
+            DataRepository dataRepository = new DataRepository(new DataContext(), new ConstantFiller());
 
             Catalog catalog = new Catalog("Autor", "Tytul");
             dataRepository.AddCatalog(catalog);
@@ -369,7 +369,7 @@ namespace Exercise_1.Tests.Data
         [TestMethod()]
         public void DeleteStateTest()
         {
-            DataRepository dataRepository = new DataRepository(new DataContext(), new Filler());
+            DataRepository dataRepository = new DataRepository(new DataContext(), new ConstantFiller());
 
             int numberOfStatesBeforeAdd = dataRepository.DataContext.States.Count;
 
@@ -389,7 +389,7 @@ namespace Exercise_1.Tests.Data
         [TestMethod()]
         public void TryingToDeleteStateConnectedWithEventTest()
         {
-            DataRepository dataRepository = new DataRepository(new DataContext(), new Filler());
+            DataRepository dataRepository = new DataRepository(new DataContext(), new ConstantFiller());
 
             int numberOfStatesBeforeAdd = dataRepository.DataContext.States.Count;
 
@@ -415,7 +415,7 @@ namespace Exercise_1.Tests.Data
         [TestMethod()]
         public void AddAndGetEventTest()
         {
-            DataRepository dataRepository = new DataRepository(new DataContext(), new Filler());
+            DataRepository dataRepository = new DataRepository(new DataContext(), new ConstantFiller());
 
             User user = new User("Tomek", "Kowalski");
             dataRepository.AddUser(user);
@@ -435,7 +435,7 @@ namespace Exercise_1.Tests.Data
         [TestMethod()]
         public void GetEventIncorrectIndexTest()
         {
-            DataRepository dataRepository = new DataRepository(new DataContext(), new Filler());
+            DataRepository dataRepository = new DataRepository(new DataContext(), new ConstantFiller());
 
             Assert.ThrowsException<Exception>(() => dataRepository.GetEvent(dataRepository.DataContext.Events.Count));
             Assert.ThrowsException<Exception>(() => dataRepository.GetEvent(-1));
@@ -444,7 +444,7 @@ namespace Exercise_1.Tests.Data
         [TestMethod()]
         public void GetAllEventsTest()
         {
-            DataRepository dataRepository = new DataRepository(new DataContext(), new Filler());
+            DataRepository dataRepository = new DataRepository(new DataContext(), new ConstantFiller());
 
             IEnumerable<Event> enumerable = dataRepository.GetAllEvents();
             List<Event> items = enumerable.ToList();
@@ -463,7 +463,7 @@ namespace Exercise_1.Tests.Data
         [TestMethod()]
         public void UpdateEventTest()
         {
-            DataRepository dataRepository = new DataRepository(new DataContext(), new Filler());
+            DataRepository dataRepository = new DataRepository(new DataContext(), new ConstantFiller());
 
             User user = new User("Tomek", "Kowalski");
             dataRepository.AddUser(user);
@@ -489,7 +489,7 @@ namespace Exercise_1.Tests.Data
         [TestMethod()]
         public void UpdateEventIncorrectIndexTest()
         {
-            DataRepository dataRepository = new DataRepository(new DataContext(), new Filler());
+            DataRepository dataRepository = new DataRepository(new DataContext(), new ConstantFiller());
 
             User user = new User("Tomek", "Kowalski");
             dataRepository.AddUser(user);
@@ -516,7 +516,7 @@ namespace Exercise_1.Tests.Data
         [TestMethod()]
         public void DeleteEventTest()
         {
-            DataRepository dataRepository = new DataRepository(new DataContext(), new Filler());
+            DataRepository dataRepository = new DataRepository(new DataContext(), new ConstantFiller());
 
             int numberOfEventsBeforeAdd = dataRepository.DataContext.Events.Count;
 

@@ -13,7 +13,7 @@ namespace Exercise_1.Tests.Logic
         [TestMethod()]
         public void CatalogCheckoutTest_Correct()
         {
-            IFiller filler = new Filler();
+            IFiller filler = new ConstantFiller();
             IDataContext dataContext = new TestDataContext();
             IRepository dataRepository = new TestRepository(dataContext, filler);
             DataService dataService = new DataService(dataRepository);
@@ -29,7 +29,7 @@ namespace Exercise_1.Tests.Logic
         [TestMethod()]
         public void CatalogCheckoutTest_IncorrectCase1()
         {
-            IFiller filler = new Filler();
+            IFiller filler = new ConstantFiller();
             IDataContext dataContext = new TestDataContext();
             IRepository dataRepository = new TestRepository(dataContext, filler);
             DataService dataService = new DataService(dataRepository);
@@ -51,7 +51,7 @@ namespace Exercise_1.Tests.Logic
         [TestMethod()]
         public void CatalogCheckoutTest_IncorrectCase2()
         {
-            IFiller filler = new Filler();
+            IFiller filler = new ConstantFiller();
             IDataContext dataContext = new TestDataContext();
             IRepository dataRepository = new TestRepository(dataContext, filler);
             DataService dataService = new DataService(dataRepository);
@@ -73,7 +73,7 @@ namespace Exercise_1.Tests.Logic
         [TestMethod()]
         public void CatalogReturnTest_Correct()
         {
-            IFiller filler = new Filler();
+            IFiller filler = new ConstantFiller();
             IDataContext dataContext = new TestDataContext();
             IRepository dataRepository = new TestRepository(dataContext, filler);
             DataService dataService = new DataService(dataRepository);
@@ -90,7 +90,7 @@ namespace Exercise_1.Tests.Logic
         [TestMethod()]
         public void CatalogReturnTest_IncorrectCase1()
         {
-            IFiller filler = new Filler();
+            IFiller filler = new ConstantFiller();
             IDataContext dataContext = new TestDataContext();
             IRepository dataRepository = new TestRepository(dataContext, filler);
             DataService dataService = new DataService(dataRepository);
@@ -112,7 +112,7 @@ namespace Exercise_1.Tests.Logic
         [TestMethod()]
         public void CatalogReturnTest_IncorrectCase2()
         {
-            IFiller filler = new Filler();
+            IFiller filler = new ConstantFiller();
             IDataContext dataContext = new TestDataContext();
             IRepository dataRepository = new TestRepository(dataContext, filler);
             DataService dataService = new DataService(dataRepository);
@@ -129,7 +129,7 @@ namespace Exercise_1.Tests.Logic
         [TestMethod()]
         public void GetAllEventsBetweenDatesTest()
         {
-            IFiller filler = new Filler();
+            IFiller filler = new ConstantFiller();
             IDataContext dataContext = new TestDataContext();
             IRepository dataRepository = new TestRepository(dataContext, filler);
             DataService dataService = new DataService(dataRepository);
@@ -147,7 +147,7 @@ namespace Exercise_1.Tests.Logic
         [TestMethod()]
         public void GetAllEventsForUserTest()
         {
-            IFiller filler = new Filler();
+            IFiller filler = new ConstantFiller();
             IDataContext dataContext = new TestDataContext();
             IRepository dataRepository = new TestRepository(dataContext, filler);
             DataService dataService = new DataService(dataRepository);
@@ -160,7 +160,7 @@ namespace Exercise_1.Tests.Logic
         [TestMethod()]
         public void GetAllEventsForCatalogTest()
         {
-            IFiller filler = new Filler();
+            IFiller filler = new ConstantFiller();
             IDataContext dataContext = new TestDataContext();
             IRepository dataRepository = new TestRepository(dataContext, filler);
             DataService dataService = new DataService(dataRepository);
@@ -171,7 +171,7 @@ namespace Exercise_1.Tests.Logic
         [TestMethod()]
         public void GetAllStatesForCatalogTest()
         {
-            IFiller filler = new Filler();
+            IFiller filler = new ConstantFiller();
             IDataContext dataContext = new TestDataContext();
             IRepository dataRepository = new TestRepository(dataContext, filler);
             DataService dataService = new DataService(dataRepository);
@@ -182,7 +182,7 @@ namespace Exercise_1.Tests.Logic
         [TestMethod()]
         public void GetIndexOfTheStateTest()
         {
-            IFiller filler = new Filler();
+            IFiller filler = new ConstantFiller();
             IDataContext dataContext = new TestDataContext();
             IRepository dataRepository = new TestRepository(dataContext, filler);
             DataService dataService = new DataService(dataRepository);
@@ -195,7 +195,7 @@ namespace Exercise_1.Tests.Logic
         [TestMethod()]
         public void GetUserConnectedWithStateTest()
         {
-            IFiller filler = new Filler();
+            IFiller filler = new ConstantFiller();
             IDataContext dataContext = new TestDataContext();
             IRepository dataRepository = new TestRepository(dataContext, filler);
             DataService dataService = new DataService(dataRepository);

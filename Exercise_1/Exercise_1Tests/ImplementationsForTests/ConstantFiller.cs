@@ -3,7 +3,7 @@ using System;
 
 namespace Exercise_1.Tests.ImplementationsForTests
 {
-    public class Filler : IFiller
+    public class ConstantFiller : IFiller
     {
         public void Fill(IDataContext context)
         {
