@@ -10,19 +10,18 @@ namespace Serialization
         {
             PreserveReferencesHandling = PreserveReferencesHandling.Objects,
             TypeNameHandling = TypeNameHandling.Auto,
+            NullValueHandling = NullValueHandling.Ignore,
         };
-        public static void Serialize(object obj, string filePath)
+        public static void Serialize(Stream serializationStream, object obj)
         {
-            using FileStream fileStream = new FileStream(filePath, FileMode.Create);
             string json = JsonConvert.SerializeObject(obj, Formatting.Indented, JsonSettings);
-            fileStream.Write(Encoding.UTF8.GetBytes(json));
+            serializationStream.Write(Encoding.UTF8.GetBytes(json));
         }
 
-        public static T Deserialize<T>(string filePath)
-        {
-            using FileStream fileStream = new FileStream(filePath, FileMode.Open);
-            byte[] bytes = new byte[fileStream.Length];
-            fileStream.Read(bytes);
+        public static T Deserialize<T>(Stream serializationStream)
+        {            
+            byte[] bytes = new byte[serializationStream.Length];
+            serializationStream.Read(bytes);
             return JsonConvert.DeserializeObject<T>(Encoding.UTF8.GetString(bytes), JsonSettings);
         }
 

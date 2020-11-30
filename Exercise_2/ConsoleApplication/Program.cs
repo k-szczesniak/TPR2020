@@ -52,42 +52,60 @@ namespace ConsoleApplication
                 switch (choice)
                 {
                     case 1:
-                        JsonSerializer.Serialize(dataContext, "serializationDataContextTest.json");
-                        Console.WriteLine("Object has been successfully serialized!");
-                        Console.WriteLine("File location: " + Directory.GetCurrentDirectory());
+                        using (FileStream fileStream = new FileStream("serializationDataContextTest.json", FileMode.Create))
+                        {
+                            JsonSerializer.Serialize(fileStream, dataContext);
+                            Console.WriteLine("Object has been successfully serialized!");
+                            Console.WriteLine("File location: " + Directory.GetCurrentDirectory());
+                        }                        
                         break;
                     case 2:
-                        IDataContext dataContextDeserialized = JsonSerializer.Deserialize<DataContext>("serializationDataContextTest.json");
-                        Console.WriteLine("Object has been successfully deserialized!");                                               
-                        Console.WriteLine(dataContextDeserialized.Users[0]);                                               
-                        Console.WriteLine(dataContextDeserialized.Catalogs[0]);     
+                        using (FileStream fileStream = new FileStream("serializationDataContextTest.json", FileMode.Open))
+                        {
+                            IDataContext dataContextDeserialized = JsonSerializer.Deserialize<DataContext>(fileStream);
+                            Console.WriteLine("Object has been successfully deserialized!");
+                            Console.WriteLine(dataContextDeserialized.Users[0]);
+                            Console.WriteLine(dataContextDeserialized.Catalogs[0]);
+                        }
                         break;
                     case 3:
-                        JsonSerializer.Serialize(class1, "serializationClass1Test.json");
-                        Console.WriteLine("Object has been successfully serialized!");
-                        Console.WriteLine("File location: " + Directory.GetCurrentDirectory());
+                        using (FileStream fileStream = new FileStream("serializationClass1Test.json", FileMode.Create))
+                        {
+                            JsonSerializer.Serialize(fileStream, class1);
+                            Console.WriteLine("Object has been successfully serialized!");
+                            Console.WriteLine("File location: " + Directory.GetCurrentDirectory());
+                        }                        
                         break;
                     case 4:
-                        Class1 class1Deserialized = JsonSerializer.Deserialize<Class1>("serializationClass1Test.json");
-                        Console.WriteLine("Object has been successfully deserialized!");
-                        Console.WriteLine(class1Deserialized.Number);
-                        Console.WriteLine(class1Deserialized.Text);
+                        using (FileStream fileStream = new FileStream("serializationClass1Test.json", FileMode.Open))
+                        {
+                            Class1 class1Deserialized = JsonSerializer.Deserialize<Class1>(fileStream);
+                            Console.WriteLine("Object has been successfully deserialized!");
+                            Console.WriteLine(class1Deserialized.Number);
+                            Console.WriteLine(class1Deserialized.Text);
+                        }                        
                         break;
                     case 5:
-                        //OurSerializer ourSerializer = new OurSerializer();
-                        //ourSerializer.Serialize(new FileStream("ownSerializationTest.txt", FileMode.Create), class1);
-                        //Console.WriteLine("Object has been successfully serialized!");
-                        //Console.WriteLine("File location: " + Directory.GetCurrentDirectory());
+                        using (FileStream fileStream = new FileStream("ownSerializationTest.txt", FileMode.Create))
+                        {
+                            OurSerializer ourSerializer = new OurSerializer();
+                            ourSerializer.Serialize(fileStream, class1);
+                            Console.WriteLine("Object has been successfully serialized!");
+                            Console.WriteLine("File location: " + Directory.GetCurrentDirectory());
+                        }
                         break;
                     case 6:
-                        OurSerializer ourSerializer = new OurSerializer();
-                        Class1 testClass1 = (Class1)ourSerializer.Deserialize(new FileStream("ownSerializationTest.txt", FileMode.Open));
-                        Console.WriteLine(testClass1.Class2.ToString());
-                        Console.WriteLine(testClass1.Class3.ToString());
-                        Console.WriteLine(testClass1.Number);
-                        Console.WriteLine(testClass1.BooleanValue);
-                        Console.WriteLine(testClass1.Text);
-                        Console.WriteLine(testClass1.DateTime);
+                        using(FileStream fileStream = new FileStream("ownSerializationTest.txt", FileMode.Open))
+                        {
+                            OurSerializer ourSerializer = new OurSerializer();
+                            Class1 testClass1 = (Class1)ourSerializer.Deserialize(fileStream);
+                            Console.WriteLine(testClass1.Class2.ToString());
+                            Console.WriteLine(testClass1.Class3.ToString());
+                            Console.WriteLine(testClass1.Number);
+                            Console.WriteLine(testClass1.BooleanValue);
+                            Console.WriteLine(testClass1.Text);
+                            Console.WriteLine(testClass1.DateTime);
+                        }
                         break;
                     case 7:
                         Environment.Exit(0);
