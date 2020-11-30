@@ -13,7 +13,6 @@ namespace Serialization
         };
         public static void Serialize(object obj, string filePath)
         {
-            File.Delete(filePath);
             using FileStream fileStream = new FileStream(filePath, FileMode.Create);
             string json = JsonConvert.SerializeObject(obj, Formatting.Indented, JsonSettings);
             fileStream.Write(Encoding.UTF8.GetBytes(json));

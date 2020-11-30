@@ -18,8 +18,8 @@ namespace ConsoleApplication
                 Console.WriteLine("2. Import DataContext from JSON");
                 Console.WriteLine("3. Export graph to JSON");
                 Console.WriteLine("4. Import graph from JSON");
-                Console.WriteLine("5. Import graph OWN");
-                Console.WriteLine("6. Export graph OWN");
+                Console.WriteLine("5. Export graph to TXT");
+                Console.WriteLine("6. Import graph from TXT");
                 Console.WriteLine("7. Exit");
             }
 
@@ -32,7 +32,7 @@ namespace ConsoleApplication
             IFiller filler = new ConsoleFiller();
             filler.Fill(dataContext);
 
-            Class1 class1 = new Class1(1.0, true, "class1", new DateTime(2020, 12, 1, 11, 11, 11));
+            Class1 class1 = new Class1(1.1, true, "class1", new DateTime(2020, 12, 1, 11, 11, 11));
             Class2 class2 = new Class2(2.0, true, "class2", new DateTime(2020, 12, 2, 12, 12, 12));
             Class3 class3 = new Class3(3.0, true, "class3", new DateTime(2020, 12, 3, 13, 13, 13));
 
@@ -74,12 +74,20 @@ namespace ConsoleApplication
                         Console.WriteLine(class1Deserialized.Text);
                         break;
                     case 5:
-                        Console.WriteLine("Three option");
-                        //TODO: option 3;
+                        //OurSerializer ourSerializer = new OurSerializer();
+                        //ourSerializer.Serialize(new FileStream("ownSerializationTest.txt", FileMode.Create), class1);
+                        //Console.WriteLine("Object has been successfully serialized!");
+                        //Console.WriteLine("File location: " + Directory.GetCurrentDirectory());
                         break;
                     case 6:
-                        Console.WriteLine("Four option");
-                        //TODO: option 4;
+                        OurSerializer ourSerializer = new OurSerializer();
+                        Class1 testClass1 = (Class1)ourSerializer.Deserialize(new FileStream("ownSerializationTest.txt", FileMode.Open));
+                        Console.WriteLine(testClass1.Class2.ToString());
+                        Console.WriteLine(testClass1.Class3.ToString());
+                        Console.WriteLine(testClass1.Number);
+                        Console.WriteLine(testClass1.BooleanValue);
+                        Console.WriteLine(testClass1.Text);
+                        Console.WriteLine(testClass1.DateTime);
                         break;
                     case 7:
                         Environment.Exit(0);
