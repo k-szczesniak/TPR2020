@@ -3,6 +3,7 @@ using System.Runtime.Serialization;
 
 namespace Data
 {
+    [Serializable]
     public class Class2 : ISerializable
     {
         public Class1 Class1 { get; set; }
@@ -22,9 +23,24 @@ namespace Data
             DateTime = dateTime;
         }
 
+        public Class2(SerializationInfo info, StreamingContext context)
+        {
+            Class1 = (Class1)info.GetValue("Class1", typeof(Class1));
+            Class3 = (Class3)info.GetValue("Class3", typeof(Class3));
+            Number = (double)info.GetValue("Number", typeof(double));
+            BooleanValue = (bool)info.GetValue("BooleanValue", typeof(bool));
+            Text = (string)info.GetValue("Text", typeof(string));
+            DateTime = (DateTime)info.GetValue("DateTime", typeof(DateTime));
+        }
+
         public void GetObjectData(SerializationInfo info, StreamingContext context)
         {
-            throw new NotImplementedException();
+            info.AddValue("Class1", Class1, typeof(Class1));
+            info.AddValue("Class3", Class3, typeof(Class3));
+            info.AddValue("Number", Number, typeof(double));
+            info.AddValue("BooleanValue", BooleanValue, typeof(bool));
+            info.AddValue("Text", Text, typeof(string));
+            info.AddValue("DateTime", DateTime, typeof(DateTime));
         }
     }
 }
