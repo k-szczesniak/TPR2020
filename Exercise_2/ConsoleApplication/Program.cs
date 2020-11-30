@@ -60,7 +60,7 @@ namespace ConsoleApplication
                         IDataContext dataContextDeserialized = JsonSerializer.Deserialize<DataContext>("serializationDataContextTest.json");
                         Console.WriteLine("Object has been successfully deserialized!");                                               
                         Console.WriteLine(dataContextDeserialized.Users[0]);                                               
-                        Console.WriteLine(dataContextDeserialized.Catalogs[0]);                                               
+                        Console.WriteLine(dataContextDeserialized.Catalogs[0]);     
                         break;
                     case 3:
                         JsonSerializer.Serialize(class1, "serializationClass1Test.json");

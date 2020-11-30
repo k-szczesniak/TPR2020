@@ -10,7 +10,6 @@ namespace Serialization
         {
             PreserveReferencesHandling = PreserveReferencesHandling.Objects,
             TypeNameHandling = TypeNameHandling.Auto,
-            NullValueHandling = NullValueHandling.Ignore,
         };
         public static void Serialize(object obj, string filePath)
         {
