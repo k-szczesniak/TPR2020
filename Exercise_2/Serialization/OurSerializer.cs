@@ -169,7 +169,7 @@ namespace Serialization
 
         protected override void WriteDateTime(DateTime val, string name)
         {
-            DataRow +=";" + val.GetType() + "=" + name + "=" + val.ToUniversalTime();
+            DataRow +=";" + val.GetType() + "=" + name + "=" + val;
         }
 
         protected override void WriteDouble(double val, string name)
@@ -191,7 +191,7 @@ namespace Serialization
 
         protected void WriteString(object obj, string name)
         {
-            DataRow += ";" + obj.GetType() + "=" + name + "=" + "\"" + (String)obj + "\"";
+            DataRow += ";" + obj.GetType() + "=" + name + "=" + (String)obj;
         }
 
         protected void WriteObject(object obj, string name, Type type)

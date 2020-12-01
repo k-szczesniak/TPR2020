@@ -41,6 +41,7 @@ namespace Data
             info.AddValue("BooleanValue", BooleanValue, typeof(bool));
             info.AddValue("Text", Text, typeof(string));
             info.AddValue("DateTime", DateTime, typeof(DateTime));
-        }
+        }     
+
     }
 }
