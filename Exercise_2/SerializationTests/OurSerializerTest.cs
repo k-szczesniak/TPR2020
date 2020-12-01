@@ -9,13 +9,20 @@ namespace SerializationTests
     [TestClass]
     public class SerializationTests
     {
-        [TestMethod]
-        public void GraphSerializationTestMethod_class1()
-        {
-            Class1 class1 = new Class1(1.1, true, "class1", new DateTime(2020, 12, 1, 11, 11, 11));
-            Class2 class2 = new Class2(2.0, true, "class2", new DateTime(2020, 12, 2, 12, 12, 12));
-            Class3 class3 = new Class3(3.0, true, "class3", new DateTime(2020, 12, 3, 13, 13, 13));
-            Class1 testClass1;
+        Class1 class1;
+        Class2 class2;
+        Class3 class3;
+        Class1 testClass1;
+        Class2 testClass2;
+        Class3 testClass3;
+
+
+        [TestInitialize]
+        public void TestInitialize()
+        {   
+            class1 = new Class1(1.1, true, "class1", new DateTime(2020, 12, 1, 11, 11, 11));
+            class2 = new Class2(2.0, true, "class2", new DateTime(2020, 12, 2, 12, 12, 12));
+            class3 = new Class3(3.0, true, "class3", new DateTime(2020, 12, 3, 13, 13, 13));
 
             class1.Class2 = class2;
             class1.Class3 = class3;
@@ -25,7 +32,11 @@ namespace SerializationTests
 
             class3.Class1 = class1;
             class3.Class2 = class2;
+        }
 
+        [TestMethod]
+        public void GraphSerializationTestMethod_class1()
+        {
             using (FileStream fileStream = new FileStream("serializationGraph1Test.txt", FileMode.Create))
             {
                 OurSerializer ourSerializer = new OurSerializer();
@@ -60,20 +71,6 @@ namespace SerializationTests
         [TestMethod]
         public void GraphSerializationTestMethod_class2()
         {
-            Class1 class1 = new Class1(1.1, true, "class1", new DateTime(2020, 12, 1, 11, 11, 11));
-            Class2 class2 = new Class2(2.0, true, "class2", new DateTime(2020, 12, 2, 12, 12, 12));
-            Class3 class3 = new Class3(3.0, true, "class3", new DateTime(2020, 12, 3, 13, 13, 13));
-            Class2 testClass2;
-
-            class1.Class2 = class2;
-            class1.Class3 = class3;
-
-            class2.Class1 = class1;
-            class2.Class3 = class3;
-
-            class3.Class1 = class1;
-            class3.Class2 = class2;
-
             using (FileStream fileStream = new FileStream("serializationGraph2Test.txt", FileMode.Create))
             {
                 OurSerializer ourSerializer = new OurSerializer();
@@ -108,20 +105,6 @@ namespace SerializationTests
         [TestMethod]
         public void GraphSerializationTestMethod_class3()
         {
-            Class1 class1 = new Class1(1.1, true, "class1", new DateTime(2020, 12, 1, 11, 11, 11));
-            Class2 class2 = new Class2(2.0, true, "class2", new DateTime(2020, 12, 2, 12, 12, 12));
-            Class3 class3 = new Class3(3.0, true, "class3", new DateTime(2020, 12, 3, 13, 13, 13));
-            Class3 testClass3;
-
-            class1.Class2 = class2;
-            class1.Class3 = class3;
-
-            class2.Class1 = class1;
-            class2.Class3 = class3;
-
-            class3.Class1 = class1;
-            class3.Class2 = class2;
-
             using (FileStream fileStream = new FileStream("serializationGraph3Test.txt", FileMode.Create))
             {
                 OurSerializer ourSerializer = new OurSerializer();

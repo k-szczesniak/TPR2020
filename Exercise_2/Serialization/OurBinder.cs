@@ -6,7 +6,6 @@ namespace Serialization
 {
     class OurBinder : SerializationBinder
     {
-        //TODO:Poczytać o assembly
         public override Type BindToType(string assemblyName, string typeName)
         {
             Assembly assembly = Assembly.Load(assemblyName);

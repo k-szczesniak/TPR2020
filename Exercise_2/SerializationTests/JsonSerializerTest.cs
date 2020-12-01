@@ -5,21 +5,47 @@ using Serialization;
 using System;
 using System.IO;
 
-
-
 namespace SerializationTests
 {
     [TestClass]
     public class JsonSerializerTest
-    {        
-        [TestMethod]
-        public void DataContextSerializationTestMethod()
+    {
+        IDataContext dataContext;
+        IDataContext deserializedDataContext;
+        IFiller filler;
+
+        Class1 class1;
+        Class2 class2;
+        Class3 class3;
+        Class1 class1Deserialized;
+        Class2 class2Deserialized;
+        Class3 class3Deserialized;
+
+
+        [TestInitialize]
+        public void TestInitialize()
         {
-            IDataContext dataContext = new DataContext();
-            IDataContext deserializedDataContext;
-            IFiller filler = new TestFiller();
+            dataContext = new DataContext();
+            filler = new TestFiller();
             filler.Fill(dataContext);
 
+            class1 = new Class1(1.1, true, "class1", new DateTime(2020, 12, 1, 11, 11, 11));
+            class2 = new Class2(2.0, true, "class2", new DateTime(2020, 12, 2, 12, 12, 12));
+            class3 = new Class3(3.0, true, "class3", new DateTime(2020, 12, 3, 13, 13, 13));
+
+            class1.Class2 = class2;
+            class1.Class3 = class3;
+
+            class2.Class1 = class1;
+            class2.Class3 = class3;
+
+            class3.Class1 = class1;
+            class3.Class2 = class2;
+        }
+
+        [TestMethod]
+        public void DataContextSerializationTestMethod()
+        {   
             using (FileStream fileStream = new FileStream("serializationDataContextTest.json", FileMode.Create))
             {
                 JsonSerializer.Serialize(fileStream, dataContext);                
@@ -41,20 +67,6 @@ namespace SerializationTests
         [TestMethod]
         public void GraphSerializationTestMethod_class1()
         {
-            Class1 class1 = new Class1(1.1, true, "class1", new DateTime(2020, 12, 1, 11, 11, 11));
-            Class2 class2 = new Class2(2.0, true, "class2", new DateTime(2020, 12, 2, 12, 12, 12));
-            Class3 class3 = new Class3(3.0, true, "class3", new DateTime(2020, 12, 3, 13, 13, 13));
-            Class1 class1Deserialized;
-            
-            class1.Class2 = class2;
-            class1.Class3 = class3;
-
-            class2.Class1 = class1;
-            class2.Class3 = class3;
-
-            class3.Class1 = class1;
-            class3.Class2 = class2;
-
             using (FileStream fileStream = new FileStream("serializationGraph1Test.json", FileMode.Create))
             {
                 JsonSerializer.Serialize(fileStream, class1);
@@ -87,20 +99,6 @@ namespace SerializationTests
         [TestMethod]
         public void GraphSerializationTestMethod_class2()
         {
-            Class1 class1 = new Class1(1.1, true, "class1", new DateTime(2020, 12, 1, 11, 11, 11));
-            Class2 class2 = new Class2(2.0, true, "class2", new DateTime(2020, 12, 2, 12, 12, 12));
-            Class3 class3 = new Class3(3.0, true, "class3", new DateTime(2020, 12, 3, 13, 13, 13));
-            Class2 class2Deserialized;
-
-            class1.Class2 = class2;
-            class1.Class3 = class3;
-
-            class2.Class1 = class1;
-            class2.Class3 = class3;
-
-            class3.Class1 = class1;
-            class3.Class2 = class2;
-
             using (FileStream fileStream = new FileStream("serializationGraph2Test.json", FileMode.Create))
             {
                 JsonSerializer.Serialize(fileStream, class2);
@@ -133,20 +131,6 @@ namespace SerializationTests
         [TestMethod]
         public void GraphSerializationTestMethod_class3()
         {
-            Class1 class1 = new Class1(1.1, true, "class1", new DateTime(2020, 12, 1, 11, 11, 11));
-            Class2 class2 = new Class2(2.0, true, "class2", new DateTime(2020, 12, 2, 12, 12, 12));
-            Class3 class3 = new Class3(3.0, true, "class3", new DateTime(2020, 12, 3, 13, 13, 13));
-            Class3 class3Deserialized;
-
-            class1.Class2 = class2;
-            class1.Class3 = class3;
-
-            class2.Class1 = class1;
-            class2.Class3 = class3;
-
-            class3.Class1 = class1;
-            class3.Class2 = class2;
-
             using (FileStream fileStream = new FileStream("serializationGraph3Test.json", FileMode.Create))
             {
                 JsonSerializer.Serialize(fileStream, class3);

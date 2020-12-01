@@ -26,6 +26,7 @@ namespace ConsoleApplication
             Show();
 
             int choice = 0;
+            OurSerializer ourSerializer = new OurSerializer();
 
             #region Data
             IDataContext dataContext = new DataContext();
@@ -33,8 +34,8 @@ namespace ConsoleApplication
             filler.Fill(dataContext);
 
             Class1 class1 = new Class1(1.1, true, "class1", new DateTime(2020, 12, 1, 11, 11, 11));
-            Class2 class2 = new Class2(2.0, true, "class2", new DateTime(2020, 12, 2, 12, 12, 12));
-            Class3 class3 = new Class3(3.0, true, "class3", new DateTime(2020, 12, 3, 13, 13, 13));
+            Class2 class2 = new Class2(2.2, true, "class2", new DateTime(2020, 12, 2, 12, 12, 12));
+            Class3 class3 = new Class3(3.3, true, "class3", new DateTime(2020, 12, 3, 13, 13, 13));
 
             class1.Class2 = class2;
             class1.Class3 = class3;
@@ -64,8 +65,6 @@ namespace ConsoleApplication
                         {
                             IDataContext dataContextDeserialized = JsonSerializer.Deserialize<DataContext>(fileStream);
                             Console.WriteLine("Object has been successfully deserialized!");
-                            Console.WriteLine(dataContextDeserialized.Users[0]);
-                            Console.WriteLine(dataContextDeserialized.Catalogs[0]);
                         }
                         break;
                     case 3:
@@ -81,14 +80,11 @@ namespace ConsoleApplication
                         {
                             Class1 class1Deserialized = JsonSerializer.Deserialize<Class1>(fileStream);
                             Console.WriteLine("Object has been successfully deserialized!");
-                            Console.WriteLine(class1Deserialized.Number);
-                            Console.WriteLine(class1Deserialized.Text);
                         }                        
                         break;
                     case 5:
                         using (FileStream fileStream = new FileStream("ownSerializationTest.txt", FileMode.Create))
                         {
-                            OurSerializer ourSerializer = new OurSerializer();
                             ourSerializer.Serialize(fileStream, class1);
                             Console.WriteLine("Object has been successfully serialized!");
                             Console.WriteLine("File location: " + Directory.GetCurrentDirectory());
@@ -97,14 +93,8 @@ namespace ConsoleApplication
                     case 6:
                         using(FileStream fileStream = new FileStream("ownSerializationTest.txt", FileMode.Open))
                         {
-                            OurSerializer ourSerializer = new OurSerializer();
                             Class1 testClass1 = (Class1)ourSerializer.Deserialize(fileStream);
-                            Console.WriteLine(testClass1.Class2.ToString());
-                            Console.WriteLine(testClass1.Class3.ToString());
-                            Console.WriteLine(testClass1.Number);
-                            Console.WriteLine(testClass1.BooleanValue);
-                            Console.WriteLine(testClass1.Text);
-                            Console.WriteLine(testClass1.DateTime);
+                            Console.WriteLine("Object has been successfully deserialized!");
                         }
                         break;
                     case 7:
