@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+	<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.cpandl.com" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+		<xs:element name="Library">
+			<xs:complexType>
+				<xs:sequence>
+					<xs:element name="Books">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="Book" maxOccurs="unbounded" minOccurs="0">
+									<xs:complexType>
+										<xs:sequence>
+											<xs:element type="xs:string" name="Title"/>
+											<xs:element type="xs:string" name="Author"/>
+											<xs:element type="xs:string" name="Genre"/>
+											<xs:element type="xs:double" name="Price"/>
+										</xs:sequence>
+										<xs:attribute type="xs:int" name="Id" use="required"/>
+									</xs:complexType>
+								</xs:element>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:complexType>
+		</xs:element>
+</xs:schema>

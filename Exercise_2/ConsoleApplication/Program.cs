@@ -22,7 +22,8 @@ namespace ConsoleApplication
                 Console.WriteLine("6. Import graph from TXT");
                 Console.WriteLine("7. Export Library to XML");
                 Console.WriteLine("8. Import Library from XML");
-                Console.WriteLine("9. Exit");
+                Console.WriteLine("9. Validate XML");
+                Console.WriteLine("Press another key to exit");
             }
 
             Show();
@@ -54,7 +55,7 @@ namespace ConsoleApplication
             library.Books.Add(new Book("Romeo i Julia", "William Szekspir", "Dramat", 15.90, 3));
             #endregion
 
-            while (choice != 9)
+            while (choice != 10)
             {
                 choice = Console.Read() - '0';
                 switch (choice)
@@ -120,8 +121,17 @@ namespace ConsoleApplication
                         }
                         break;
                     case 9:
-                        Environment.Exit(0);
+                        SerializerXml.Validate();
+                        using (FileStream fileStream = new FileStream("serializationXmlLibraryTest.html", FileMode.Create))
+                        {
+                            SerializerXml.TransformToXHTML(fileStream);
+                            Console.WriteLine("Object has been successfully transformed!");
+                        }
+                        Console.WriteLine("Done");
                         break;
+                    //default:
+                    //    Environment.Exit(0);
+                    //    break;
                 }
             }
 
