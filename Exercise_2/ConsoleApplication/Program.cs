@@ -20,7 +20,9 @@ namespace ConsoleApplication
                 Console.WriteLine("4. Import graph from JSON");
                 Console.WriteLine("5. Export graph to TXT");
                 Console.WriteLine("6. Import graph from TXT");
-                Console.WriteLine("7. Exit");
+                Console.WriteLine("7. Export Library to XML");
+                Console.WriteLine("8. Import Library from XML");
+                Console.WriteLine("9. Exit");
             }
 
             Show();
@@ -45,9 +47,14 @@ namespace ConsoleApplication
 
             class3.Class1 = class1;
             class3.Class2 = class2;
+
+            Library library = new Library();
+            library.Books.Add(new Book("Pan Tadeusz", "Adam Mickiewicz", "Sci-Fi", 25.50, 1));
+            library.Books.Add(new Book("Lalka", "Bolesław Prus", "Historyczna", 35.80, 2));
+            library.Books.Add(new Book("Romeo i Julia", "William Szekspir", "Dramat", 15.90, 3));
             #endregion
 
-            while (choice != 7)
+            while (choice != 9)
             {
                 choice = Console.Read() - '0';
                 switch (choice)
@@ -98,6 +105,21 @@ namespace ConsoleApplication
                         }
                         break;
                     case 7:
+                        using (FileStream fileStream = new FileStream("serializationXmlLibraryTest.xml", FileMode.Create))
+                        {
+                            SerializerXml.Serialize(fileStream, library);
+                            Console.WriteLine("Object has been successfully serialized!");
+                            Console.WriteLine("File location: " + Directory.GetCurrentDirectory());
+                        }
+                        break;
+                    case 8:
+                        using (FileStream fileStream = new FileStream("serializationXmlLibraryTest.xml", FileMode.Open))
+                        {
+                            Library libraryDeserialized = SerializerXml.Deserialize(fileStream);
+                            Console.WriteLine("Object has been successfully deserialized!");
+                        }
+                        break;
+                    case 9:
                         Environment.Exit(0);
                         break;
                 }
