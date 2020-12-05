@@ -6,9 +6,10 @@ using System.Xml.Serialization;
 
 namespace Data
 {
-    [XmlRootAttribute("Library", Namespace="http://www.cpandl.com", IsNullable = false)]
+    [XmlRootAttribute("Library", Namespace= "http://www.w3schools.com", IsNullable = false)]
     public class Library
     {
-        public List<Book> Books { get; set; } = new List<Book>();
+        [XmlArrayAttribute("Books")]
+        public Book[] Books;
     }
 }

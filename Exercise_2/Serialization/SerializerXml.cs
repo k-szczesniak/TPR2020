@@ -27,7 +27,9 @@ namespace Serialization
         public static void Validate()
         {
             XmlReaderSettings settings = new XmlReaderSettings();
-            settings.Schemas.Add("http://www.cpandl.com", "C:\\Users\\krzys\\Politechnika\\Semestr_5\\technologie_programowania\\GitHub\\TP\\TPR2020\\Exercise_2\\Data\\LibrarySchema.xsd");
+
+            string path = "..\\..\\..\\..\\Data\\LibrarySchema.xsd";
+            settings.Schemas.Add("http://www.w3schools.com", path);
             settings.ValidationType = ValidationType.Schema;
 
             XmlReader reader = XmlReader.Create("serializationXmlLibraryTest.xml", settings);
@@ -55,7 +57,8 @@ namespace Serialization
         public static void TransformToXHTML(Stream serializationStream)
         {
             XslCompiledTransform transform = new XslCompiledTransform();
-            using (XmlReader reader = XmlReader.Create("C:\\Users\\krzys\\Politechnika\\Semestr_5\\technologie_programowania\\GitHub\\TP\\TPR2020\\Exercise_2\\Data\\XSLTLibrary.xslt"))
+            string path = "..\\..\\..\\..\\Data\\XSLTLibrary.xslt";
+            using (XmlReader reader = XmlReader.Create(path))
             {
                 transform.Load(reader);
             }

@@ -23,7 +23,7 @@ namespace ConsoleApplication
                 Console.WriteLine("7. Export Library to XML");
                 Console.WriteLine("8. Import Library from XML");
                 Console.WriteLine("9. Validate XML");
-                Console.WriteLine("Press another key to exit");
+                Console.WriteLine("Press 0 key to exit");
             }
 
             Show();
@@ -50,9 +50,11 @@ namespace ConsoleApplication
             class3.Class2 = class2;
 
             Library library = new Library();
-            library.Books.Add(new Book("Pan Tadeusz", "Adam Mickiewicz", "Sci-Fi", 25.50, 1));
-            library.Books.Add(new Book("Lalka", "Bolesław Prus", "Historyczna", 35.80, 2));
-            library.Books.Add(new Book("Romeo i Julia", "William Szekspir", "Dramat", 15.90, 3));
+            Book book1 = new Book("Pan Tadeusz", "Adam Mickiewicz", "Sci-Fi", 25.50);
+            Book book2 = new Book("Lalka", "Bolesław Prus", "Historyczna", 35.80);
+            Book book3 = new Book("Romeo i Julia", "William Szekspir", "Dramat", 15.90);
+            Book[] books = { book1, book2, book3 };
+            library.Books = books;
             #endregion
 
             while (choice != 10)
@@ -60,6 +62,9 @@ namespace ConsoleApplication
                 choice = Console.Read() - '0';
                 switch (choice)
                 {
+                    case 0:
+                        Environment.Exit(0);
+                        break;
                     case 1:
                         using (FileStream fileStream = new FileStream("serializationDataContextTest.json", FileMode.Create))
                         {
@@ -128,10 +133,7 @@ namespace ConsoleApplication
                             Console.WriteLine("Object has been successfully transformed!");
                         }
                         Console.WriteLine("Done");
-                        break;
-                    //default:
-                    //    Environment.Exit(0);
-                    //    break;
+                        break;   
                 }
             }
 
