@@ -27,7 +27,6 @@ namespace Serialization
         public static void Validate()
         {
             XmlReaderSettings settings = new XmlReaderSettings();
-
             string path = "..\\..\\..\\..\\Data\\LibrarySchema.xsd";
             settings.Schemas.Add("http://www.w3schools.com", path);
             settings.ValidationType = ValidationType.Schema;
