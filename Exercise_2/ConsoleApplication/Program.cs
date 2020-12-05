@@ -28,7 +28,7 @@ namespace ConsoleApplication
 
             Show();
 
-            int choice = 0;
+            int choice = -1;
             OurSerializer ourSerializer = new OurSerializer();
 
             #region Data
@@ -57,7 +57,7 @@ namespace ConsoleApplication
             library.Books = books;
             #endregion
 
-            while (choice != 10)
+            while (choice != 0)
             {
                 choice = Console.Read() - '0';
                 switch (choice)
