@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Xml.Schema;
 using Data;
 using Exercise_1.Data;
 using Serialization;
@@ -20,7 +21,7 @@ namespace ConsoleApplication
                 Console.WriteLine("4. Import graph from JSON");
                 Console.WriteLine("5. Export graph to TXT");
                 Console.WriteLine("6. Import graph from TXT");
-                Console.WriteLine("7. Export Library to XML");
+                Console.WriteLine("7. Export Library to XML and validate");
                 Console.WriteLine("8. Import Library from XML");
                 Console.WriteLine("9. Validate XML");
                 Console.WriteLine("Press 0 key to exit");
@@ -55,6 +56,11 @@ namespace ConsoleApplication
             Book book3 = new Book("Romeo i Julia", "William Szekspir", "Dramat", 15.90);
             Book[] books = { book1, book2, book3 };
             library.Books = books;
+
+            IDataContext dataContextDeserialized;
+            Class1 class1JsonDeserialized;
+            Class1 class1OwnDeserializd;
+            Library libraryDeserialized;
             #endregion
 
             while (choice != 0)
@@ -66,37 +72,51 @@ namespace ConsoleApplication
                         Environment.Exit(0);
                         break;
                     case 1:
-                        using (FileStream fileStream = new FileStream("serializationDataContextTest.json", FileMode.Create))
+                        using (FileStream fileStream = new FileStream("serializationDataContext.json", FileMode.Create))
                         {
                             JsonSerializer.Serialize(fileStream, dataContext);
                             Console.WriteLine("Object has been successfully serialized!");
                             Console.WriteLine("File location: " + Directory.GetCurrentDirectory());
-                        }                        
+                        }
                         break;
                     case 2:
-                        using (FileStream fileStream = new FileStream("serializationDataContextTest.json", FileMode.Open))
+                        try
                         {
-                            IDataContext dataContextDeserialized = JsonSerializer.Deserialize<DataContext>(fileStream);
-                            Console.WriteLine("Object has been successfully deserialized!");
+                            using (FileStream fileStream = new FileStream("serializationDataContext.json", FileMode.Open))
+                            {
+                                dataContextDeserialized = JsonSerializer.Deserialize<DataContext>(fileStream);
+                                Console.WriteLine("Object has been successfully deserialized!");
+                            }
+                        }
+                        catch (FileNotFoundException e)
+                        {
+                            Console.WriteLine("Error: " + e.GetType() + " has occured during deserialization!");
                         }
                         break;
                     case 3:
-                        using (FileStream fileStream = new FileStream("serializationClass1Test.json", FileMode.Create))
+                        using (FileStream fileStream = new FileStream("serializationClass1.json", FileMode.Create))
                         {
                             JsonSerializer.Serialize(fileStream, class1);
                             Console.WriteLine("Object has been successfully serialized!");
                             Console.WriteLine("File location: " + Directory.GetCurrentDirectory());
-                        }                        
+                        }
                         break;
                     case 4:
-                        using (FileStream fileStream = new FileStream("serializationClass1Test.json", FileMode.Open))
+                        try
                         {
-                            Class1 class1Deserialized = JsonSerializer.Deserialize<Class1>(fileStream);
-                            Console.WriteLine("Object has been successfully deserialized!");
-                        }                        
+                            using (FileStream fileStream = new FileStream("serializationClass1.json", FileMode.Open))
+                            {
+                                class1JsonDeserialized = JsonSerializer.Deserialize<Class1>(fileStream);
+                                Console.WriteLine("Object has been successfully deserialized!");
+                            }
+                        }
+                        catch (FileNotFoundException e)
+                        {
+                            Console.WriteLine("Error: " + e.GetType() + " has occured during deserialization!");
+                        }
                         break;
                     case 5:
-                        using (FileStream fileStream = new FileStream("ownSerializationTest.txt", FileMode.Create))
+                        using (FileStream fileStream = new FileStream("ownSerialization.txt", FileMode.Create))
                         {
                             ourSerializer.Serialize(fileStream, class1);
                             Console.WriteLine("Object has been successfully serialized!");
@@ -104,41 +124,72 @@ namespace ConsoleApplication
                         }
                         break;
                     case 6:
-                        using(FileStream fileStream = new FileStream("ownSerializationTest.txt", FileMode.Open))
+                        try
                         {
-                            Class1 testClass1 = (Class1)ourSerializer.Deserialize(fileStream);
-                            Console.WriteLine("Object has been successfully deserialized!");
+                            using (FileStream fileStream = new FileStream("ownSerialization.txt", FileMode.Open))
+                            {
+                                class1OwnDeserializd = (Class1)ourSerializer.Deserialize(fileStream);
+                                Console.WriteLine("Object has been successfully deserialized!");
+                            }
+                        }
+                        catch (FileNotFoundException e)
+                        {
+                            Console.WriteLine("Error: " + e.GetType() + " has occured during deserialization!");
                         }
                         break;
                     case 7:
-                        using (FileStream fileStream = new FileStream("serializationXmlLibraryTest.xml", FileMode.Create))
+                        using (FileStream fileStream = new FileStream("serializationXmlLibrary.xml", FileMode.Create))
                         {
                             SerializerXml.Serialize(fileStream, library);
-                            Console.WriteLine("Object has been successfully serialized!");
+                        }
+                        try
+                        {
+                            SerializerXml.Validate();
+                            Console.WriteLine("Object has been successfully serialized and validated!");
                             Console.WriteLine("File location: " + Directory.GetCurrentDirectory());
                         }
+                        catch (XmlSchemaValidationException e)
+                        {
+                            File.Delete("serializationXmlLibrary.xml");
+                            Console.WriteLine("Error: " + e.GetType() + " has occured during validation and file was not created!");
+                        }
+
                         break;
                     case 8:
-                        using (FileStream fileStream = new FileStream("serializationXmlLibraryTest.xml", FileMode.Open))
+                        try
                         {
-                            Library libraryDeserialized = SerializerXml.Deserialize(fileStream);
-                            Console.WriteLine("Object has been successfully deserialized!");
+                            using (FileStream fileStream = new FileStream("serializationXmlLibrary.xml", FileMode.Open))
+                            {
+                                libraryDeserialized = SerializerXml.Deserialize(fileStream);
+                                Console.WriteLine("Object has been successfully deserialized!");
+                            }
                         }
+                        catch (FileNotFoundException e)
+                        {
+                            Console.WriteLine("Error: " + e.GetType() + " has occured during deserialization!");
+                        }
+
                         break;
                     case 9:
-                        SerializerXml.Validate();
-                        using (FileStream fileStream = new FileStream("serializationXmlLibraryTest.html", FileMode.Create))
+                        try
                         {
-                            SerializerXml.TransformToXHTML(fileStream);
-                            Console.WriteLine("Object has been successfully transformed!");
+                            using (FileStream fileStream = new FileStream("serializationXmlLibrary.html", FileMode.Create))
+                            {
+                                SerializerXml.TransformToXHTML(fileStream);
+                                Console.WriteLine("Object has been successfully transformed!");
+                            }
                         }
-                        Console.WriteLine("Done");
-                        break;   
+                        catch (FileNotFoundException e)
+                        {
+                            File.Delete("serializationXmlLibrary.html");
+                            Console.WriteLine("Error: " + e.GetType() + " has occured during transformation and file was not created!");                            
+                        }                        
+                        break;
                 }
             }
 
             Console.ReadKey();
         }
-    
+
     }
 }

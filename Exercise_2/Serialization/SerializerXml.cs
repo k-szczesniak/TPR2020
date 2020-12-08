@@ -27,17 +27,17 @@ namespace Serialization
         public static void Validate()
         {
             XmlReaderSettings settings = new XmlReaderSettings();
-            string path = "..\\..\\..\\..\\Data\\LibrarySchema.xsd";
+            string path = "..\\..\\..\\..\\SerializationTests\\LibrarySchema.xsd";
             settings.Schemas.Add("http://www.w3schools.com", path);
             settings.ValidationType = ValidationType.Schema;
-
-            XmlReader reader = XmlReader.Create("serializationXmlLibraryTest.xml", settings);
             XmlDocument document = new XmlDocument();
-            document.Load(reader);
-
             ValidationEventHandler eventHandler = new ValidationEventHandler(ValidationEventHandler);
 
-            document.Validate(eventHandler);
+            using (XmlReader reader = XmlReader.Create("serializationXmlLibrary.xml", settings))
+            {
+                document.Load(reader);
+                document.Validate(eventHandler);
+            }
         }
 
         static void ValidationEventHandler(object sender, ValidationEventArgs e)
@@ -56,13 +56,13 @@ namespace Serialization
         public static void TransformToXHTML(Stream serializationStream)
         {
             XslCompiledTransform transform = new XslCompiledTransform();
-            string path = "..\\..\\..\\..\\Data\\XSLTLibrary.xslt";
+            string path = "..\\..\\..\\..\\SerializationTests\\XSLTLibrary.xslt";
             using (XmlReader reader = XmlReader.Create(path))
             {
                 transform.Load(reader);
             }
             StringWriter results = new StringWriter();
-            using (XmlReader reader = XmlReader.Create("serializationXmlLibraryTest.xml"))
+            using (XmlReader reader = XmlReader.Create("serializationXmlLibrary.xml"))
             {
                 transform.Transform(reader, null, results);
             }
