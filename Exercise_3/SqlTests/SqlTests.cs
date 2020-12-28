@@ -52,5 +52,72 @@ namespace SqlTests
 
             Assert.AreEqual(listOfProducts[2], "Chainring");
         }
+
+        [TestMethod]
+        public void TestGetProductVendorByProductName()
+        {
+            string vendor = SqlToolClass.GetProductVendorByProductName("Adjustable Race");
+
+            Assert.AreEqual(vendor, "Litware, Inc.");
+        }
+
+        [TestMethod]
+        public void TestGetProductsWithNRecentReviews()
+        {
+            List<Product> listOfProducts = SqlToolClass.GetProductsWithNRecentReviews(1);
+
+            Assert.AreEqual(listOfProducts.Count, 2);
+
+            Assert.AreEqual(listOfProducts[0].ProductID, 709);
+            Assert.AreEqual(listOfProducts[0].Name, "Mountain Bike Socks, M");
+
+            Assert.AreEqual(listOfProducts[1].ProductID, 798);
+            Assert.AreEqual(listOfProducts[1].Name, "Road-550-W Yellow, 40");
+        }
+
+        [TestMethod]
+        public void TestGetNRecentlyReviewedProducts()
+        {
+            List<Product> listOfProducts = SqlToolClass.GetNRecentlyReviewedProducts(3);
+
+            Assert.AreEqual(listOfProducts.Count, 3);
+
+            Assert.AreEqual(listOfProducts[0].ProductID, 937);
+            Assert.AreEqual(listOfProducts[0].Name, "HL Mountain Pedal");
+
+            Assert.AreEqual(listOfProducts[1].ProductID, 798);
+            Assert.AreEqual(listOfProducts[1].Name, "Road-550-W Yellow, 40");
+
+            Assert.AreEqual(listOfProducts[2].ProductID, 709);
+            Assert.AreEqual(listOfProducts[2].Name, "Mountain Bike Socks, M");
+        }
+
+        [TestMethod]
+        public void TestGetNProductsFromCategory()
+        {
+            List<Product> listOfProducts = SqlToolClass.GetNProductsFromCategory("Clothing", 3);
+
+            Assert.AreEqual(listOfProducts.Count, 3);
+
+            Assert.AreEqual(listOfProducts[0].ProductID, 712);
+            Assert.AreEqual(listOfProducts[0].Name, "AWC Logo Cap");
+
+            Assert.AreEqual(listOfProducts[1].ProductID, 866);
+            Assert.AreEqual(listOfProducts[1].Name, "Classic Vest, L");
+
+            Assert.AreEqual(listOfProducts[2].ProductID, 865);
+            Assert.AreEqual(listOfProducts[2].Name, "Classic Vest, M");
+        }
+        
+            [TestMethod]
+        public void TestGetTotalStandardCostByCategory()
+        {
+            ProductCategory productCategory = new ProductCategory();
+            productCategory.Name = "Clothing";
+
+            int totalStandardCost = SqlToolClass.GetTotalStandardCostByCategory(productCategory);
+
+            Assert.AreEqual(totalStandardCost, 868);
+        }
     }
 }
