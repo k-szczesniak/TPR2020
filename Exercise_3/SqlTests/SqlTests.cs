@@ -1,5 +1,6 @@
 ﻿using Exercise_3;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Collections.Generic;
 
 namespace SqlTests
@@ -118,5 +119,81 @@ namespace SqlTests
 
             Assert.AreEqual(totalStandardCost, 868);
         }
+
+        [TestMethod]
+        public void AddProductTest()
+        {
+            Product product = createProduct();          
+            Assert.IsTrue(SqlToolClass.AddProduct(product));
+        }      
+
+        [TestMethod]
+        public void RemoveProductTest()
+        {
+            List<Product> listOfProducts = SqlToolClass.GetProductsByName("testowy");
+            Assert.IsTrue(SqlToolClass.RemoveProduct(listOfProducts[0]));
+        }
+
+        [TestMethod]
+        public void GetProductTest()
+        {
+            List<Product> listOfProducts = SqlToolClass.GetProductsByName("Blade");
+            Product resultProduct = SqlToolClass.GetProduct(316);
+            Assert.AreEqual(listOfProducts[0].ProductID, resultProduct.ProductID);
+            Assert.AreEqual(listOfProducts[0].Name, resultProduct.Name);
+            Assert.AreEqual(listOfProducts[0].ProductLine, resultProduct.ProductLine);
+            Assert.AreEqual(listOfProducts[0].ProductNumber, resultProduct.ProductNumber);
+        }
+
+        [TestMethod]
+        public void GetAllProductsTest()
+        {
+            List<Product> listOfProducts = SqlToolClass.GetAllProducts();            
+            Assert.AreEqual(listOfProducts.Count, 504);            
+        }
+
+        [TestMethod]
+        public void UpdateProductTest()
+        {
+            Product product = createProduct();
+            Assert.IsTrue(SqlToolClass.UpdateProduct(product, 527));
+
+            Product productAfterUpdate = SqlToolClass.GetProduct(527);
+
+            Assert.AreEqual(productAfterUpdate.Name, product.Name);
+            Assert.AreEqual(productAfterUpdate.ProductNumber, product.ProductNumber);
+            Assert.AreEqual(productAfterUpdate.Color, product.Color);
+        }
+
+        private Product createProduct()
+        {
+            Product newProduct = new Product();
+            newProduct.Name = "testowy";
+            newProduct.ProductNumber = "BB-7421666";
+            newProduct.MakeFlag = true;
+            newProduct.FinishedGoodsFlag = true;
+            newProduct.Color = "Black";
+            newProduct.SafetyStockLevel = 100;
+            newProduct.ReorderPoint = 75;
+            newProduct.StandardCost = 1898.0944m;
+            newProduct.ListPrice = 3374.99m;
+            newProduct.Size = "48";
+            newProduct.SizeUnitMeasureCode = "CM";
+            newProduct.WeightUnitMeasureCode = "LB";
+            newProduct.Weight = 21.13m;
+            newProduct.DaysToManufacture = 4;
+            newProduct.ProductLine = "M";
+            newProduct.Class = "L";
+            newProduct.Style = "U";
+            newProduct.ProductSubcategoryID = 2;
+            newProduct.ProductModelID = 30;
+            newProduct.SellStartDate = DateTime.Today.AddHours(-5);
+            newProduct.SellEndDate = DateTime.Today.AddHours(-3);
+            newProduct.DiscontinuedDate = null;
+            newProduct.rowguid = System.Guid.NewGuid();
+            newProduct.ModifiedDate = DateTime.Today;
+            return newProduct;
+        }
+
     }
-}
+}   
