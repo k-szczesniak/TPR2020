@@ -1,7 +1,6 @@
 ﻿using Exercise_3;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
-using System.Threading;
 
 namespace SqlTests
 {
@@ -23,7 +22,7 @@ namespace SqlTests
 
                 Assert.AreEqual(listOfProducts[1].ProductID, 326);
                 Assert.AreEqual(listOfProducts[1].Name, "Decal 2");
-            }
+            }            
         }
 
         [TestMethod]
@@ -46,21 +45,13 @@ namespace SqlTests
         {
             using (ProductionDataContext productionDataContext = new ProductionDataContext())
             {
-                
+                ProductCategory productCategory = new ProductCategory();
+                productCategory.Name = "Clothing";
+
                 MyProductDataContext myProductDataContext = new MyProductDataContext(productionDataContext);
-                Thread.Sleep(200);
-                List<MyProduct> listOfProducts = MyProductSqlToolClass.GetNMyProductsFromCategory("Clothing", 3);
+                int totalStandardCost = MyProductSqlToolClass.GetTotalStandardCostByCategory(productCategory);
 
-                Assert.AreEqual(listOfProducts.Count, 3);
-
-                //Assert.AreEqual(listOfProducts[0].ProductID, 712);
-                //Assert.AreEqual(listOfProducts[0].Name, "AWC Logo Cap");
-
-                //Assert.AreEqual(listOfProducts[1].ProductID, 866);
-                //Assert.AreEqual(listOfProducts[1].Name, "Classic Vest, L");
-
-                //Assert.AreEqual(listOfProducts[2].ProductID, 865);
-                //Assert.AreEqual(listOfProducts[2].Name, "Classic Vest, M");
+                Assert.AreEqual(totalStandardCost, 868);
             }
         }
     }

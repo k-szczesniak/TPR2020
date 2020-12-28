@@ -24,13 +24,12 @@ namespace Exercise_3
             return productsList;
         }
 
-        public static List<MyProduct> GetNMyProductsFromCategory(string categoryName, int n)
+        public static int GetTotalStandardCostByCategory(ProductCategory category)
         {
-            List<MyProduct> productsList = new List<MyProduct>((from product in MyProductDataContext.MyProductsList
-                                                            where product.ProductSubcategory.ProductCategory.Name == categoryName
-                                                            orderby product.Name
-                                                            select product).Take(n));
-            return productsList;
+            int totalStandardCost = (int)(from product in MyProductDataContext.MyProductsList
+                                          where product.ProductSubcategory != null && product.ProductSubcategory.ProductCategory.Name == category.Name
+                                          select product.StandardCost).Sum();
+            return totalStandardCost;
         }
     }
 }
