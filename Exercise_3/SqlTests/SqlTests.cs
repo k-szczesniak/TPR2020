@@ -9,7 +9,7 @@ namespace SqlTests
     public class SqlTests
     {
         [TestMethod]
-        public void TestGetProductsByName()
+        public void GetProductsByNameTest()
         {
             List<Product> listOfProducts = SqlToolClass.GetProductsByName("Decal");
 
@@ -23,7 +23,7 @@ namespace SqlTests
         }
 
         [TestMethod]
-        public void TestGetProductsByVendorName()
+        public void GetProductsByVendorNameTest()
         {
             List<Product> listOfProducts = SqlToolClass.GetProductsByVendorName("Bike Satellite Inc.");
 
@@ -40,7 +40,7 @@ namespace SqlTests
         }
 
         [TestMethod]
-        public void TestGetProductNamesByVendorName()
+        public void GetProductNamesByVendorNameTest()
         {
             List<string> listOfProducts = SqlToolClass.GetProductNamesByVendorName("Beaumont Bikes");
 
@@ -54,7 +54,7 @@ namespace SqlTests
         }
 
         [TestMethod]
-        public void TestGetProductVendorByProductName()
+        public void GetProductVendorByProductNameTest()
         {
             string vendor = SqlToolClass.GetProductVendorByProductName("Adjustable Race");
 
@@ -62,7 +62,7 @@ namespace SqlTests
         }
 
         [TestMethod]
-        public void TestGetProductsWithNRecentReviews()
+        public void GetProductsWithNRecentReviewsTest()
         {
             List<Product> listOfProducts = SqlToolClass.GetProductsWithNRecentReviews(1);
 
@@ -76,7 +76,7 @@ namespace SqlTests
         }
 
         [TestMethod]
-        public void TestGetNRecentlyReviewedProducts()
+        public void GetNRecentlyReviewedProductsTest()
         {
             List<Product> listOfProducts = SqlToolClass.GetNRecentlyReviewedProducts(3);
 
@@ -93,7 +93,7 @@ namespace SqlTests
         }
 
         [TestMethod]
-        public void TestGetNProductsFromCategory()
+        public void GetNProductsFromCategoryTest()
         {
             List<Product> listOfProducts = SqlToolClass.GetNProductsFromCategory("Clothing", 3);
 
@@ -108,9 +108,9 @@ namespace SqlTests
             Assert.AreEqual(listOfProducts[2].ProductID, 865);
             Assert.AreEqual(listOfProducts[2].Name, "Classic Vest, M");
         }
-        
-            [TestMethod]
-        public void TestGetTotalStandardCostByCategory()
+
+        [TestMethod]
+        public void GetTotalStandardCostByCategoryTest()
         {
             ProductCategory productCategory = new ProductCategory();
             productCategory.Name = "Clothing";
