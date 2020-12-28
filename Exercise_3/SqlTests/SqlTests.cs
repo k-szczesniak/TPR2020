@@ -1,12 +1,11 @@
 ﻿using Exercise_3;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
 using System.Collections.Generic;
 
 namespace SqlTests
 {
     [TestClass]
-    public class SqlTests
+    public class ProductTests
     {
         [TestMethod]
         public void GetProductsByNameTest()

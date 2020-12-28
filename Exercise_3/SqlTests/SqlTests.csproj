@@ -51,6 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ExtendedSqlToolClassTests.cs" />
+    <Compile Include="MyProductTests.cs" />
     <Compile Include="SqlTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
