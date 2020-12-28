@@ -123,14 +123,16 @@ namespace SqlTests
         [TestMethod]
         public void AddProductTest()
         {
-            Product product = createProduct();          
+            Product product = createProduct();
+            product.Name = "testowy2";
+            product.ProductNumber = "ABAB-1717";
             Assert.IsTrue(SqlToolClass.AddProduct(product));
         }      
 
         [TestMethod]
         public void RemoveProductTest()
         {
-            List<Product> listOfProducts = SqlToolClass.GetProductsByName("testowy");
+            List<Product> listOfProducts = SqlToolClass.GetProductsByName("testowy2");
             Assert.IsTrue(SqlToolClass.RemoveProduct(listOfProducts[0]));
         }
 
@@ -149,7 +151,7 @@ namespace SqlTests
         public void GetAllProductsTest()
         {
             List<Product> listOfProducts = SqlToolClass.GetAllProducts();            
-            Assert.AreEqual(listOfProducts.Count, 504);            
+            Assert.AreEqual(listOfProducts.Count, 505);            
         }
 
         [TestMethod]

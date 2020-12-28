@@ -24,7 +24,7 @@ namespace SqlTests
                     Assert.AreEqual(singleResult.ProductSubcategory, null);
                 }
 
-                Assert.AreEqual(resultList.Count, 209);
+                Assert.AreEqual(resultList.Count, 208);
             }
         }
 
@@ -41,7 +41,7 @@ namespace SqlTests
                     Assert.AreEqual(singleResult.ProductSubcategory, null);
                 }
 
-                Assert.AreEqual(resultList.Count, 209);
+                Assert.AreEqual(resultList.Count, 208);
             }
         }
 
