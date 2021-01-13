@@ -42,9 +42,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
     <Compile Include="DataRepository.cs" />
     <Compile Include="IDataRepository.cs" />
+    <Compile Include="LocationParser.cs" />
+    <Compile Include="LocationWrapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

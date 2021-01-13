@@ -14,11 +14,12 @@ namespace Service
             this.context = new LocationDataContext();
         }
 
-        public void AddLocation(Location location)
+        public void AddLocation(LocationWrapper locationWrapper)
         {
+            Location locationToInsert = locationWrapper.getLocation();
             Task.Run(() =>
             {
-                context.Locations.InsertOnSubmit(location);
+                context.Locations.InsertOnSubmit(locationToInsert);
                 context.SubmitChanges();
             });
         }
@@ -27,32 +28,38 @@ namespace Service
         {
             Task.Run(() =>
             {
-                context.Locations.DeleteOnSubmit(GetLocation(id));
+                context.Locations.DeleteOnSubmit(GetLocation(id).getLocation());
                 context.SubmitChanges(System.Data.Linq.ConflictMode.ContinueOnConflict);
             });
         }
 
-        public IEnumerable<Location> GetAllLocations()
+        public IEnumerable<LocationWrapper> GetAllLocations()
         {
+            List<LocationWrapper> locationWrappers = new List<LocationWrapper>();
             IQueryable<Location> locations = context.Locations;
-            return locations.ToList();
+            foreach (Location location in locations)
+            {
+                locationWrappers.Add(new LocationWrapper(location));
+            }
+            return locationWrappers;
         }
 
-        public Location GetLocation(int id)
+        public LocationWrapper GetLocation(int id)
         {
-            return context.Locations.Where(l => l.LocationID == id).FirstOrDefault();
+            Location location = context.Locations.Where(l => l.LocationID == id).FirstOrDefault();
+            return new LocationWrapper(location);
         }
 
-        public void UpdateLocation(int id, Location location)
+        public void UpdateLocation(int id, LocationWrapper locationWrapper)
         {
             Task.Run(() =>
             {
-                Location updatedLocation = context.Locations.Where(p => p.LocationID == location.LocationID).FirstOrDefault();
+                Location updatedLocation = context.Locations.Where(p => p.LocationID == locationWrapper.LocationID).FirstOrDefault();
                 foreach (System.Reflection.PropertyInfo property in updatedLocation.GetType().GetProperties())
                 {
                     if (property.CanWrite)
                     {
-                        property.SetValue(updatedLocation, property.GetValue(location));
+                        property.SetValue(updatedLocation, property.GetValue(locationWrapper.getLocation()));
                     }
                 }
                 context.SubmitChanges();

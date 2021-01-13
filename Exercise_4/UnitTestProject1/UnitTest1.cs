@@ -15,7 +15,7 @@ namespace UnitTestProject1
         public void TestMethod1()
         {
             DataRepository data = new DataRepository();
-            Location location;
+            LocationWrapper location;
 
             location = data.GetLocation(70);
         }
@@ -34,14 +34,16 @@ namespace UnitTestProject1
         {
             DataRepository data = new DataRepository();
 
-            Location location1 = new Location();
-            location1.LocationID = 69;
-            location1.Name = "Location";
-            location1.ModifiedDate = DateTime.Now;
-            location1.Availability = 0.0m;
-            location1.CostRate = 0.0m;
+            Location location1 = new Location
+            {
+                LocationID = 65,
+                Name = "Location",
+                ModifiedDate = DateTime.Now,
+                Availability = 0.0m,
+                CostRate = 0.0m
+            };
 
-            data.AddLocation(location1);
+            data.AddLocation(new LocationWrapper(location1));
         }
 
 

@@ -9,13 +9,13 @@ namespace Service
 {
     public interface IDataRepository
     {
-        void AddLocation(Location location);
+        void AddLocation(LocationWrapper location);
 
-        IEnumerable<Location> GetAllLocations();
+        IEnumerable<LocationWrapper> GetAllLocations();
 
-        Location GetLocation(int id);
+        LocationWrapper GetLocation(int id);
 
-        void UpdateLocation(int id, Location location);
+        void UpdateLocation(int id, LocationWrapper location);
 
         void DeleteLocation(int id);
     }
