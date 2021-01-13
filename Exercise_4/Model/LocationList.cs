@@ -10,21 +10,20 @@ namespace Model
 {
     public class LocationList
     {
-        private IDataRepository dataRepository;
+        private readonly IDataRepository dataRepository;
 
-        private LocationsModel currentLocation;
+        private LocationsDetail currentLocation;
 
-        private ObservableCollection<LocationsModel> locations;
+        private ObservableCollection<LocationsDetail> locations;
 
         public LocationList()
         {
             this.dataRepository = new DataRepository();
-            Locations = new ObservableCollection<LocationsModel>();
+            Locations = new ObservableCollection<LocationsDetail>();
             FillLocations();
         }
 
-        //TODO:locations i current jako property?
-        public ObservableCollection<LocationsModel> Locations
+        public ObservableCollection<LocationsDetail> Locations
         {
             get => locations;
             set
@@ -34,7 +33,7 @@ namespace Model
             }
         }
 
-        public LocationsModel CurrentLocation
+        public LocationsDetail CurrentLocation
         {
             get => currentLocation;
             set
@@ -49,18 +48,25 @@ namespace Model
             IEnumerable<LocationWrapper> listFromService = dataRepository.GetAllLocations();
             foreach (LocationWrapper location in listFromService)
             {
-                locations.Add(new LocationsModel(location.LocationID, location.Name));
+                locations.Add(new LocationsDetail(location.LocationID, location.Name, location.CostRate, location.Availability, location.ModifiedDate));
 
             }
         }
 
-        private void DeleteLocation()
+        public void DeleteLocation()
         {
             if (currentLocation != null)
             {
                 this.dataRepository.DeleteLocation(currentLocation.Id);
                 Locations.Remove(currentLocation);
             }
+        }
+
+        public void AddLocation(LocationsDetail location)
+        {
+            this.dataRepository.AddLocation(LocationParser.CreateNewLocationWrapper(location.Id, location.Name, location.CostRate, location.Availability));
+            Locations.Add(location);
+
         }
 
 

@@ -41,7 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="AddWindowActions.cs" />
+    <Compile Include="Binding.cs" />
     <Compile Include="MainWindowActions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
