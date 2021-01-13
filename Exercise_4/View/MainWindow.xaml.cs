@@ -24,5 +24,11 @@ namespace View
         {
             InitializeComponent();
         }
+
+        private void LocationInList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
     }
 }

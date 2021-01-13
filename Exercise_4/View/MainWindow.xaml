@@ -4,9 +4,35 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:View"
+        xmlns:viewModel="clr-namespace:ViewModel;assembly=ViewModel"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
+        Title="MainWindow" Height="460" Width="410">
+
+    <Window.DataContext>
+        <viewModel:MainWindowActions/>
+    </Window.DataContext>
+
+    <Grid  Margin="5,5,5,5">
+        <ListView Name="LocationInList" ItemsSource="{Binding Locations}" SelectedItem="{Binding CurrentLocation}" Width="300" HorizontalAlignment="Left">
+            <ListView.View>
+                <GridView>
+                    <GridView.Columns>
+                        <GridViewColumn DisplayMemberBinding="{Binding Id}" Header="Id" Width="40"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Name}" Header="Name" Width="250" />
+                    </GridView.Columns>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <StackPanel Orientation="Horizontal" Grid.Column="0" Margin="305,-60,0,0">
+            <Button Content="Add"  Command="{Binding DisplayAddWindow}" VerticalAlignment="Center" HorizontalAlignment="Right" Height="20" Width="80"/>
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal" Grid.Column="0" Margin="305,0,0,0">
+            <Button Content="Details"  Command="{Binding DisplayAddWindow}" VerticalAlignment="Center" HorizontalAlignment="Right" Height="20" Width="80"/>
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal" Grid.Column="0" Margin="305,60,0,0">
+            <Button Content="Delete"  Command="{Binding DisplayAddWindow}" VerticalAlignment="Center" HorizontalAlignment="Right" Height="20" Width="80"/>
+        </StackPanel>        
     </Grid>
 </Window>

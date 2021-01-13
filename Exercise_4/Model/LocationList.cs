@@ -16,12 +16,14 @@ namespace Model
 
         private ObservableCollection<LocationsModel> locations;
 
-        public LocationList(IDataRepository dataRepository)
+        public LocationList()
         {
-            this.dataRepository = dataRepository;
+            this.dataRepository = new DataRepository();
             Locations = new ObservableCollection<LocationsModel>();
+            FillLocations();
         }
 
+        //TODO:locations i current jako property?
         public ObservableCollection<LocationsModel> Locations
         {
             get => locations;

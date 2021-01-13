@@ -9,7 +9,7 @@ using Service;
 
 namespace Model
 {
-    public class LocationsModel : INotifyPropertyChanged
+    public class LocationsModel
     {
         private short id;
         private string name;
@@ -43,11 +43,11 @@ namespace Model
             }
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        //public event PropertyChangedEventHandler PropertyChanged;
 
-        private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
+        //private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
+        //{
+        //    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        //}
     }
 }
