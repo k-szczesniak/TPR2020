@@ -12,10 +12,6 @@ namespace ViewModel
     {
         public LocationList LocationList { get; set; }
 
-        private ObservableCollection<LocationsDetail> locations;
-
-        private LocationsDetail currentLocation;
-
         public Binding ShowAddWindow { get; set; }
 
         public Binding ShowDetailsWindow { get; set; }
@@ -29,7 +25,7 @@ namespace ViewModel
         public MainWindowActions()
         {
             LocationList = new LocationList();
-            locations = LocationList.Locations;
+            //locations = LocationList.Locations;
             this.ShowAddWindow = new Binding(DisplayAddWindow);
             this.ShowDetailsWindow = new Binding(DisplayDetailsWindow);
             this.DeleteRecord = new Binding(DeleteLocation);
@@ -38,20 +34,20 @@ namespace ViewModel
 
         public ObservableCollection<LocationsDetail> Locations
         {
-            get => locations;
+            get => LocationList.Locations;
             set
             {
-                locations = value;
+                LocationList.Locations = value;
                 //NotifyPropertyChanged("Locations");
             }
         }
 
         public LocationsDetail CurrentLocation
         {
-            get => currentLocation;
+            get => LocationList.CurrentLocation;
             set
             {
-                currentLocation = value;
+                LocationList.CurrentLocation = value;
                 //NotifyPropertyChanged("CurrentLocation");
             }
         }
@@ -65,8 +61,7 @@ namespace ViewModel
 
         private void RefreshList()
         {
-            LocationList.Locations.Clear();
-            LocationList.FillLocations();
+            LocationList.RefreshLocations();
         }
 
         private void DisplayDetailsWindow()
@@ -76,12 +71,7 @@ namespace ViewModel
 
         private void DeleteLocation()
         {
-
+            LocationList.DeleteLocation();
         }
-
-
-
-
-
     }
 }

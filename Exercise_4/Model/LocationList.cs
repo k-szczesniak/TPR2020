@@ -43,7 +43,7 @@ namespace Model
             }
         }
 
-        public void FillLocations()
+        private void FillLocations()
         {
             IEnumerable<LocationWrapper> listFromService = dataRepository.GetAllLocations();
             foreach (LocationWrapper location in listFromService)
@@ -51,6 +51,12 @@ namespace Model
                 locations.Add(new LocationsDetail(location.LocationID, location.Name, location.CostRate, location.Availability, location.ModifiedDate));
 
             }
+        }
+
+        public void RefreshLocations()
+        {
+            Locations.Clear();
+            FillLocations();
         }
 
         public void DeleteLocation()
