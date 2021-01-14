@@ -9,6 +9,7 @@ using Service;
 
 namespace Model
 {
+    //TODO:SPRAWDZIC CZY POTRZEBNE
     public class LocationsModel
     {
         private short id;

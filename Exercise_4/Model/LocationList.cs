@@ -43,7 +43,7 @@ namespace Model
             }
         }
 
-        private void FillLocations()
+        public void FillLocations()
         {
             IEnumerable<LocationWrapper> listFromService = dataRepository.GetAllLocations();
             foreach (LocationWrapper location in listFromService)

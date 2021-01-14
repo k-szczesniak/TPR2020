@@ -16,11 +16,11 @@ namespace ViewModel
 
         public Binding AddRecord { get; set; }
 
-        public Action CloseWindow { get; set; }
+        //public Action CloseWindow { get; set; }
 
-        public AddWindowActions(LocationList locationList)
+        public AddWindowActions()
         {
-            this.locationList = locationList;
+            this.locationList = new LocationList();
             locationToAdd = new LocationsDetail();
             this.AddRecord = new Binding(InsertRecord);
         }
@@ -38,7 +38,7 @@ namespace ViewModel
         public void InsertRecord()
         {
             locationList.AddLocation(locationToAdd);
-            CloseWindow();
+            //CloseWindow();
         }
 
     }

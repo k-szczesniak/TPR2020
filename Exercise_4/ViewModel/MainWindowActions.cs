@@ -22,6 +22,10 @@ namespace ViewModel
 
         public Binding DeleteRecord { get; set; }
 
+        public Binding Refresh { get; set; }
+
+        public Lazy<IWindow> ChildWindow { get; set; }
+
         public MainWindowActions()
         {
             LocationList = new LocationList();
@@ -29,6 +33,7 @@ namespace ViewModel
             this.ShowAddWindow = new Binding(DisplayAddWindow);
             this.ShowDetailsWindow = new Binding(DisplayDetailsWindow);
             this.DeleteRecord = new Binding(DeleteLocation);
+            this.Refresh = new Binding(RefreshList);
         }
 
         public ObservableCollection<LocationsDetail> Locations
@@ -53,9 +58,15 @@ namespace ViewModel
 
         private void DisplayAddWindow()
         {
-            AddWindowActions addWindowActions = new AddWindowActions(LocationList);
+            IWindow _child = ChildWindow.Value;
+            _child.Show();
 
+        }
 
+        private void RefreshList()
+        {
+            LocationList.Locations.Clear();
+            LocationList.FillLocations();
         }
 
         private void DisplayDetailsWindow()

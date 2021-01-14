@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="AddWindowActions.cs" />
     <Compile Include="Binding.cs" />
+    <Compile Include="IWindow.cs" />
     <Compile Include="MainWindowActions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

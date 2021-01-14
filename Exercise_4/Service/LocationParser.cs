@@ -9,6 +9,7 @@ namespace Service
 {
     public static class LocationParser
     {
+        //TODO:Sprawdzić czy 2 konstruktory są potrzebne
         public static LocationWrapper CreateNewLocationWrapper(string id, string name, string costRate, string availability)
         {
             Location location = new Location
