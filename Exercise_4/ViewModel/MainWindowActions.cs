@@ -20,7 +20,10 @@ namespace ViewModel
 
         public Binding Refresh { get; set; }
 
-        public Lazy<IWindow> ChildWindow { get; set; }
+        public Lazy<IWindow> AddWindow { get; set; }
+
+        public Lazy<IWindow> DetailWindow { get; set; }
+
 
         public MainWindowActions()
         {
@@ -54,7 +57,7 @@ namespace ViewModel
 
         private void DisplayAddWindow()
         {
-            IWindow _child = ChildWindow.Value;
+            IWindow _child = AddWindow.Value;
             _child.Show();
 
         }
@@ -66,7 +69,11 @@ namespace ViewModel
 
         private void DisplayDetailsWindow()
         {
-
+            if (CurrentLocation != null)
+            {
+                IWindow _child = DetailWindow.Value;
+                _child.Show();
+            }
         }
 
         private void DeleteLocation()

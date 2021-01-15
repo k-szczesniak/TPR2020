@@ -35,6 +35,6 @@
         <TextBox Grid.Column="1" Grid.Row="2" Text="{Binding LocationToAdd.Availability}" />
 
 
-        <Button Grid.Column="1" Grid.Row="4" Content="Dodaj" Command="{Binding AddRecord}" InkCanvas.Bottom="100" Width="100" Height="20"/>
+        <Button Grid.Column="1" Grid.Row="4" Content="Add record" Command="{Binding AddRecord}" InkCanvas.Bottom="100" Width="100" Height="20"/>
     </Grid>
 </Window>

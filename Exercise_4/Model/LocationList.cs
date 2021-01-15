@@ -75,6 +75,15 @@ namespace Model
 
         }
 
+        public LocationsDetail GetLocation(short locationId)
+        {
+            LocationWrapper tempLocation = this.dataRepository.GetLocation(locationId);
+            return new LocationsDetail(tempLocation.LocationID, tempLocation.Name, tempLocation.CostRate, tempLocation.Availability, tempLocation.ModifiedDate);
+        }
 
+        public void UpdateLocation()
+        {
+            this.dataRepository.UpdateLocation(currentLocation.Id, LocationParser.CreateNewLocationWrapper(currentLocation.Id, currentLocation.Name, currentLocation.CostRate, currentLocation.Availability));
+        }
     }
 }

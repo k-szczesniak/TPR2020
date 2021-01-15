@@ -11,28 +11,25 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 using ViewModel;
 
 namespace View
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for DetailWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class DetailWindow : Window, IWindow
     {
-        public MainWindow()
+        public DetailWindow()
         {
             InitializeComponent();
         }
 
-        protected override void OnInitialized(EventArgs e)
+        protected override void OnClosing(CancelEventArgs e)
         {
-            base.OnInitialized(e);
-            MainWindowActions _vm = (MainWindowActions)DataContext;
-            _vm.AddWindow = new Lazy<IWindow>(() => new AddWindow());
-            _vm.DetailWindow = new Lazy<IWindow>(() => new DetailWindow());
+            this.Visibility = Visibility.Hidden;
+            e.Cancel = true;
         }
     }
 }
