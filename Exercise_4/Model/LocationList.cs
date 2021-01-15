@@ -71,8 +71,6 @@ namespace Model
         public void AddLocation(LocationsDetail location)
         {
             this.dataRepository.AddLocation(LocationParser.CreateNewLocationWrapper(location.Id, location.Name, location.CostRate, location.Availability));
-            Locations.Add(location);
-
         }
 
         public LocationsDetail GetLocation(short locationId)

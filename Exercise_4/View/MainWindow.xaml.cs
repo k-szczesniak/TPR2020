@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using View.DependencyInjection;
 using ViewModel;
 
 namespace View
@@ -31,8 +32,9 @@ namespace View
         {
             base.OnInitialized(e);
             MainWindowActions _vm = (MainWindowActions)DataContext;
-            _vm.AddWindow = new Lazy<IWindow>(() => new AddWindow());
-            _vm.DetailWindow = new Lazy<IWindow>(() => new DetailWindow());
+            //_vm.AddWindow = new Lazy<IWindow>(() => new AddWindow());
+            _vm.WindowAddResolver = new LocationAddResolver();
+            _vm.WindowDetailResolver = new LocationDetailsResolver();
         }
     }
 }

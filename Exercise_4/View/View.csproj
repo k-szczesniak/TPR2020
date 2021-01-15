@@ -74,6 +74,10 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="DependencyInjection\LocationAddResolver.cs" />
+    <Compile Include="DependencyInjection\LocationAddWindow.cs" />
+    <Compile Include="DependencyInjection\LocationDetailsResolver.cs" />
+    <Compile Include="DependencyInjection\LocationDetailsWindow.cs" />
     <Compile Include="DetailWindow.xaml.cs">
       <DependentUpon>DetailWindow.xaml</DependentUpon>
     </Compile>
