@@ -25,10 +25,10 @@ namespace View
         {
             InitializeComponent();
         }
-        //protected override void OnClosing(CancelEventArgs e)
-        //{
-        //    this.Visibility = Visibility.Hidden;
-        //    e.Cancel = true;
-        //}
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            this.Visibility = Visibility.Hidden;
+            e.Cancel = true;
+        }
     }
 }

@@ -24,8 +24,8 @@ namespace ViewModel
 
         public Lazy<IWindow> DetailWindow { get; set; }
 
-        public IWindowResolver WindowDetailResolver { get; set; }
-        public IWindowResolver WindowAddResolver { get; set; }
+        public Lazy<IOperationWindow> WindowDetailResolver { get; set; }
+        public Lazy<IOperationWindow> WindowAddResolver { get; set; }
 
 
         public MainWindowActions()
@@ -61,7 +61,7 @@ namespace ViewModel
         private void DisplayAddWindow()
         {
             AddWindowActions addWindowActions = new AddWindowActions(this.LocationList);
-            IOperationWindow window = WindowAddResolver.GetWindow();
+            IOperationWindow window = WindowAddResolver.Value;
             window.BindViewModel(addWindowActions);
             window.Show();
 
@@ -81,7 +81,7 @@ namespace ViewModel
             if (CurrentLocation != null)
             {
                 DetailWindowActions detailWindowActions = new DetailWindowActions(this.LocationList);
-                IOperationWindow window = WindowDetailResolver.GetWindow();
+                IOperationWindow window = WindowDetailResolver.Value;
                 window.BindViewModel(detailWindowActions);
                 window.Show();
 
