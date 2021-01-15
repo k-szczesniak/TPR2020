@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Model
 {
-    public class LocationsDetail
+    public class LocationsDetail : PropertyChange
     {
         private short id;
         private string name;
@@ -32,7 +32,7 @@ namespace Model
             set
             {
                 id = value;
-                //NotifyPropertyChanged("Id");
+                OnPropertyChanged();
             }
         }
         public string Name
@@ -44,7 +44,8 @@ namespace Model
             set
             {
                 name = value;
-                //NotifyPropertyChanged("Name");
+                OnPropertyChanged();
+
             }
         }
         public decimal CostRate
@@ -56,7 +57,7 @@ namespace Model
             set
             {
                 costRate = value;
-                //NotifyPropertyChanged("CostRate");
+                OnPropertyChanged();
             }
         }
         public decimal Availability
@@ -68,7 +69,7 @@ namespace Model
             set
             {
                 availability = value;
-                //NotifyPropertyChanged("Availability");
+                OnPropertyChanged();
             }
         }
         public DateTime ModifiedDate
@@ -80,14 +81,9 @@ namespace Model
             set
             {
                 modifiedDate = value;
-                //NotifyPropertyChanged("ModifiedDate");
+                OnPropertyChanged();
             }
         }
-        //public event PropertyChangedEventHandler PropertyChanged;
-
-        //private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
-        //{
-        //    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        //}
+        
     }
 }

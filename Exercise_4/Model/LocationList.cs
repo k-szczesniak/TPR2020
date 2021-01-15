@@ -1,14 +1,10 @@
 ﻿using Service;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Model
 {
-    public class LocationList
+    public class LocationList : PropertyChange
     {
         private readonly IDataRepository dataRepository;
 
@@ -29,7 +25,7 @@ namespace Model
             set
             {
                 locations = value;
-                //NotifyPropertyChanged("Locations");
+                OnPropertyChanged();
             }
         }
 
@@ -39,7 +35,7 @@ namespace Model
             set
             {
                 currentLocation = value;
-                //NotifyPropertyChanged("CurrentLocation");
+                OnPropertyChanged();
             }
         }
 
@@ -81,7 +77,10 @@ namespace Model
 
         public void UpdateLocation()
         {
-            this.dataRepository.UpdateLocation(currentLocation.Id, LocationParser.CreateNewLocationWrapper(currentLocation.Id, currentLocation.Name, currentLocation.CostRate, currentLocation.Availability));
+            if (currentLocation != null)
+            {
+                this.dataRepository.UpdateLocation(currentLocation.Id, LocationParser.CreateNewLocationWrapper(currentLocation.Id, currentLocation.Name, currentLocation.CostRate, currentLocation.Availability));
+            }
         }
     }
 }

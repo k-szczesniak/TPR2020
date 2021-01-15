@@ -27,7 +27,6 @@ namespace ViewModel
         public MainWindowActions()
         {
             LocationList = new LocationList();
-            //locations = LocationList.Locations;
             this.ShowAddWindow = new Binding(DisplayAddWindow);
             this.ShowDetailsWindow = new Binding(DisplayDetailsWindow);
             this.DeleteRecord = new Binding(DeleteLocation);
@@ -40,7 +39,6 @@ namespace ViewModel
             set
             {
                 LocationList.Locations = value;
-                //NotifyPropertyChanged("Locations");
             }
         }
 
@@ -50,7 +48,6 @@ namespace ViewModel
             set
             {
                 LocationList.CurrentLocation = value;
-                //NotifyPropertyChanged("CurrentLocation");
             }
         }
 
@@ -69,7 +66,6 @@ namespace ViewModel
 
         private void DisplayDetailsWindow()
         {
-
             if (CurrentLocation != null)
             {
                 DetailWindowActions detailWindowActions = new DetailWindowActions(this.LocationList);
