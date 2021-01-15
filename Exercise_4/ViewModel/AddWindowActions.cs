@@ -8,16 +8,13 @@ using System.Threading.Tasks;
 
 namespace ViewModel
 {
-    public class AddWindowActions : IViewModel
+    public class AddWindowActions
     {
         private readonly LocationList locationList;
 
         private LocationsDetail locationToAdd;
 
         public Binding AddRecord { get; set; }
-
-        //TODO: Zastanowić się nad tym
-        public Action CloseWindow { get; set; }
 
         public AddWindowActions() : this(new LocationList()) { }        
 
@@ -41,7 +38,6 @@ namespace ViewModel
         public void InsertRecord()
         {
             locationList.AddLocation(locationToAdd);
-            CloseWindow();
         }
 
     }

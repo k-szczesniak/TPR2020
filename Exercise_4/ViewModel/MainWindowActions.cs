@@ -20,12 +20,8 @@ namespace ViewModel
 
         public Binding Refresh { get; set; }
 
-        public Lazy<IWindow> AddWindow { get; set; }
-
-        public Lazy<IWindow> DetailWindow { get; set; }
-
-        public Lazy<IOperationWindow> WindowDetailResolver { get; set; }
-        public Lazy<IOperationWindow> WindowAddResolver { get; set; }
+        public Lazy<IOperationWindow> DetailWindow { get; set; }
+        public Lazy<IOperationWindow> AddWindow { get; set; }
 
 
         public MainWindowActions()
@@ -61,13 +57,9 @@ namespace ViewModel
         private void DisplayAddWindow()
         {
             AddWindowActions addWindowActions = new AddWindowActions(this.LocationList);
-            IOperationWindow window = WindowAddResolver.Value;
+            IOperationWindow window = AddWindow.Value;
             window.BindViewModel(addWindowActions);
             window.Show();
-
-
-            //IWindow _child = AddWindow.Value;
-            //_child.Show();
         }
 
         private void RefreshList()
@@ -81,13 +73,9 @@ namespace ViewModel
             if (CurrentLocation != null)
             {
                 DetailWindowActions detailWindowActions = new DetailWindowActions(this.LocationList);
-                IOperationWindow window = WindowDetailResolver.Value;
+                IOperationWindow window = DetailWindow.Value;
                 window.BindViewModel(detailWindowActions);
                 window.Show();
-
-
-                //IWindow _child = DetailWindow.Value;
-                //_child.Show();
             }
         }
 

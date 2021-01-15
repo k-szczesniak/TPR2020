@@ -7,15 +7,11 @@ using System.Threading.Tasks;
 
 namespace ViewModel
 {
-    public class DetailWindowActions : IViewModel 
+    public class DetailWindowActions
     {
         private readonly LocationList locationList;
 
         public Binding Edit { get; private set; }
-
-
-        //TODO: Zastanowić się nad tym
-        public Action CloseWindow { get; set; }
 
         public DetailWindowActions() : this(new LocationList()) { }
 
@@ -38,7 +34,6 @@ namespace ViewModel
         public void EditLocation()
         {
             locationList.UpdateLocation();
-            CloseWindow();
         }
 
 

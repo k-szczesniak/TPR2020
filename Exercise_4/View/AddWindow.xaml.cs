@@ -19,7 +19,7 @@ namespace View
     /// <summary>
     /// Interaction logic for AddWindow.xaml
     /// </summary>
-    public partial class AddWindow : Window, IWindow
+    public partial class AddWindow : Window
     {
         public AddWindow()
         {

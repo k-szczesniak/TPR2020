@@ -19,7 +19,7 @@ namespace View
     /// <summary>
     /// Interaction logic for DetailWindow.xaml
     /// </summary>
-    public partial class DetailWindow : Window, IWindow
+    public partial class DetailWindow : Window
     {
         public DetailWindow()
         {

@@ -10,21 +10,15 @@ namespace View.DependencyInjection
     public class LocationDetailsWindow : IOperationWindow
     {
         private DetailWindow view;
-        public event VoidHandler OnClose;
 
         public LocationDetailsWindow()
         {
             this.view = new DetailWindow();
         }
 
-        public void BindViewModel<T>(T viewModel) where T : IViewModel
+        public void BindViewModel<T>(T viewModel)
         {
             view.DataContext = viewModel;
-            viewModel.CloseWindow = () =>
-            {
-                OnClose?.Invoke();
-                view.Close();
-            };
         }
 
         public void Show()

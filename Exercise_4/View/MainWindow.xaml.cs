@@ -32,12 +32,8 @@ namespace View
         {
             base.OnInitialized(e);
             MainWindowActions _vm = (MainWindowActions)DataContext;
-            //_vm.AddWindow = new Lazy<IWindow>(() => new AddWindow());
-            //_vm.WindowAddResolver = new LocationAddResolver();
-            //_vm.WindowDetailResolver = new LocationDetailsResolver();
-
-            _vm.WindowAddResolver = new Lazy<IOperationWindow>(() => new LocationAddWindow());
-            _vm.WindowDetailResolver = new Lazy<IOperationWindow>(() => new LocationDetailsWindow());
+            _vm.AddWindow = new Lazy<IOperationWindow>(() => new LocationAddWindow());
+            _vm.DetailWindow = new Lazy<IOperationWindow>(() => new LocationDetailsWindow());
         }
     }
 }
