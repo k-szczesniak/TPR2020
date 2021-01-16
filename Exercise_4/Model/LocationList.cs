@@ -8,18 +8,21 @@ namespace Model
     {
         private readonly IDataRepository dataRepository;
 
-        private LocationsDetail currentLocation;
+        private LocationModel currentLocation;
 
-        private ObservableCollection<LocationsDetail> locations;
+        private ObservableCollection<LocationModel> locations;
 
-        public LocationList()
+        public LocationList(IDataRepository dataRepository)
         {
-            this.dataRepository = new DataRepository();
-            Locations = new ObservableCollection<LocationsDetail>();
+            this.dataRepository = dataRepository;
+            Locations = new ObservableCollection<LocationModel>();
             FillLocations();
         }
 
-        public ObservableCollection<LocationsDetail> Locations
+        public LocationList() : this(new DataRepository()) { }
+        
+
+        public ObservableCollection<LocationModel> Locations
         {
             get => locations;
             set
@@ -29,7 +32,7 @@ namespace Model
             }
         }
 
-        public LocationsDetail CurrentLocation
+        public LocationModel CurrentLocation
         {
             get => currentLocation;
             set
@@ -44,8 +47,7 @@ namespace Model
             IEnumerable<LocationWrapper> listFromService = dataRepository.GetAllLocations();
             foreach (LocationWrapper location in listFromService)
             {
-                locations.Add(new LocationsDetail(location.LocationID, location.Name, location.CostRate, location.Availability, location.ModifiedDate));
-
+                locations.Add(new LocationModel(location.LocationID, location.Name, location.CostRate, location.Availability, location.ModifiedDate));
             }
         }
 
@@ -64,15 +66,15 @@ namespace Model
             }
         }
 
-        public void AddLocation(LocationsDetail location)
+        public void AddLocation(LocationModel location)
         {
             this.dataRepository.AddLocation(LocationParser.CreateNewLocationWrapper(location.Id, location.Name, location.CostRate, location.Availability));
         }
 
-        public LocationsDetail GetLocation(short locationId)
+        public LocationModel GetLocation(short locationId)
         {
             LocationWrapper tempLocation = this.dataRepository.GetLocation(locationId);
-            return new LocationsDetail(tempLocation.LocationID, tempLocation.Name, tempLocation.CostRate, tempLocation.Availability, tempLocation.ModifiedDate);
+            return new LocationModel(tempLocation.LocationID, tempLocation.Name, tempLocation.CostRate, tempLocation.Availability, tempLocation.ModifiedDate);
         }
 
         public void UpdateLocation()

@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ViewModel;
+﻿using ViewModel;
 
-namespace View.DependencyInjection
+namespace View
 {
     public class LocationAddWindow : IOperationWindow
     {

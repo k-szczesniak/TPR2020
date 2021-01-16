@@ -33,7 +33,7 @@ namespace ViewModel
             this.Refresh = new Binding(RefreshList);
         }
 
-        public ObservableCollection<LocationsDetail> Locations
+        public ObservableCollection<LocationModel> Locations
         {
             get => LocationList.Locations;
             set
@@ -42,7 +42,7 @@ namespace ViewModel
             }
         }
 
-        public LocationsDetail CurrentLocation
+        public LocationModel CurrentLocation
         {
             get => LocationList.CurrentLocation;
             set

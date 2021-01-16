@@ -6,7 +6,7 @@ namespace ViewModel
     {
         private readonly LocationList locationList;
 
-        private LocationsDetail locationToAdd;
+        private LocationModel locationToAdd;
 
         public Binding AddRecord { get; set; }
 
@@ -15,11 +15,11 @@ namespace ViewModel
         public AddWindowActions(LocationList locationList)
         {
             this.locationList = locationList;
-            locationToAdd = new LocationsDetail();
+            locationToAdd = new LocationModel();
             this.AddRecord = new Binding(InsertRecord);
         }
 
-        public LocationsDetail LocationToAdd
+        public LocationModel LocationToAdd
         {
             get => locationToAdd;
             set

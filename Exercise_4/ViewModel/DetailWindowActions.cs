@@ -16,7 +16,7 @@ namespace ViewModel
             this.locationList = locationList;
         }
 
-        public LocationsDetail LocationToEdit
+        public LocationModel LocationToEdit
         {
             get => locationList.CurrentLocation;
             set
