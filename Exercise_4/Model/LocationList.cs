@@ -12,15 +12,14 @@ namespace Model
 
         private ObservableCollection<LocationModel> locations;
 
+        public LocationList() : this(new DataRepository()) { }
+
         public LocationList(IDataRepository dataRepository)
         {
             this.dataRepository = dataRepository;
             Locations = new ObservableCollection<LocationModel>();
             FillLocations();
         }
-
-        public LocationList() : this(new DataRepository()) { }
-        
 
         public ObservableCollection<LocationModel> Locations
         {

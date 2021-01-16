@@ -23,10 +23,11 @@ namespace ViewModel
         public Lazy<IOperationWindow> DetailWindow { get; set; }
         public Lazy<IOperationWindow> AddWindow { get; set; }
 
+        public MainWindowActions() : this(new LocationList()) { }
 
-        public MainWindowActions()
+        public MainWindowActions(LocationList locationList)
         {
-            LocationList = new LocationList();
+            LocationList = locationList;
             this.ShowAddWindow = new Binding(DisplayAddWindow);
             this.ShowDetailsWindow = new Binding(DisplayDetailsWindow);
             this.DeleteRecord = new Binding(DeleteLocation);
@@ -59,11 +60,6 @@ namespace ViewModel
             window.Show();
         }
 
-        private void RefreshList()
-        {
-            LocationList.RefreshLocations();
-        }
-
         private void DisplayDetailsWindow()
         {
             if (CurrentLocation != null)
@@ -78,6 +74,11 @@ namespace ViewModel
         private void DeleteLocation()
         {
             LocationList.DeleteLocation();
+        }
+
+        private void RefreshList()
+        {
+            LocationList.RefreshLocations();
         }
     }
 }
