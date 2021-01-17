@@ -21,6 +21,7 @@ namespace ViewModel
         public Binding Refresh { get; set; }
 
         public Lazy<IOperationWindow> DetailWindow { get; set; }
+
         public Lazy<IOperationWindow> AddWindow { get; set; }
 
         public MainWindowActions() : this(new LocationList()) { }
