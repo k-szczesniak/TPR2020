@@ -5,8 +5,18 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:View"
         xmlns:viewModel="clr-namespace:ViewModel;assembly=ViewModel"
+        xmlns:validator="clr-namespace:View.Validator"
         mc:Ignorable="d"
         Title="DetailWindow" Height="220" Width="500">
+
+    <Window.Resources>
+        <ControlTemplate x:Key="validationTemplate">
+            <DockPanel>
+                <TextBlock Foreground="Red" FontSize="30">!</TextBlock>
+                <AdornedElementPlaceholder/>
+            </DockPanel>
+        </ControlTemplate>
+    </Window.Resources>
 
     <Window.DataContext>
         <viewModel:DetailWindowActions/>
@@ -28,15 +38,58 @@
         </Grid.RowDefinitions>
         <TextBlock Grid.Column="0" Grid.Row="0" Text="Location Id: "/>
         <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding LocationToEdit.Id}" />
-        <TextBlock Grid.Column="0" Grid.Row="1" Text="Location Name: "/>
-        <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding LocationToEdit.Name}" />
+
+        <TextBlock Name="NameTB" Grid.Column="0" Grid.Row="1" Text="Location Name: "/>
+        <TextBox Grid.Column="1" Grid.Row="1" Validation.ErrorTemplate="{StaticResource validationTemplate}">
+            <TextBox.Text>
+                <Binding Path="LocationToEdit.Name">
+                    <Binding.ValidationRules>
+                        <validator:StringValidation Min="3" Max="30"/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
+        
         <TextBlock Grid.Column="0" Grid.Row="2" Text="Location CostRate: "/>
-        <TextBox Grid.Column="1" Grid.Row="2" Text="{Binding LocationToEdit.CostRate}" />
+        <TextBox Name="CostTB" Grid.Column="1" Grid.Row="2" Validation.ErrorTemplate="{StaticResource validationTemplate}">
+            <TextBox.Text>
+                <Binding Path="LocationToEdit.CostRate">
+                    <Binding.ValidationRules>
+                        <validator:DecimalValidation/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
+        
         <TextBlock Grid.Column="0" Grid.Row="3" Text="Location Availability: "/>
-        <TextBox Grid.Column="1" Grid.Row="3" Text="{Binding LocationToEdit.Availability}" />
+        <TextBox Name="AvailabilityTB" Grid.Column="1" Grid.Row="3" Validation.ErrorTemplate="{StaticResource validationTemplate}">
+            <TextBox.Text>
+                <Binding Path="LocationToEdit.Availability">
+                    <Binding.ValidationRules>
+                        <validator:DecimalValidation/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
 
 
-        <Button Grid.Column="1" Grid.Row="4" Content="Confirm" Command="{Binding Edit}" InkCanvas.Bottom="100" Width="100" Height="20"/>
-
+        <Button Grid.Column="1" Grid.Row="4" Content="Confirm" Command="{Binding Edit}" InkCanvas.Bottom="100" Width="100" Height="20">
+            <Button.Style>
+                <Style TargetType="Button">
+                    <Setter Property="IsEnabled" Value="False"/>
+                    <Style.Triggers>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding Path=(Validation.HasError), ElementName=NameTB}" Value="False"/>
+                                <Condition Binding="{Binding Path=(Validation.HasError), ElementName=CostTB}" Value="False"/>
+                                <Condition Binding="{Binding Path=(Validation.HasError), ElementName=AvailabilityTB}" Value="False"/>
+                            </MultiDataTrigger.Conditions>
+                            <Setter Property="IsEnabled" Value="True"/>
+                        </MultiDataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+        </Button>
+        
     </Grid>
 </Window>

@@ -6,12 +6,20 @@
         xmlns:local="clr-namespace:View"
         mc:Ignorable="d"
         xmlns:viewModel="clr-namespace:ViewModel;assembly=ViewModel"
+        xmlns:validator="clr-namespace:View.Validator"
         Title="AddWindow" Height="220" Width="500">
 
+    <Window.Resources>
+        <ControlTemplate x:Key="validationTemplate">
+            <DockPanel>
+                <TextBlock Foreground="Red" FontSize="30">!</TextBlock>
+                <AdornedElementPlaceholder/>
+            </DockPanel>
+        </ControlTemplate>
+    </Window.Resources>
+    
     <Window.DataContext>
-
         <viewModel:AddWindowActions/>
-
     </Window.DataContext>
     
     <Grid>
@@ -28,13 +36,56 @@
         </Grid.RowDefinitions>
 
         <TextBlock Grid.Column="0" Grid.Row="0" Text="Location Name: "/>
-        <TextBox Grid.Column="1" Grid.Row="0" Text="{Binding LocationToAdd.Name}" />
+        <TextBox Name="NameTB" Grid.Column="1" Grid.Row="0" Validation.ErrorTemplate="{StaticResource validationTemplate}">
+            <TextBox.Text>
+                <Binding Path="LocationToAdd.Name">
+                    <Binding.ValidationRules>
+                        <validator:StringValidation Min="3" Max="30"/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
+        
         <TextBlock Grid.Column="0" Grid.Row="1" Text="Location CostRate: "/>
-        <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding LocationToAdd.CostRate}" />
+        <TextBox Name="CostTB" Grid.Column="1" Grid.Row="1" Validation.ErrorTemplate="{StaticResource validationTemplate}">
+            <TextBox.Text>
+                <Binding Path="LocationToAdd.CostRate">
+                    <Binding.ValidationRules>
+                        <validator:DecimalValidation/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
+
         <TextBlock Grid.Column="0" Grid.Row="2" Text="Location Availability: "/>
-        <TextBox Grid.Column="1" Grid.Row="2" Text="{Binding LocationToAdd.Availability}" />
+        <TextBox Name="AvailabilityTB" Grid.Column="1" Grid.Row="2" Validation.ErrorTemplate="{StaticResource validationTemplate}">
+            <TextBox.Text>
+                <Binding Path="LocationToAdd.Availability">
+                    <Binding.ValidationRules>
+                        <validator:DecimalValidation/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
 
 
-        <Button Grid.Column="1" Grid.Row="4" Content="Add record" Command="{Binding AddRecord}" InkCanvas.Bottom="100" Width="100" Height="20"/>
+        <Button Grid.Column="1" Grid.Row="4" Content="Add record" Command="{Binding AddRecord}" InkCanvas.Bottom="100" Width="100" Height="20">
+            <Button.Style>
+                <Style TargetType="Button">
+                    <Setter Property="IsEnabled" Value="False"/>
+                    <Style.Triggers>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding Path=(Validation.HasError), ElementName=NameTB}" Value="False"/>
+                                <Condition Binding="{Binding Path=(Validation.HasError), ElementName=CostTB}" Value="False"/>
+                                <Condition Binding="{Binding Path=(Validation.HasError), ElementName=AvailabilityTB}" Value="False"/>
+                            </MultiDataTrigger.Conditions>
+                            <Setter Property="IsEnabled" Value="True"/>
+                        </MultiDataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+        </Button>
+        
     </Grid>
 </Window>
